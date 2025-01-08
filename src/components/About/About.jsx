@@ -18,15 +18,14 @@ export default function About() {
         {/* Image Section */}
         <div className="md:w-1/2 flex justify-center">
           <motion.img
-            src={harley}
-            alt="Services"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="rounded-lg shadow-lg w-full md:w-4/5 lg:w-3/4 h-auto object-cover"
+           src={harley}
+           alt="Services"
+           initial={{ opacity: 0, scale: 0.9 }}
+           animate={{ opacity: 1, scale: 1 }}
+           transition={{ duration: 1 }}
+           className="rounded-lg shadow-lg w-full md:w-5/6 lg:w-4/5 h-auto object-cover"
           />
-        </div>
-
+</div>
         {/* Text Section */}
         <div className="md:w-1/2 mt-8 md:mt-0 md:ml-12">
           <motion.h1
@@ -40,7 +39,7 @@ export default function About() {
 
           <div className="space-y-6">
             {[
-              "Welcome to Brohh Services, your one-stop solution for simplifying your lifestyle needs. Whether you’re searching for a comfortable and affordable PG accommodation, looking to buy or sell study notes, or renting a bike or scooty for your daily commute, we have got you covered.",
+              "Welcome to RentEasy Services, your one-stop solution for simplifying your lifestyle needs. Whether you’re searching for a comfortable and affordable PG accommodation, looking to buy or sell study notes, or renting a bike or scooty for your daily commute, we have got you covered.",
 
               "Our mission is to make your life easier by providing reliable and accessible services. With our PG Rent offerings, you can find safe and affordable accommodations in prime locations. Our Notes Selling platform connects learners, making high-quality educational resources accessible to all. For those on the move, our Bike and Scooty rental services offer hassle-free transportation solutions.",
             ].map((text, index) => (

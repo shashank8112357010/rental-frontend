@@ -65,7 +65,7 @@ import React, { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Home, Building2, Bike, UserCircle, Menu, X } from "lucide-react";
 import Footer from "./Footer";
-
+import logoImg from '../assets/logo.png'
 const Layout = () => {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState(location.pathname);
@@ -84,64 +84,70 @@ const Layout = () => {
     <div className="bg-gray-50 mx-auto">
       <nav className="bg-white shadow-md w-full">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between h-16 items-center">
-            {/* Logo */}
-            <div className="flex items-center">
-              <Link to="/" className="flex items-center">
-                <Home className="h-6 w-6 text-indigo-600" />
-                <span className="ml-2 font-semibold text-xl">RentEase</span>
-              </Link>
-            </div>
+          <div className="flex  justify-between h-16 items-center">
+            <div className="flex gap-16">
+              {/* Logo */}
+              <div className="flex items-center gap-8">
+                <Link to="/" className="flex items-center">
+                  <img src={logoImg} alt="" className="w-16" />
+                  {/* <Home className="h-6 w-6 text-indigo-600" /> */}
+                  {/* <span className="ml-2 font-semibold text-xl">RentEase</span> */}
 
-            {/* Desktop Links */}
-            <div className="hidden sm:flex sm:space-x-8">
-              <Link
-                to="/properties"
-                onClick={() => handleNavClick("/properties")}
-                className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-all ${activeLink === "/properties"
+                </Link>
+              </div>
+
+              {/* Desktop Links */}
+              <div className="hidden sm:flex sm:space-x-8">
+                <Link
+                  to="/properties"
+                  onClick={() => handleNavClick("/properties")}
+                  className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-all ${activeLink === "/properties"
                     ? "text-indigo-600 border-b-2 border-indigo-600" // Active state
                     : "text-gray-500 hover:text-indigo-600 hover:border-b-2 hover:border-indigo-600" // Hover state
-                  }`}
-              >
-                <Building2 className="h-5 w-5" />
-                <span className="ml-2">Properties</span>
-              </Link>
+                    }`}
+                >
+                  <Building2 className="h-5 w-5" />
+                  <span className="ml-2">Properties</span>
+                </Link>
 
-              <Link
-                to="/vehicles"
-                onClick={() => handleNavClick("/vehicles")}
-                className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-all ${activeLink === "/vehicles"
+                <Link
+                  to="/vehicles"
+                  onClick={() => handleNavClick("/vehicles")}
+                  className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-all ${activeLink === "/vehicles"
                     ? "text-indigo-600 border-b-2 border-indigo-600" // Active state
                     : "text-gray-500 hover:text-indigo-600 hover:border-b-2 hover:border-indigo-600" // Hover state
-                  }`}
-              >
-                <Bike className="h-5 w-5" />
-                <span className="ml-2">Vehicles</span>
-              </Link>
+                    }`}
+                >
+                  <Bike className="h-5 w-5" />
+                  <span className="ml-2">Vehicles</span>
+                </Link>
+              </div>
             </div>
 
-            {/* Mobile Menu Icon */}
-            <div className="sm:hidden flex items-center">
-              <button
-                onClick={toggleMobileMenu}
-                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-              >
-                {isMobileMenuOpen ? (
-                  <X className="h-6 w-6 text-gray-600" />
-                ) : (
-                  <Menu className="h-6 w-6 text-gray-600" />
-                )}
-              </button>
-            </div>
+            <div className="flex justify-end">
+              {/* Mobile Menu Icon */}
+              <div className="sm:hidden flex items-center">
+                <button
+                  onClick={toggleMobileMenu}
+                  className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  {isMobileMenuOpen ? (
+                    <X className="h-6 w-6 text-gray-600" />
+                  ) : (
+                    <Menu className="h-6 w-6 text-gray-600" />
+                  )}
+                </button>
+              </div>
 
-            {/* Profile Icon */}
-            <div className="hidden sm:flex items-center">
-              <Link
-                to="/profile"
-                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <UserCircle className="h-6 w-6 text-gray-600" />
-              </Link>
+              {/* Profile Icon */}
+              <div className="hidden sm:flex justify-end items-center">
+                <Link
+                  to="/profile"
+                  className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  <UserCircle className="h-6 w-6 text-gray-600" />
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -152,8 +158,8 @@ const Layout = () => {
                 to="/properties"
                 onClick={() => handleNavClick("/properties")}
                 className={`block px-4 py-2 text-sm font-medium transition-all ${activeLink === "/properties"
-                    ? "text-indigo-600 bg-gray-100" // Active state
-                    : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100" // Hover state
+                  ? "text-indigo-600 bg-gray-100" // Active state
+                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100" // Hover state
                   }`}
               >
                 <Building2 className="h-5 w-5 inline-block mr-2" />
@@ -164,8 +170,8 @@ const Layout = () => {
                 to="/vehicles"
                 onClick={() => handleNavClick("/vehicles")}
                 className={`block px-4 py-2 text-sm font-medium transition-all ${activeLink === "/vehicles"
-                    ? "text-indigo-600 bg-gray-100" // Active state
-                    : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100" // Hover state
+                  ? "text-indigo-600 bg-gray-100" // Active state
+                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100" // Hover state
                   }`}
               >
                 <Bike className="h-5 w-5 inline-block mr-2" />

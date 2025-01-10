@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserLoginService } from '../../services/api.service';
+import { setToken } from '../../helper/tokenHelper';
 
-const Login = () => {
+const Login = ({ switchToRegister, closeDialog }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,30 +16,25 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
         if (!formData.email) {
             setLoading(false);
-            // ToastMessage(true, 'Email is required');
             return;
         }
         if (!formData.password) {
             setLoading(false);
-            // ToastMessage(true, 'Password is required');
             return;
         }
 
-        try {
-            const response = await UserLoginService({ ...formData });
+        await UserLoginService({ ...formData }).then((response) => {
             console.log(response)
-            // setToken(response?.data?.token);
-            // localStorage.setItem("name", response?.data?.user?.name);
-            // setLoading(false);
-            // ToastMessage(false, 'Logged In Successfully');
-            // navigate('/');
-        } catch (err) {
-            // ToastMessage(true, err?.response?.data?.message || "Server Error");
+            setToken(response?.data?.token);
+            localStorage.setItem("name", response?.data?.user?.name);
             setLoading(false);
-        }
+            closeDialog();
+        }).catch((err) => {
+            setLoading(false)
+            console.log(err)
+        })
     };
 
     return (
@@ -90,10 +85,14 @@ const Login = () => {
                     </form>
 
                     <div className="text-center mt-6">
-                        {/* <button className="text-blue-500 hover:underline">Forgot Password?</button> */}
                         <p className="text-sm text-gray-600">
                             Don’t have an account?{" "}
-                            <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
+                            <button
+                                onClick={switchToRegister}
+                                className="text-blue-500 hover:underline"
+                            >
+                                Register
+                            </button>
                         </p>
                     </div>
                 </div>

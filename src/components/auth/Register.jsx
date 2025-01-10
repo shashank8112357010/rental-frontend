@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserRegisterService } from '../../services/api.service';
 
-const Register = () => {
+const Register = ({ switchToLogin }) => {
     const [formData, setFormData] = useState({ email: '', name: '', phone: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -26,16 +26,16 @@ const Register = () => {
             setLoading(false);
             return;
         }
-
-        try {
-            // Call register API service
-            const response = await UserRegisterService(formData);
+        setLoading(true)
+        await UserRegisterService(formData).then((response) => {
             console.log(response)
             setLoading(false);
-            // navigate('/login');
-        } catch (err) {
+            switchToLogin();
+        }).catch((err) => {
             setLoading(false);
-        }
+            console.log(err)
+        })
+
     };
 
     return (
@@ -112,9 +112,12 @@ const Register = () => {
                 <div className="text-center mt-6">
                     <p className="text-sm text-gray-600">
                         Already have an account?{' '}
-                        <Link to="/login" className="text-blue-500 hover:underline">
+                        <button
+                            onClick={switchToLogin}
+                            className="text-blue-500 hover:underline"
+                        >
                             Login
-                        </Link>
+                        </button>
                     </p>
                 </div>
             </div>

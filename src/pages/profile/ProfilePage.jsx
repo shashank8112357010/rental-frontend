@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserChangePasswordService } from '../../services/api.service';
 
 const ProfilePage = () => {
-  const [user, setUser] = useState({
-    isLoggedIn: true, // Toggle this for demo purposes
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-  });
+  // const [user, setUser] = useState({
+  //   isLoggedIn: true,
+  //   name: 'John Doe',
+  //   email: 'john.doe@example.com',
+  // });
+
+  const [user, setUser] = useState(null);
 
   const [bookings, setBookings] = useState([
     { id: 1, date: '2025-01-01', service: 'Car Registration' },
@@ -18,6 +20,15 @@ const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState('settings');
   // const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    } else {
+      setUser(null);
+    }
+  }, []);
+
   const handlePasswordChange = () => {
     if (!password || !newPassword) {
       alert('Please fill out both fields.');
@@ -26,6 +37,7 @@ const ProfilePage = () => {
 
     UserChangePasswordService({ password, newPassword })
       .then((res) => {
+        console.log(res)
         setPassword('');
         setNewPassword('');
         alert('Password updated successfully!');
@@ -36,6 +48,9 @@ const ProfilePage = () => {
       });
   };
 
+  if (user === null) {
+    return <p>You need to log in to view this page.</p>;
+  }
 
   return (
     <div className="">

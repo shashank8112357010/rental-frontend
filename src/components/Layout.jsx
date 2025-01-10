@@ -1,76 +1,20 @@
-// import React from 'react';
-// import { Link, Outlet} from 'react-router-dom';
-// import { Home, Building2, Bike, UserCircle } from 'lucide-react';
-// import Footer from './Footer';
-
-// const Layout = () => {
-
-//   return (
-//     <div className=" bg-gray-50">
-//       <nav className="bg-white shadow-md w-full">
-//         <div className="max-w-7xl mx-auto px-4">
-//           <div className="flex justify-between h-16">
-//             <div className="flex">
-//               <Link to="/" className="flex items-center">
-//                 <Home className="h-6 w-6 text-indigo-600" />
-//                 <span className="ml-2 font-semibold text-xl">RentEase</span>
-//               </Link>
-
-//               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-//                 <NavLink to="/properties" icon={<Building2 className="h-5 w-5" />} text="Properties" />
-//                 <NavLink to="/vehicles" icon={<Bike className="h-5 w-5" />} text="Vehicles" />
-//               </div>
-//             </div>
-
-//             <div className="flex items-center">
-//               <Link
-//                 to="/profile"
-//                 className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-//               >
-//                 <UserCircle className="h-6 w-6 text-gray-600" />
-//               </Link>
-//             </div>
-//           </div>
-//         </div>
-//       </nav>
-
-//         <Outlet />
-//         <Footer/>
-
-//     </div>
-//   );
-// };
-
-// const NavLink = ({ to, icon, text }) => {
-//   const isActive = location.pathname.startsWith(to);
-
-//   return (
-//     <Link
-//       to={to}
-//       className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
-//         isActive
-//           ? 'text-indigo-600 border-b-2 border-indigo-600'
-//           : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'
-//       }`}
-//     >
-//       {icon}
-//       <span className="ml-2">{text}</span>
-//     </Link>
-//   );
-// };
-
-// export default Layout;
 
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Home, Building2, Bike, UserCircle, Menu, X } from "lucide-react";
 import Footer from "./Footer";
+import Dialog from "@mui/material/Dialog";
 import logoImg from '../assets/logo.png'
+import Login from "./auth/Login";
+import Register from "./auth/Register";
+
 const Layout = () => {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState(location.pathname);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
+  const [isRegisterMode, setRegisterMode] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
 
   useEffect(() => {
@@ -87,6 +31,22 @@ const Layout = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+
+  const openLoginDialog = () => {
+    setLoginDialogOpen(true);
+    setRegisterMode(false);
+  };
+
+
+  const closeDialog = () => {
+    setLoginDialogOpen(false);
+    setRegisterMode(false);
+  };
+  const handleLoginSuccess = () => {
+    setLoggedIn(true);
+    closeDialog();
   };
 
   return (
@@ -151,12 +111,21 @@ const Layout = () => {
 
               {/* Profile Icon */}
               <div className="hidden sm:flex justify-end items-center">
-                <Link
-                  to="/profile"
-                  className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  <UserCircle className="h-6 w-6 text-gray-600" />
-                </Link>
+                {isLoggedIn ? (
+                  <Link
+                    to="/profile"
+                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <UserCircle className="h-6 w-6 text-gray-600" />
+                  </Link>
+                ) : (
+                  <button
+                    onClick={openLoginDialog}
+                    className="bg-gradient-to-r from-indigo-500 to-indigo-700 px-6 py-3 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-indigo-800 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
+                  >
+                    Login
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -180,22 +149,31 @@ const Layout = () => {
                 to="/vehicles"
                 onClick={() => handleNavClick("/vehicles")}
                 className={`block px-4 py-2 text-sm font-medium transition-all ${activeLink === "/vehicles"
-                  ? "text-indigo-600 bg-gray-100" // Active state
-                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100" // Hover state
+                  ? "text-indigo-600 bg-gray-100"
+                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100"
                   }`}
               >
                 <Bike className="h-5 w-5 inline-block mr-2" />
                 Vehicles
               </Link>
 
-              <Link
-                to="/profile"
-                onClick={() => handleNavClick("/profile")}
-                className="block px-4 py-2 text-sm text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors"
-              >
-                <UserCircle className="h-5 w-5 inline-block mr-2" />
-                Profile
-              </Link>
+              {isLoggedIn ? (
+                <Link
+                  to="/profile"
+                  onClick={() => handleNavClick("/profile")}
+                  className="block px-4 py-2 text-sm text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors"
+                >
+                  <UserCircle className="h-5 w-5 inline-block mr-2" />
+                  Profile
+                </Link>
+              ) : (
+                <button
+                  onClick={openLoginDialog}
+                  className="block w-full px-4 py-2 text-sm font-medium text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors text-left"
+                >
+                  Login
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -206,6 +184,17 @@ const Layout = () => {
       </main>
 
       <Footer />
+      <Dialog open={isLoginDialogOpen} onClose={closeDialog}>
+        {isRegisterMode ? (
+          <Register switchToLogin={() => setRegisterMode(false)} />
+        ) : (
+          <Login
+            switchToRegister={() => setRegisterMode(true)}
+            closeDialog={handleLoginSuccess}
+          />
+        )}
+      </Dialog>
+
     </div>
   );
 };

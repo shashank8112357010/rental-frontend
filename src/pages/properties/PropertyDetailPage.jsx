@@ -44,7 +44,7 @@ const PropertiesPage = () => {
 
   const applyFilters = () => {
     let filtered = properties;
-    console.log(filters , "filters");
+    console.log(filters, "filters");
     if (filters.type) {
       filtered = filtered.filter((property) => property.type === filters.type);
     }
@@ -84,8 +84,12 @@ const PropertiesPage = () => {
   return (
     <div className="">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Available Properties</h1>
-        <p className="text-gray-600">Find your perfect accommodation</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+          Available Properties
+        </h1>
+        <p className="text-sm md:text-base text-gray-600">
+          Find your perfect accommodation
+        </p>
       </header>
 
       <PropertyFilters onFilterChange={handleFilterChange} />

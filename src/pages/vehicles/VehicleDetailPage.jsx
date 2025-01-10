@@ -7,7 +7,7 @@ import { GetVehicleByIdService } from '../../services/api.service';
 
 const VehicleDetailPage = () => {
   const { id } = useParams();
-  const [vehicle, setVehicle] = useState( {
+  const [vehicle, setVehicle] = useState({
     id,
     type: 'BIKE',
     model: 'Royal Enfield Classic 350',
@@ -18,18 +18,18 @@ const VehicleDetailPage = () => {
     available: true,
     createdAt: new Date().toISOString()
   });
- const [isLoading , setIsLoading]= useState();
+  const [isLoading, setIsLoading] = useState();
 
   if (isLoading) return <div className="animate-pulse">Loading...</div>;
   if (!vehicle) return <div>Vehicle not found</div>;
 
 
-  useEffect(()=>{
-    GetVehicleByIdService(id).then(({data})=>{
-      
+  useEffect(() => {
+    GetVehicleByIdService(id).then(({ data }) => {
+
 
       console.log(data);
-      setVehicle( {
+      setVehicle({
         id: data._id,
         type: data.type,
         model: data.model,
@@ -40,28 +40,28 @@ const VehicleDetailPage = () => {
         available: data.available,
         createdAt: new Date().toISOString()
       })
-    }).catch((err)=>{
+    }).catch((err) => {
 
     })
-  },[id])
+  }, [id])
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <img 
-            src={vehicle.image} 
+          <img
+            src={vehicle.image}
             alt={vehicle.model}
             className="w-full h-96 object-cover rounded-lg"
           />
-          
+
           <div className="mt-8">
             <h1 className="text-3xl font-bold text-gray-900">{vehicle.model}</h1>
             <div className="flex items-center mt-2 text-gray-600">
               <User className="h-5 w-5 mr-2" />
               <span>{vehicle.owner}</span>
             </div>
-            
+
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-4">Description</h2>
               <p className="text-gray-600">{vehicle.description}</p>
@@ -87,16 +87,15 @@ const VehicleDetailPage = () => {
                 {formatCurrency(vehicle.pricePerDay)}
                 <span className="text-sm font-normal text-gray-600">/day</span>
               </span>
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${ 
-                vehicle.available 
-                  ? 'bg-green-100 text-green-800' 
-                  : 'bg-red-100 text-red-800'
-              }`}>
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${vehicle.available
+                ? 'bg-green-100 text-green-800'
+                : 'bg-red-100 text-red-800'
+                }`}>
                 {vehicle.available ? 'Available' : 'Not Available'}
               </span>
             </div>
 
-            <BookingForm 
+            <BookingForm
               itemId={vehicle.id}
               itemType="VEHICLE"
               disabled={!vehicle.available}

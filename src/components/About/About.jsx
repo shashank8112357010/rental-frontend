@@ -8,7 +8,7 @@ export default function About() {
     <div className="h-fit pb-16  ">
       {/* Header Section */}
       <div className=" flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-black">
+        <h1 className="text-2xl md:text-3xlfont-bold text-black">
           Welcome to your all-in-one platform designed especially for students in Pune!
         </h1>
       </div>

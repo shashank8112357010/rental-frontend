@@ -9,7 +9,7 @@ const VehicleFilters = ({ filters, onFilterChange }) => {
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
           <select

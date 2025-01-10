@@ -12,9 +12,11 @@ const PropertyFilters = ({ onFilterChange }) => {
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Type
+          </label>
           <select
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             value={type}

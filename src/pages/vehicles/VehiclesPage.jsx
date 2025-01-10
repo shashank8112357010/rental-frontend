@@ -8,7 +8,7 @@ const VehiclesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [vehicles, setVehicles] = useState([]);
   const [filteredVehicles, setFilteredVehicles] = useState([]);
-  
+
   // Filter states
   const [filters, setFilters] = useState({
     type: '',
@@ -77,8 +77,8 @@ const VehiclesPage = () => {
   return (
     <div>
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Available Vehicles</h1>
-        <p className="text-gray-600">Rent bikes and scooters for your daily commute</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Available Vehicles</h1>
+        <p className="text-sm md:text-base text-gray-600">Rent bikes and scooters for your daily commute</p>
       </header>
 
       <VehicleFilters filters={filters} onFilterChange={handleFilterChange} />

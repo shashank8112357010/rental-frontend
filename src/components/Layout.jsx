@@ -72,8 +72,8 @@ const Layout = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleNavClick = (path) => {
-    setActiveLink(path); // Set the active link when clicked
-    setMobileMenuOpen(false); // Close mobile menu after clicking a link
+    setActiveLink(path);
+    setMobileMenuOpen(false);
   };
 
   const toggleMobileMenu = () => {
@@ -88,10 +88,11 @@ const Layout = () => {
             <div className="flex gap-16">
               {/* Logo */}
               <div className="flex items-center gap-8">
-                <Link to="/" className="flex items-center">
+                <Link
+                  to="/"
+                  onClick={() => handleNavClick("/")}
+                  className={`flex items-center ${activeLink === "/"}`}>
                   <img src={logoImg} alt="" className="w-16" />
-                  {/* <Home className="h-6 w-6 text-indigo-600" /> */}
-                  {/* <span className="ml-2 font-semibold text-xl">RentEase</span> */}
 
                 </Link>
               </div>

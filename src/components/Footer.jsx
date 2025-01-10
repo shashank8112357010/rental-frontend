@@ -10,6 +10,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import footerlogo from "../assets/logo.png"
 
 export default function Footer() {
   return (
@@ -18,9 +19,10 @@ export default function Footer() {
         <div className="container mx-auto p-12">
           <div className="grid md:grid-cols-3 gap-8">
             {/* Company Details */}
-            <div className="py-4">
-              <h1 className="text-2xl font-bold mb-4">Rent Ease</h1>
-              <p>&copy; 2025 Company Name | All rights reserved</p>
+            <div className="py-4 ">
+              {/* <h1 className="text-2xl font-bold mb-4">Rent Ease</h1> */}
+              <img src={footerlogo} alt="" className="w-32 md:ml-0 ml-16" />
+              <p className="pt-8">&copy; 2025 Company Name | All rights reserved</p>
             </div>
 
             {/* Information Section */}

@@ -1,93 +1,110 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Building2, MapPin, IndianRupee, Calendar } from 'lucide-react';
-import BookingForm from '../../components/BookingForm';
-import ImageGallery from '../../components/ImageGallery';
-import { formatCurrency } from '../../utils/format';
+import React, { useEffect } from 'react';
+import { Building2, MapPin, IndianRupee } from 'lucide-react';
+import PropertyCard from './PropertyCard';
+import PropertyFilters from './PropertyFilters';
+import { GetPropertyService } from '../../services/api.service';
 
-const PropertyDetailPage = () => {
-  const { id } = useParams();
-  console.log(id , "id");
-  const [property, setProperty] = useState( {
-    id,
-    type: 'FLAT',
-    title: '2BHK Furnished Apartment',
-    description: 'Modern furnished apartment with all amenities',
-    price: 15000,
-    location: 'Koramangala, Bangalore',
-    images: [
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1560449752-3fd74f5f28b5?auto=format&fit=crop&q=80&w=1000',
-    ],
-    amenities: ['Furnished', 'Power Backup', 'Security' , "AC"],
-    available: true,
-    createdAt: new Date().toISOString()
+const PropertiesPage = () => {
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [properties, setProperties] = React.useState([]);
+  const [filteredProperties, setFilteredProperties] = React.useState([]);
+  const [filters, setFilters] = React.useState({
+    type: '',
+    price: '',
+    location: '',
   });
-  
-//   const { data: property, isLoading } = useProperty(id);
-const [isLoading , setIsLoading]= useState();
 
-  if (isLoading) return <div className="animate-pulse">Loading...</div>;
-  if (!property) return <div>Property not found</div>;
+  const fetchPropertiesData = async () => {
+    await GetPropertyService()
+      .then((res) => {
+        const modified = res.data.map((property) => {
+          return {
+            id: property._id,
+            type: property.flatType,
+            title: property.title,
+            description: property.description,
+            price: property.price,
+            location: property.location,
+            images: property.images,
+            amenities: property.amenities,
+            available: property.available,
+            createdAt: property.createdAt,
+          };
+        });
+
+        setProperties(modified);
+        setFilteredProperties(modified);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log('err', err);
+      });
+  };
+
+  const applyFilters = () => {
+    let filtered = properties;
+    console.log(filters , "filters");
+    if (filters.type) {
+      filtered = filtered.filter((property) => property.type === filters.type);
+    }
+
+    if (filters.price) {
+      const priceRange = filters.price.split('-');
+      filtered = filtered.filter((property) => {
+        if (priceRange[1]) {
+          return property.price >= parseInt(priceRange[0]) && property.price <= parseInt(priceRange[1]);
+        } else {
+          return property.price >= parseInt(priceRange[0]);
+        }
+      });
+    }
+
+    if (filters.location) {
+      filtered = filtered.filter((property) =>
+        property.location.toLowerCase().includes(filters.location.toLowerCase())
+      );
+    }
+
+    setFilteredProperties(filtered);
+  };
+
+  useEffect(() => {
+    fetchPropertiesData();
+  }, []);
+
+  useEffect(() => {
+    applyFilters();
+  }, [filters]);
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+  };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <ImageGallery images={property.images} />
-          
-          <div className="mt-8">
-            <h1 className="text-3xl font-bold text-gray-900">{property.title}</h1>
-            <div className="flex items-center mt-2 text-gray-600">
-              <MapPin className="h-5 w-5 mr-2" />
-              <span>{property.location}</span>
-            </div>
-            
-            <div className="mt-6">
-              <h2 className="text-xl font-semibold mb-4">Description</h2>
-              <p className="text-gray-600">{property.description}</p>
-            </div>
+    <div className="">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Available Properties</h1>
+        <p className="text-gray-600">Find your perfect accommodation</p>
+      </header>
 
-            <div className="mt-6">
-              <h2 className="text-xl font-semibold mb-4">Amenities</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {property.amenities.map((amenity, index) => (
-                  <div key={index} className="flex items-center text-gray-600">
-                    <span className="w-2 h-2 bg-indigo-600 rounded-full mr-2" />
-                    {amenity}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+      <PropertyFilters onFilterChange={handleFilterChange} />
+
+      {isLoading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3].map((n) => (
+            <div key={n} className="animate-pulse bg-gray-200 min-h-80 rounded-lg" />
+          ))}
         </div>
-
-        <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg shadow-lg p-6 sticky top-6">
-            <div className="flex items-center justify-between mb-6">
-              <span className="text-2xl font-bold text-gray-900">
-                {formatCurrency(property.price)}
-                <span className="text-sm font-normal text-gray-600">/month</span>
-              </span>
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                property.available 
-                  ? 'bg-green-100 text-green-800' 
-                  : 'bg-red-100 text-red-800'
-              }`}>
-                {property.available ? 'Available' : 'Not Available'}
-              </span>
-            </div>
-
-            <BookingForm 
-              itemId={property.id}
-              itemType="PROPERTY"
-              disabled={!property.available}
-            />
-          </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProperties?.map((property) => (
+            <PropertyCard key={property.id} property={property} />
+          ))}
         </div>
-      </div>
+      )}
     </div>
   );
 };
 
-export default PropertyDetailPage;
+export default PropertiesPage;

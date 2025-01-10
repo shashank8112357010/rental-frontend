@@ -25,7 +25,8 @@ const PropertyCard = ({ property }) => {
         
         <div className="flex items-center text-gray-600 mb-2">
           <MapPin className="h-4 w-4 mr-1" />
-          <span className="text-sm">{property.location}</span>
+          <span className="text-sm"> <Link to={property.location}>View
+          </Link> </span>
         </div>
         
         <div className="flex items-center text-gray-900 font-medium">

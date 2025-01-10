@@ -61,7 +61,7 @@
 
 // export default Layout;
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Home, Building2, Bike, UserCircle, Menu, X } from "lucide-react";
 import Footer from "./Footer";

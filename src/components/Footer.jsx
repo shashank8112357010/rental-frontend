@@ -21,7 +21,9 @@ export default function Footer() {
             {/* Company Details */}
             <div className="py-4 ">
               {/* <h1 className="text-2xl font-bold mb-4">Rent Ease</h1> */}
-              <img src={footerlogo} alt="" className="w-32 md:ml-0 ml-16" />
+              <Link to="/">
+                <img src={footerlogo} alt="" className="w-32 md:ml-0 ml-16" />
+              </Link>
               <p className="pt-8">&copy; 2025 Company Name | All rights reserved</p>
             </div>
 

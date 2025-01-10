@@ -37,7 +37,7 @@ export default function TopServices() {
       <div className="container mx-auto px-6 md:px-12 lg:px-16">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
             Explore Our Services
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mt-4">

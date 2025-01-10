@@ -70,6 +70,9 @@ const Layout = () => {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState(location.pathname);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -91,9 +94,9 @@ const Layout = () => {
       <nav className="bg-white shadow-md w-full">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex  justify-between h-16 items-center">
-            <div className="flex gap-16">
+            <div className="flex gap-12">
               {/* Logo */}
-              <div className="flex items-center gap-8">
+              <div className="flex items-center">
                 <Link
                   to="/"
                   onClick={() => handleNavClick("/")}
@@ -165,8 +168,8 @@ const Layout = () => {
                 to="/properties"
                 onClick={() => handleNavClick("/properties")}
                 className={`block px-4 py-2 text-sm font-medium transition-all ${activeLink === "/properties"
-                  ? "text-indigo-600 bg-gray-100" // Active state
-                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100" // Hover state
+                  ? "text-indigo-600 bg-gray-100"
+                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100"
                   }`}
               >
                 <Building2 className="h-5 w-5 inline-block mr-2" />

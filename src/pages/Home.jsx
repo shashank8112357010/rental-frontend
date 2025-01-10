@@ -11,10 +11,10 @@ const Home = () => {
     <>
       <div className="space-y-8 px-4 md:px-8 lg:px-16">
         <header className="text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Find Your Perfect Space or Ride
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-md sm:text-xl  text-gray-600 max-w-2xl mx-auto">
             Browse through our selection of quality accommodations and vehicles for rent
           </p>
         </header>

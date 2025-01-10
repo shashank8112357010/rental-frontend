@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { UserChangePasswordService } from '../../services/api.service';
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
@@ -14,18 +15,27 @@ const ProfilePage = () => {
 
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [activeTab, setActiveTab] = useState('settings'); // Default tab is 'settings'
+  const [activeTab, setActiveTab] = useState('settings');
+  // const [loading, setLoading] = useState(false);
 
   const handlePasswordChange = () => {
-    if (password && newPassword) {
-      // Call API or backend function to update the password
-      setPassword('');
-      setNewPassword('');
-      alert('Password updated successfully!');
-    } else {
+    if (!password || !newPassword) {
       alert('Please fill out both fields.');
+      return;
     }
+
+    UserChangePasswordService({ password, newPassword })
+      .then((res) => {
+        setPassword('');
+        setNewPassword('');
+        alert('Password updated successfully!');
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.response?.data?.message || 'An error occurred while updating the password.');
+      });
   };
+
 
   return (
     <div className="">

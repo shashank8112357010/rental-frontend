@@ -17,6 +17,8 @@ import About from './components/About/About.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy.jsx'
 import TermsConditions from './components/termconditions/TermsConditions.jsx'
 import TopServices from './components/TopServices/TopServices.jsx'
+import Login from './components/auth/Login.jsx'
+import Register from './components/auth/Register.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +34,8 @@ const router = createBrowserRouter(
         <Route path="privacy_policy" element={<PrivacyPolicy />} />
         <Route path="term_conditions" element={<TermsConditions />} />
         <Route path="services" element={<TopServices />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
       </Route>
     </>

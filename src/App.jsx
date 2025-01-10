@@ -6,17 +6,17 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 
 function App() {
-  const location =useLocation()
-useEffect(() => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  })
-}, [location.pathname])
+  const location = useLocation()
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }, [location.pathname])
   return (
-   <>
-   <Layout/>
-   </>
+    <>
+      <Layout />
+    </>
   )
 }
 

@@ -5,7 +5,7 @@ import harley from "../../assets/harley.jpg"
 
 export default function About() {
   return (
-    <div className="h-fit pb-16 shadow-lg bg-white">
+    <div className="h-fit pb-16  ">
       {/* Header Section */}
       <div className="h-32 flex items-center justify-center">
         <h1 className="text-4xl font-bold text-black">
@@ -18,21 +18,21 @@ export default function About() {
         {/* Image Section */}
         <div className="md:w-1/2 flex justify-center">
           <motion.img
-           src={harley}
-           alt="Services"
-           initial={{ opacity: 0, scale: 0.9 }}
-           animate={{ opacity: 1, scale: 1 }}
-           transition={{ duration: 1 }}
-           className="rounded-lg shadow-lg w-full md:w-5/6 lg:w-4/5 h-auto object-cover"
+            src={harley}
+            alt="Services"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="rounded-lg shadow-lg w-full md:w-5/6 lg:w-4/5 h-auto object-cover"
           />
-</div>
+        </div>
         {/* Text Section */}
         <div className="md:w-1/2 mt-8 md:mt-0 md:ml-12">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-4xl font-bold text-gray-900 mb-6"
+            className="text-3xl font-bold text-gray-900 mb-6"
           >
             Empowering Your Journey
           </motion.h1>
@@ -48,7 +48,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: index * 0.3 }}
-                className="text-xl text-gray-600 leading-relaxed"
+                className="text-md text-gray-600 leading-relaxed"
               >
                 {text}
               </motion.p>

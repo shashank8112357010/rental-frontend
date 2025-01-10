@@ -125,10 +125,11 @@ const Layout = () => {
           </div>
         </div>
       </nav>
-      <main className='p-3'>
+      <main className='p-24'>
            <Outlet />
-           <Footer />
+           
       </main>
+      <Footer />
       
     </div>
   );

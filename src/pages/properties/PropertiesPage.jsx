@@ -37,7 +37,7 @@ const [properties, setProperties] = React.useState([
       },[])
 
   return (
-    <div>
+    <div className=''>
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Available Properties</h1>
         <p className="text-gray-600">Find your perfect accommodation</p>
@@ -48,7 +48,7 @@ const [properties, setProperties] = React.useState([
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="animate-pulse bg-gray-200 h-72 rounded-lg" />
+            <div key={n} className="animate-pulse bg-gray-200 min-h-80  rounded-lg" />
           ))}
         </div>
       ) : (

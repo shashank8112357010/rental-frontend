@@ -36,7 +36,7 @@ const Home = () => {
         />
       </div>
 
-      <section className="mt-16">
+      <section className="mt-16 bg-inherit">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">How It Works</h2>
         <div className="grid md:grid-cols-3 gap-8">
           {[

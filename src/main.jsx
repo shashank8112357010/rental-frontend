@@ -13,6 +13,10 @@ import PropertyDetailPage from './pages/properties/PropertyDetailPage.jsx'
 import VehiclesPage from './pages/vehicles/VehiclesPage.jsx'
 import VehicleDetailPage from './pages/vehicles/VehicleDetailPage.jsx'
 import ProfilePage from './pages/profile/ProfilePage.jsx'
+import About from './components/About/About.jsx'
+import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy.jsx'
+import TermsConditions from './components/termconditions/TermsConditions.jsx'
+import TopServices from './components/TopServices/TopServices.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +28,10 @@ const router = createBrowserRouter(
         <Route path="vehicles/:id" element={<VehicleDetailPage />} />
         <Route path="vehicles" element={<VehiclesPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="about" element={<About />} />
+        <Route path="privacy_policy" element={<PrivacyPolicy />} />
+        <Route path="term_conditions" element={<TermsConditions />} />
+        <Route path="services" element={<TopServices />} />
 
       </Route>
     </>

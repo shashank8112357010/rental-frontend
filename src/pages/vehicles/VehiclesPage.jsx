@@ -2,46 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { Bike } from 'lucide-react';
 import VehicleCard from './VehicleCard';
 import VehicleFilters from './VehicleFilters';
+import { GetVehicleService } from '../../services/api.service';
 
 
 const VehiclesPage = () => {
     const [isLoading , setIsLoading] = useState(true);
     const [vehicles , setVehicles] = useState([
-        {
-          id: 1,
-          type: 'BIKE',
-          model: 'Royal Enfield Classic 350',
-          description: 'Well-maintained bike for daily commute',
-          pricePerDay: 800,
-          location: 'Indiranagar, Bangalore',
-          image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000',
-          available: true,
-          createdAt: new Date().toISOString()
-        },
-        {
-          id: 2,
-          type: 'BIKE',
-          model: 'Yamaha FZ-S V3',
-          description: 'Reliable bike for long rides',
-          pricePerDay: 600,
-          location: 'MG Road, Bangalore',
-          image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000',
-          available: true,
-          createdAt: new Date().toISOString()
-        },
-        {
-          id: 3,
-          type: 'SCOOTER',
-          model: 'Honda Activa 6G',
-          description: 'Perfect for city commuting',
-          pricePerDay: 400,
-          location: 'Koramangala, Bangalore',
-          image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000',
-          available: true,
-          createdAt: new Date().toISOString()
-        }
+      
       ]);
+
+
+      const fetchVehicleData = async()=>{
+        await GetVehicleService().then((res)=>{
+     
+
+          const modified = res.data.map((vehicle)=>{
+            return {
+              id: vehicle._id,
+              type: vehicle.type,
+              model: vehicle.model,
+              description: vehicle.description,
+              pricePerDay: vehicle.pricePerDay,
+              owner: vehicle.owner,
+              image: vehicle.images[0],
+              available: vehicle.available,
+              createdAt: new Date().toISOString()
+            }
+          })
+          setVehicles(modified)
+
+
+          setIsLoading(false)
+        }).catch((err)=>{
+          setIsLoading(false)
+          console.log("err" , err);
+        })
+      }
       useEffect(()=>{
+
+        fetchVehicleData()
             setTimeout(()=>{
                 setIsLoading(false)
             },2000)

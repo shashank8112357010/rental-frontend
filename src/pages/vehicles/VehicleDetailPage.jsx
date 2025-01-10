@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Bike, MapPin, IndianRupee, Calendar } from 'lucide-react';
+import { Bike, MapPin, IndianRupee, Calendar, User } from 'lucide-react';
 import BookingForm from '../../components/BookingForm';
 import { formatCurrency } from '../../utils/format';
+import { GetVehicleByIdService } from '../../services/api.service';
 
 const VehicleDetailPage = () => {
   const { id } = useParams();
@@ -22,6 +23,28 @@ const VehicleDetailPage = () => {
   if (isLoading) return <div className="animate-pulse">Loading...</div>;
   if (!vehicle) return <div>Vehicle not found</div>;
 
+
+  useEffect(()=>{
+    GetVehicleByIdService(id).then(({data})=>{
+      
+
+      console.log(data);
+      setVehicle( {
+        id: data._id,
+        type: data.type,
+        model: data.model,
+        description: data.description,
+        pricePerDay: data.pricePerDay,
+        owner: data.owner,
+        image: data.images[0],
+        available: data.available,
+        createdAt: new Date().toISOString()
+      })
+    }).catch((err)=>{
+
+    })
+  },[id])
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -35,8 +58,8 @@ const VehicleDetailPage = () => {
           <div className="mt-8">
             <h1 className="text-3xl font-bold text-gray-900">{vehicle.model}</h1>
             <div className="flex items-center mt-2 text-gray-600">
-              <MapPin className="h-5 w-5 mr-2" />
-              <span>{vehicle.location}</span>
+              <User className="h-5 w-5 mr-2" />
+              <span>{vehicle.owner}</span>
             </div>
             
             <div className="mt-6">

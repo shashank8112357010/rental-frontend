@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, IndianRupee } from 'lucide-react';
+import { MapPin, IndianRupee, User2 } from 'lucide-react';
 import { formatCurrency } from '../../utils/format';
 
 const VehicleCard = ({ vehicle }) => {
-   console.log(vehicle , "vehicle");
+  
    
     return (
     <Link 
@@ -26,8 +26,8 @@ const VehicleCard = ({ vehicle }) => {
         <h3 className="text-lg font-semibold text-gray-900 mb-2">{vehicle.model}</h3>
         
         <div className="flex items-center text-gray-600 mb-2">
-          <MapPin className="h-4 w-4 mr-1" />
-          <span className="text-sm">{vehicle.location}</span>
+          <User2 className="h-4 w-4 mr-1" />
+          <span className="text-sm">{vehicle.owner}</span>
         </div>
         
         <div className="flex items-center text-gray-900 font-medium">

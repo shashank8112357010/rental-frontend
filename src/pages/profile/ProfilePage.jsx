@@ -19,7 +19,6 @@ const ProfilePage = () => {
   const handlePasswordChange = () => {
     if (password && newPassword) {
       // Call API or backend function to update the password
-      console.log('Password updated:', newPassword);
       setPassword('');
       setNewPassword('');
       alert('Password updated successfully!');

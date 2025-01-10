@@ -44,7 +44,6 @@ const PropertiesPage = () => {
 
   const applyFilters = () => {
     let filtered = properties;
-    console.log(filters, "filters");
     if (filters.type) {
       filtered = filtered.filter((property) => property.type === filters.type);
     }

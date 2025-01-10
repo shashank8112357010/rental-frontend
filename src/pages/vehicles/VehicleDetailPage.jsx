@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Bike, MapPin, IndianRupee, Calendar, User } from 'lucide-react';
+import { User } from 'lucide-react';
 import BookingForm from '../../components/BookingForm';
 import { formatCurrency } from '../../utils/format';
 import { GetVehicleByIdService } from '../../services/api.service';
@@ -26,9 +26,6 @@ const VehicleDetailPage = () => {
 
   useEffect(() => {
     GetVehicleByIdService(id).then(({ data }) => {
-
-
-      console.log(data);
       setVehicle({
         id: data._id,
         type: data.type,

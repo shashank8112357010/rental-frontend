@@ -70,6 +70,12 @@ const Layout = () => {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState(location.pathname);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }, [location.pathname])
 
   const handleNavClick = (path) => {
     setActiveLink(path);

@@ -48,7 +48,6 @@ const PropertiesPage = () => {
       setProperties(modified)
 
 
-      console.log(res)
     }).catch((err) => {
       setisLoading(false)
       console.log("err", err);

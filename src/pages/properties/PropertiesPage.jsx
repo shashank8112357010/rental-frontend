@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { Building2, MapPin, IndianRupee } from 'lucide-react';
 import PropertyCard from './PropertyCard';
 import PropertyFilters from './PropertyFilters';
+import { GetPropertyService } from '../../services/api.service';
 
 
 const PropertiesPage = () => {
-//   const { data: properties, isLoading } = useProperties();
-const [isLoading , setisLoading] = React.useState(true);
-const [properties, setProperties] = React.useState([
-  
+  //   const { data: properties, isLoading } = useProperties();
+  const [isLoading, setisLoading] = React.useState(true);
+  const [properties, setProperties] = React.useState([
+
     {
       id: '1',
       type: 'FLAT',
@@ -22,19 +23,27 @@ const [properties, setProperties] = React.useState([
       createdAt: new Date().toISOString()
     },
     // Add more mock properties...
-  
-]);
+
+  ]);
+
+
+  const fetchPropertiesData = async () => {
+    await GetPropertyService().then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      setisLoading(false)
+      console.log("err", err);
+    })
+  }
 
 
 
-
-
-
- useEffect(()=>{
-            setTimeout(()=>{
-                setisLoading(false)
-            },2000)
-      },[])
+  useEffect(() => {
+    fetchPropertiesData()
+    setTimeout(() => {
+      setisLoading(false)
+    }, 2000)
+  }, [])
 
   return (
     <div className=''>

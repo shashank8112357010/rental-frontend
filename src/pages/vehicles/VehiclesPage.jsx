@@ -6,45 +6,44 @@ import { GetVehicleService } from '../../services/api.service';
 
 
 const VehiclesPage = () => {
-    const [isLoading , setIsLoading] = useState(true);
-    const [vehicles , setVehicles] = useState([
-      
-      ]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [vehicles, setVehicles] = useState([
+
+  ]);
 
 
-      const fetchVehicleData = async()=>{
-        await GetVehicleService().then((res)=>{
-     
+  const fetchVehicleData = async () => {
+    await GetVehicleService().then((res) => {
 
-          const modified = res.data.map((vehicle)=>{
-            return {
-              id: vehicle._id,
-              type: vehicle.type,
-              model: vehicle.model,
-              description: vehicle.description,
-              pricePerDay: vehicle.pricePerDay,
-              owner: vehicle.owner,
-              image: vehicle.images[0],
-              available: vehicle.available,
-              createdAt: new Date().toISOString()
-            }
-          })
-          setVehicles(modified)
+      const modified = res.data.map((vehicle) => {
+        return {
+          id: vehicle._id,
+          type: vehicle.type,
+          model: vehicle.model,
+          description: vehicle.description,
+          pricePerDay: vehicle.pricePerDay,
+          owner: vehicle.owner,
+          image: vehicle.images[0],
+          available: vehicle.available,
+          createdAt: new Date().toISOString()
+        }
+      })
+      setVehicles(modified)
 
 
-          setIsLoading(false)
-        }).catch((err)=>{
-          setIsLoading(false)
-          console.log("err" , err);
-        })
-      }
-      useEffect(()=>{
+      setIsLoading(false)
+    }).catch((err) => {
+      setIsLoading(false)
+      console.log("err", err);
+    })
+  }
+  useEffect(() => {
 
-        fetchVehicleData()
-            setTimeout(()=>{
-                setIsLoading(false)
-            },2000)
-      },[])
+    fetchVehicleData()
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 2000)
+  }, [])
   return (
     <div >
       <header className="mb-8">
@@ -56,7 +55,7 @@ const VehiclesPage = () => {
 
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3 ].map((n) => (
+          {[1, 2, 3].map((n) => (
             <div key={n} className="animate-pulse bg-gray-200 min-h-80 rounded-lg" />
           ))}
         </div>

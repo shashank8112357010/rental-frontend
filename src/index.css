@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dropHeader {
+  line-height: 90px !important;
+}

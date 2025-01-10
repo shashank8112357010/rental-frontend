@@ -26,7 +26,7 @@ const Login = ({ switchToRegister, closeDialog }) => {
         }
 
         await UserLoginService({ ...formData }).then((response) => {
-            console.log(response)
+            // console.log(response.data)
             setToken(response?.data?.token);
             localStorage.setItem("name", response?.data?.user?.name);
             setLoading(false);

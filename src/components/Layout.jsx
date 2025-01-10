@@ -7,6 +7,7 @@ import Dialog from "@mui/material/Dialog";
 import logoImg from '../assets/logo.png'
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import { FiLogOut } from "react-icons/fi";
 
 const Layout = () => {
   const location = useLocation();
@@ -15,14 +16,23 @@ const Layout = () => {
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
   const [isRegisterMode, setRegisterMode] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
-
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     })
+    const name = localStorage.getItem('name');
+    if (name) {
+      setUserName(name);
+      setLoggedIn(true);
+    }
   }, [location.pathname])
+
+
+
 
   const handleNavClick = (path) => {
     setActiveLink(path);
@@ -49,6 +59,10 @@ const Layout = () => {
     closeDialog();
   };
 
+  const handleLogout = () => {
+    setLoggedIn(false);
+    localStorage.removeItem('name');
+  };
   return (
     <div className="bg-gray-50 mx-auto">
       <nav className="bg-white shadow-md w-full">
@@ -109,15 +123,35 @@ const Layout = () => {
                 </button>
               </div>
 
-              {/* Profile Icon */}
-              <div className="hidden sm:flex justify-end items-center">
+              <div className="hidden sm:flex justify-end items-center relative">
                 {isLoggedIn ? (
-                  <Link
-                    to="/profile"
-                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                  <div
+                    className="relative "
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    onMouseLeave={() => setDropdownOpen(false)}
                   >
-                    <UserCircle className="h-6 w-6 text-gray-600" />
-                  </Link>
+                    <button className=" rounded-full dropHeader hover:bg-gray-100 transition-colors">
+                      <UserCircle className="h-6 w-6 text-gray-600" />
+                    </button>
+                    {isDropdownOpen && (
+                      <div className="absolute right-0 w-40 bg-white shadow-lg rounded-lg border border-gray-200">
+                        <Link
+                          to="/profile"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Profile
+                        </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-left block px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
+                        >
+                          Logout
+                          <FiLogOut className="text-red-400 ml-5" />
+                        </button>
+
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <button
                     onClick={openLoginDialog}
@@ -129,7 +163,6 @@ const Layout = () => {
               </div>
             </div>
           </div>
-
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
             <div className="sm:hidden bg-white border-t">

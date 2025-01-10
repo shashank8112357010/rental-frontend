@@ -28,7 +28,7 @@ const Register = ({ switchToLogin }) => {
         }
         setLoading(true)
         await UserRegisterService(formData).then((response) => {
-            console.log(response)
+            // console.log(response)
             setLoading(false);
             switchToLogin();
         }).catch((err) => {

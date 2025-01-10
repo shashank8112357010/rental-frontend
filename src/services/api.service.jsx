@@ -1,4 +1,4 @@
-import clientAxios from './interceptor' // Adjust the path based on your file structure
+import clientAxios from './interceptor'
 
 // Login User API
 export const UserLoginService = (data) => {
@@ -6,8 +6,9 @@ export const UserLoginService = (data) => {
 }
 
 export const UserChangePasswordService = (data) => {
-  return clientAxios.put('/user/change-password', data)
+  return clientAxios.put('/user/change-password', data);
 }
+
 
 export const UserRegisterService = (data) => {
   return clientAxios.post('/user/register', data)

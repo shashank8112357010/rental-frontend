@@ -25,8 +25,8 @@ const EnquiryFormPage = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100 py-8">
-            <div className="w-full sm:w-[500px] px-4 py-8 bg-white shadow-lg rounded-lg">
+        <div className="no-scrollbar flex justify-center items-center py-8">
+            <div className="w-full sm:w-[500px] px-4 py-8 bg-white rounded-lg">
                 <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Enquiry Form</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -86,3 +86,4 @@ const EnquiryFormPage = () => {
 };
 
 export default EnquiryFormPage;
+

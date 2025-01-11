@@ -20,6 +20,10 @@ import TopServices from './components/TopServices/TopServices.jsx'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Academic from './pages/academic/Academic.jsx'
+import Blogs from './pages/Blogs/Blogs.jsx'
+import BlogsPage1 from './pages/Blogs/BlogsPage1.jsx'
+import BlogsPage2 from './pages/Blogs/BlogsPage2.jsx'
+import BlogsPage3 from './pages/Blogs/BlogsPage3.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,6 +40,10 @@ const router = createBrowserRouter(
         <Route path="privacy_policy" element={<PrivacyPolicy />} />
         <Route path="term_conditions" element={<TermsConditions />} />
         <Route path="services" element={<TopServices />} />
+        <Route path="blogs" element={<Blogs />} />
+        <Route path="blog/blogs1" element={<BlogsPage1 />} />
+        <Route path="blog/blogs2" element={<BlogsPage2 />} />
+        <Route path="blog/blogs3" element={<BlogsPage3 />} />
 
       </Route>
     </>

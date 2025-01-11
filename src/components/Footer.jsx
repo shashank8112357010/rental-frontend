@@ -48,6 +48,11 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li className="text-gray-400">
+                  <Link to="/blogs" className="hover:text-indigo-600 transition duration-200">
+                    Blogs
+                  </Link>
+                </li>
+                <li className="text-gray-400">
                   <Link to="/term_conditions" className="hover:text-indigo-600 transition duration-200">
                     Terms and Conditions
                   </Link>

@@ -79,7 +79,7 @@ const Home = () => {
         </section>
 
         {/* <TopServices /> */}
-        <Blogs />
+        {/* <Blogs /> */}
         {/* <About /> */}
       </div>
 

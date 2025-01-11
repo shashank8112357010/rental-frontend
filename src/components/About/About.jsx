@@ -1,7 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 // import img from "../../assets/aboutimage1.jpeg";
-import harley from "../../assets/harley.jpg"
+// import harley from "../../assets/harley.jpg"
+import MakingStudent from "../../assets/rentalimg/MakingStudent.png"
+import UnderstandStudents from "../../assets/rentalimg/UnderstandStudents.png"
+import SeamlessStudent from "../../assets/rentalimg/SeamlessStudent.png"
 
 export default function About() {
   return (
@@ -18,7 +21,7 @@ export default function About() {
         {/* Image Section */}
         <div className="md:w-1/2 flex">
           <motion.img
-            src={harley}
+            src={MakingStudent}
             alt="Services"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -102,7 +105,7 @@ export default function About() {
         {/* Image Section */}
         <div className="md:w-1/2 flex justify-center">
           <motion.img
-            src={harley}
+            src={UnderstandStudents}
             alt="Services"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -116,7 +119,7 @@ export default function About() {
         {/* Image Section */}
         <div className="md:w-1/2 flex">
           <motion.img
-            src={harley}
+            src={SeamlessStudent}
             alt="Services"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}

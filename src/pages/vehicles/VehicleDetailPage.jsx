@@ -6,6 +6,7 @@ import { formatCurrency } from '../../utils/format';
 import { GetVehicleByIdService } from '../../services/api.service';
 import { Dialog } from '@mui/material';
 import EnquiryFormPage from '../../components/EnquiryFormPage';
+import { motion } from 'framer-motion';
 
 const VehicleDetailPage = () => {
   const { id } = useParams();
@@ -50,22 +51,35 @@ const VehicleDetailPage = () => {
     setIsEnquiryDialogOpen(true);
   };
 
-
   const closeDialog = () => {
     setIsEnquiryDialogOpen(false);
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <motion.div
+      className="max-w-6xl mx-auto px-4 py-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <img
+          <motion.img
             src={vehicle.image}
             alt={vehicle.model}
             className="w-full h-96 object-cover rounded-lg"
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3 }}
           />
 
-          <div className="mt-8">
+          <motion.div
+            className="mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
             <h1 className="text-3xl font-bold text-gray-900">{vehicle.model}</h1>
             <div className="flex items-center mt-2 text-gray-600">
               <User className="h-5 w-5 mr-2" />
@@ -87,10 +101,15 @@ const VehicleDetailPage = () => {
                 {/* Add more features */}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="lg:col-span-1">
+        <motion.div
+          className="lg:col-span-1"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           <div className="bg-white rounded-lg shadow-lg p-6 sticky top-6">
             <div className="flex items-center justify-between mb-6">
               <span className="text-2xl font-bold text-gray-900">
@@ -124,12 +143,12 @@ const VehicleDetailPage = () => {
           </div>
 
 
-        </div>
+        </motion.div>
       </div>
       <Dialog open={isEnquiryDialogOpen} onClose={closeDialog}>
         <EnquiryFormPage />
       </Dialog>
-    </div>
+    </motion.div >
   );
 };
 

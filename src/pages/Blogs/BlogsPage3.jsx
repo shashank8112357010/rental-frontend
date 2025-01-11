@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Crack from '../../assets/rentalimg/Crack.png'
 
 const BlogsPage3 = () => {
     return (
@@ -21,7 +22,7 @@ const BlogsPage3 = () => {
                 {/* Image Section */}
                 <div className="md:w-1/2 flex">
                     <motion.img
-                        src="https://via.placeholder.com/400x300"
+                        src={Crack}
                         alt="Academic Success"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}

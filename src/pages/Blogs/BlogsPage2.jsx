@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import RideEasy from '../../assets/rentalimg/RideEasy.png'
 
 const BlogsPage2 = () => {
     return (
@@ -21,7 +22,7 @@ const BlogsPage2 = () => {
                 {/* Image Section */}
                 <div className="md:w-1/2 flex">
                     <motion.img
-                        src="https://via.placeholder.com/400x300"
+                        src={RideEasy}
                         alt="Ride Easy, Roam Freely"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}

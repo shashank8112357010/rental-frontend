@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Finding from '../../assets/rentalimg/Finding.png'
 
 const BlogsPage1 = () => {
     return (
@@ -21,7 +22,7 @@ const BlogsPage1 = () => {
                 {/* Image Section */}
                 <div className="md:w-1/2 flex">
                     <motion.img
-                        src="https://via.placeholder.com/400x300"
+                        src={Finding}
                         alt="Finding Your Perfect Stay"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}

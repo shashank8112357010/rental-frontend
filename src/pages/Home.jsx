@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Building2, Bike, BookOpenIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AcademicImg from '../assets/rentalimg/Academic.png'
 
 const Home = () => {
   const fadeInUp = {
@@ -56,7 +57,7 @@ const Home = () => {
             description="Explore a variety of academic courses designed to enhance your knowledge "
             icon={<BookOpenIcon className="h-8 w-8" />}
             link="/academic"
-            image="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000"
+            image={AcademicImg}
           />
         </motion.div>
 

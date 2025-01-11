@@ -84,7 +84,7 @@ const Layout = () => {
     navigate("/")
   };
   return (
-    <div className="bg-gray-50 mx-auto">
+    <div className="bg-gray-50 mx-auto sticky top-0">
       <nav className="bg-white shadow-md w-full">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex  justify-between h-16 items-center">

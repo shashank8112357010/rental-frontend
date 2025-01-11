@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Home, Building2, Bike, UserCircle, Menu, X } from "lucide-react";
 import Footer from "./Footer";
@@ -18,6 +18,7 @@ const Layout = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [userName, setUserName] = useState('');
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo({
@@ -58,6 +59,20 @@ const Layout = () => {
     setLoggedIn(true);
     closeDialog();
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
 
   const handleLogout = () => {
     setLoggedIn(false);
@@ -123,19 +138,19 @@ const Layout = () => {
                 </button>
               </div>
 
-              <div className="hidden sm:flex justify-end items-center relative">
+              <div className="hidden sm:flex justify-end items-center relative" ref={dropdownRef}>
                 {isLoggedIn ? (
-                  <div
-                    className="relative "
-                    onMouseEnter={() => setDropdownOpen(true)}
-                    onMouseLeave={() => setDropdownOpen(false)}
-                  >
-                    <button className=" rounded-full dropHeader hover:bg-gray-100 transition-colors">
+                  <div>
+                    <button
+                      className="rounded-full dropHeader hover:bg-gray-100 transition-colors"
+                      onClick={() => setDropdownOpen(!isDropdownOpen)}
+                    >
                       <UserCircle className="h-6 w-6 text-gray-600" />
                     </button>
                     {isDropdownOpen && (
-                      <div className="absolute right-0 w-40 bg-white shadow-lg rounded-lg border border-gray-200">
+                      <div className="absolute -right-2 mt-4  w-40 bg-white shadow-lg rounded-lg border border-gray-200">
                         <Link
+                          onClick={() => setDropdownOpen(false)}
                           to="/profile"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
@@ -145,17 +160,18 @@ const Layout = () => {
                           onClick={handleLogout}
                           className="w-full text-left block px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
                         >
-                          Logout
-                          <FiLogOut className="text-red-400 ml-5" />
+                          <div className="flex items-center gap-2">
+                            <FiLogOut className="text-red-400" />
+                            Logout
+                          </div>
                         </button>
-
                       </div>
                     )}
                   </div>
                 ) : (
                   <button
                     onClick={openLoginDialog}
-                    className="bg-gradient-to-r from-indigo-500 to-indigo-700 px-6 py-3 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-indigo-800 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
+                    className="border-2 border-indigo-500 px-6 py-3 text-black font-semibold rounded-lg shadow-md hover:border-indigo-700 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
                   >
                     Login
                   </button>

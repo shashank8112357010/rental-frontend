@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserLoginService } from '../../services/api.service';
 import { setToken } from '../../helper/tokenHelper';
+import { toast } from 'react-toastify';
 
 const Login = ({ switchToRegister, closeDialog }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -18,10 +19,13 @@ const Login = ({ switchToRegister, closeDialog }) => {
         setLoading(true);
         if (!formData.email) {
             setLoading(false);
+            toast.success('Email is required')
             return;
         }
         if (!formData.password) {
             setLoading(false);
+            toast.success('Password is required')
+
             return;
         }
 
@@ -29,7 +33,9 @@ const Login = ({ switchToRegister, closeDialog }) => {
             // console.log(response.data)
             setToken(response?.data?.token);
             localStorage.setItem("name", response?.data?.user?.name);
+            localStorage.setItem("email", response?.data?.user?.email);
             setLoading(false);
+            toast.success("Logged In Successfully")
             closeDialog();
         }).catch((err) => {
             setLoading(false)

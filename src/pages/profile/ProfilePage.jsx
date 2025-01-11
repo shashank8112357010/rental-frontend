@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { UserChangePasswordService } from '../../services/api.service';
+import { toast } from 'react-toastify';
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
@@ -7,74 +8,73 @@ const ProfilePage = () => {
     name: 'John Doe',
     email: 'john.doe@example.com',
   });
-
+  // const [user, setUser] = useState({ name: '', email: '' });
   // const [user, setUser] = useState(null);
 
-  const [bookings, setBookings] = useState([
-    { id: 1, date: '2025-01-01', service: 'Car Registration' },
-    { id: 2, date: '2025-01-05', service: 'License Renewal' },
-  ]);
+  // const [bookings, setBookings] = useState([
+  //   { id: 1, date: '2025-01-01', service: 'Car Registration' },
+  //   { id: 2, date: '2025-01-05', service: 'License Renewal' },
+  // ]);
 
-  const [password, setPassword] = useState('');
+  const [oldPassword, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [activeTab, setActiveTab] = useState('settings');
   // const [loading, setLoading] = useState(false);
 
   // useEffect(() => {
-  //   const userData = localStorage.getItem("user");
-  //   if (userData) {
-  //     setUser(JSON.parse(userData));
-  //   } else {
-  //     setUser(null);
+  //   const name = localStorage.getItem("name");
+  //   const email = localStorage.getItem("email");
+  //   if (name && email) {
+  //     setUser({ name, email });
   //   }
   // }, []);
 
   const handlePasswordChange = () => {
-    if (!password || !newPassword) {
+    if (!oldPassword || !newPassword) {
       alert('Please fill out both fields.');
       return;
     }
-    const data = { password, newPassword };
+    const data = { oldPassword, newPassword };
     console.log('Sending data:', data);
 
     UserChangePasswordService(data)
       .then((res) => {
         console.log(res)
-        setPassword('');
-        setNewPassword('');
-        alert('Password updated successfully!');
+        // setPassword('');
+        // setNewPassword('');
+        toast.success('Password updated successfully!');
       })
       .catch((err) => {
         console.log(err);
-        alert(err.response?.data?.message || 'An error occurred while updating the password.');
+        // alert(err.response?.data?.message || 'An error occurred while updating the password.');
       });
   };
 
 
   return (
     <div className="">
-      <header className="mb-8 h-24">
+      <header className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Manage Account</h1>
         <p className="text-gray-600">Switch between your settings, profile, and password options</p>
       </header>
 
       {/* Tab Navigation */}
-      <div className="mb-6">
+      <div className="mb-6 flex flex-wrap md:justify-start justify-center space-x-4 gap-4">
         <button
           onClick={() => setActiveTab('settings')}
-          className={`mr-4 px-4 py-2 rounded ${activeTab === 'settings' ? ' bg-indigo-600 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2 rounded ${activeTab === 'settings' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
         >
           Settings
         </button>
         <button
           onClick={() => setActiveTab('profile')}
-          className={`mr-4 px-4 py-2 rounded ${activeTab === 'profile' ? ' bg-indigo-600 text-white' : 'bg-gray-200'}`}
+          className={` px-4 py-2 rounded ${activeTab === 'profile' ? ' bg-indigo-600 text-white' : 'bg-gray-200'}`}
         >
           Profile
         </button>
         <button
           onClick={() => setActiveTab('password')}
-          className={`px-4 py-2 rounded ${activeTab === 'password' ? ' bg-indigo-600 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2  rounded ${activeTab === 'password' ? ' bg-indigo-600 text-white' : 'bg-gray-200'}`}
         >
           Change Password
         </button>
@@ -109,7 +109,7 @@ const ProfilePage = () => {
                 <input
                   type="password"
                   id="current-password"
-                  value={password}
+                  value={oldPassword}
                   onChange={(e) => setPassword(e.target.value)}
                   className="border rounded p-2 w-full"
                   placeholder="Enter your current password"

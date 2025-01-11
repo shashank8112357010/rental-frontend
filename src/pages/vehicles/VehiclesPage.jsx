@@ -3,6 +3,7 @@ import { Bike } from 'lucide-react';
 import VehicleCard from './VehicleCard';
 import VehicleFilters from './VehicleFilters';
 import { GetVehicleService } from '../../services/api.service';
+import Faq from '../faqs/Faq';
 
 const VehiclesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -96,6 +97,9 @@ const VehiclesPage = () => {
           ))}
         </div>
       )}
+      <div>
+        <Faq />
+      </div>
     </div>
   );
 };

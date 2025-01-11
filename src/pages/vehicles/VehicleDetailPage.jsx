@@ -4,6 +4,8 @@ import { User } from 'lucide-react';
 import BookingForm from '../../components/BookingForm';
 import { formatCurrency } from '../../utils/format';
 import { GetVehicleByIdService } from '../../services/api.service';
+import { Dialog } from '@mui/material';
+import EnquiryFormPage from '../../components/EnquiryFormPage';
 
 const VehicleDetailPage = () => {
   const { id } = useParams();
@@ -19,6 +21,8 @@ const VehicleDetailPage = () => {
     createdAt: new Date().toISOString()
   });
   const [isLoading, setIsLoading] = useState();
+  const [isEnquiryDialogOpen, setIsEnquiryDialogOpen] = useState(false);
+
 
   if (isLoading) return <div className="animate-pulse">Loading...</div>;
   if (!vehicle) return <div>Vehicle not found</div>;
@@ -41,6 +45,15 @@ const VehicleDetailPage = () => {
 
     })
   }, [id])
+
+  const openEnquiryDialog = () => {
+    setIsEnquiryDialogOpen(true);
+  };
+
+
+  const closeDialog = () => {
+    setIsEnquiryDialogOpen(false);
+  };
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -97,9 +110,25 @@ const VehicleDetailPage = () => {
               itemType="VEHICLE"
               disabled={!vehicle.available}
             />
+
+
+
+            <div className="flex justify-center items-center mt-12">
+              <button
+                onClick={openEnquiryDialog}
+                className="w-full bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+              >
+                Enquiry
+              </button>
+            </div>
           </div>
+
+
         </div>
       </div>
+      <Dialog open={isEnquiryDialogOpen} onClose={closeDialog}>
+        <EnquiryFormPage />
+      </Dialog>
     </div>
   );
 };

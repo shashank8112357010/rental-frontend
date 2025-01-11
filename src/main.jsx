@@ -17,6 +17,9 @@ import About from './components/About/About.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy.jsx'
 import TermsConditions from './components/termconditions/TermsConditions.jsx'
 import TopServices from './components/TopServices/TopServices.jsx'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import Academic from './pages/academic/Academic.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +31,7 @@ const router = createBrowserRouter(
         <Route path="vehicles/:id" element={<VehicleDetailPage />} />
         <Route path="vehicles" element={<VehiclesPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="academic" element={<Academic />} />
         <Route path="about" element={<About />} />
         <Route path="privacy_policy" element={<PrivacyPolicy />} />
         <Route path="term_conditions" element={<TermsConditions />} />
@@ -44,6 +48,19 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>
-      <RouterProvider router={router} />    </ThemeProvider>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={true}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+    </ThemeProvider>
   </StrictMode>
 )

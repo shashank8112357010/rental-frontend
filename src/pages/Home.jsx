@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Building2, Bike } from 'lucide-react';
+import { Building2, Bike, BookOpenIcon } from 'lucide-react';
 import TopServices from '../components/TopServices/TopServices';
+import Blogs from './Blogs/Blogs';
 // import About from '../components/About/About';
 
 
@@ -19,7 +20,7 @@ const Home = () => {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-12">
           <CategoryCard
             title="Properties"
             description="Find the perfect flat or PG accommodation"
@@ -32,6 +33,13 @@ const Home = () => {
             description="Rent bikes and scooters for your daily commute"
             icon={<Bike className="h-8 w-8" />}
             link="/vehicles"
+            image="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000"
+          />
+          <CategoryCard
+            title="Academic"
+            description="Explore a variety of academic courses designed to enhance your knowledge "
+            icon={<BookOpenIcon className="h-8 w-8" />}
+            link="/academic"
             image="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000"
           />
         </div>
@@ -70,7 +78,8 @@ const Home = () => {
           </div>
         </section>
 
-        <TopServices />
+        {/* <TopServices /> */}
+        <Blogs />
         {/* <About /> */}
       </div>
 

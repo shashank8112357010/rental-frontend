@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserRegisterService } from '../../services/api.service';
+import { toast } from 'react-toastify';
 
 const Register = ({ switchToLogin }) => {
     const [formData, setFormData] = useState({ email: '', name: '', phone: '', password: '' });
@@ -24,12 +25,16 @@ const Register = ({ switchToLogin }) => {
         // Validate email format
         if (!/\S+@\S+\.\S+/.test(formData.email)) {
             setLoading(false);
+            toast.success('Invalid email format')
             return;
         }
         setLoading(true)
         await UserRegisterService(formData).then((response) => {
             // console.log(response)
             setLoading(false);
+            toast.success("Signup successful!")
+            localStorage.setItem("name", formData.name);
+            localStorage.setItem("email", formData.email);
             switchToLogin();
         }).catch((err) => {
             setLoading(false);

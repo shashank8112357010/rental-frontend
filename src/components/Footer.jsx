@@ -8,6 +8,7 @@ import {
   FaPinterest,
   FaLinkedin,
   FaTwitter,
+  FaWhatsapp,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import footerlogo from "../assets/logo.png"
@@ -24,7 +25,7 @@ export default function Footer() {
               <Link to="/">
                 <img src={footerlogo} alt="" className="w-32 md:ml-0 ml-16" />
               </Link>
-              <p className="pt-8">&copy; 2025 Company Name | All rights reserved</p>
+              <p className="pt-8">&copy; 2025 Grad Commune | All rights reserved</p>
             </div>
 
             {/* Information Section */}
@@ -65,7 +66,8 @@ export default function Footer() {
               <div className="flex gap-4 mb-4">
                 <FaFacebook className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
                 <FaInstagram className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
-                <FaPinterest className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
+                <FaWhatsapp className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
+
                 <FaLinkedin className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
                 <FaTwitter className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
               </div>

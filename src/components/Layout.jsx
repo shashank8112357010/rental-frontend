@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Home, Building2, Bike, UserCircle, Menu, X } from "lucide-react";
 import Footer from "./Footer";
 import Dialog from "@mui/material/Dialog";
@@ -8,6 +8,7 @@ import logoImg from '../assets/logo.png'
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import { FiLogOut } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 const Layout = () => {
   const location = useLocation();
@@ -19,6 +20,7 @@ const Layout = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [userName, setUserName] = useState('');
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo({
@@ -77,6 +79,8 @@ const Layout = () => {
   const handleLogout = () => {
     setLoggedIn(false);
     localStorage.removeItem('name');
+    toast.success("Logout successful");
+    navigate("/")
   };
   return (
     <div className="bg-gray-50 mx-auto">
@@ -113,7 +117,7 @@ const Layout = () => {
                   to="/vehicles"
                   onClick={() => handleNavClick("/vehicles")}
                   className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-all ${activeLink === "/vehicles"
-                    ? "text-indigo-600 border-b-2 border-indigo-600" // Active state
+                    ? "text-indigo-600 border-b-2 border-indigo-600"
                     : "text-gray-500 hover:text-indigo-600 hover:border-b-2 hover:border-indigo-600" // Hover state
                     }`}
                 >

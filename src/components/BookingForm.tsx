@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { Calendar } from 'lucide-react';
-
+import React, { useState } from "react";
+import { Calendar } from "lucide-react";
 
 const BookingForm = ({ itemId, itemType, disabled }) => {
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
- const [isLoading , setIsLoading] = useState();
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [isLoading, setIsLoading] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +27,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          min={new Date().toISOString().split('T')[0]}
+          min={new Date().toISOString().split("T")[0]}
           className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           required
         />
@@ -53,7 +52,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
         className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
       >
         <Calendar className="h-5 w-5 mr-2" />
-        {isLoading ? 'Booking...' : 'Book Appointment'}
+        {isLoading ? "Booking..." : "Book Appointment"}
       </button>
 
       {disabled && (
@@ -61,6 +60,8 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
           This item is currently not available for booking
         </p>
       )}
+
+     
     </form>
   );
 };

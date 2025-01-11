@@ -3,6 +3,7 @@ import { Building2, MapPin, IndianRupee } from 'lucide-react';
 import PropertyCard from './PropertyCard';
 import PropertyFilters from './PropertyFilters';
 import { GetPropertyService } from '../../services/api.service';
+import Faq from '../faqs/Faq';
 
 
 const PropertiesPage = () => {
@@ -85,7 +86,12 @@ const PropertiesPage = () => {
           ))}
         </div>
       )}
+      <div>
+        <Faq />
+      </div>
     </div>
+
+
   );
 }
 

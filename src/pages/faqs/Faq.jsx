@@ -31,9 +31,9 @@ export default function Faq() {
     };
 
     return (
-        <div className=" mt-12 "> {/* Changed max width here */}
+        <div className=" mt-12 ">
             <h1 className="text-4xl font-bold mb-12 text-center text-black">Frequently Asked Questions</h1>
-            <div className="bg-white shadow-md rounded-lg p-4">
+            <div className=" p-4">
                 {faqs.map((faq, index) => (
                     <div key={index} className="mb-4">
                         <button
@@ -44,7 +44,7 @@ export default function Faq() {
                             <span className="ml-2">{openIndex === index ? '-' : '+'}</span>
                         </button>
                         {openIndex === index && (
-                            <p className="p-4 text-gray-600 bg-gray-50 rounded-lg">{faq.answer}</p>
+                            <p className="p-4 mt-4 text-gray-600 bg-gray-50 rounded-lg">{faq.answer}</p>
                         )}
                     </div>
                 ))}

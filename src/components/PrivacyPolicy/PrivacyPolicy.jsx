@@ -99,7 +99,12 @@ const PrivacyPolicy = () => {
                 </motion.p>
 
                 {sections.map((section, index) => (
-                    <section key={index}>
+                    <motion.section
+                        key={index}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1 }}
+                    >
                         <motion.h2
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -110,7 +115,7 @@ const PrivacyPolicy = () => {
                         </motion.h2>
 
                         {section.subsections ? section.subsections.map((subsection, subIndex) => (
-                            <div key={subIndex}>
+                            <motion.div key={subIndex}>
                                 <motion.h3
                                     initial={{ opacity: 0, y: -20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -136,7 +141,7 @@ const PrivacyPolicy = () => {
                                         </motion.li>
                                     ))}
                                 </motion.ul>
-                            </div>
+                            </motion.div>
                         )) : null}
 
                         {section.items ? (
@@ -169,7 +174,7 @@ const PrivacyPolicy = () => {
                                 {section.content}
                             </motion.p>
                         )}
-                    </section>
+                    </motion.section>
                 ))}
             </div>
         </div>

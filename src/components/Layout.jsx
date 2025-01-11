@@ -10,6 +10,7 @@ import Register from "./auth/Register";
 import { FiLogOut } from "react-icons/fi";
 import { toast } from "react-toastify";
 import Message from "./Message";
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 const Layout = () => {
   const location = useLocation();
@@ -249,6 +250,9 @@ const Layout = () => {
           />
         )}
       </Dialog>
+      <TawkMessengerReact
+                propertyId="property_id"
+                widgetId="default"/>
 
     </div>
   );

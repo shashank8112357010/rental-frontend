@@ -3,6 +3,7 @@ import { Building2, MapPin, IndianRupee } from 'lucide-react';
 import PropertyCard from './PropertyCard';
 import PropertyFilters from './PropertyFilters';
 import { GetPropertyService } from '../../services/api.service';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const PropertiesPage = () => {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -93,21 +94,36 @@ const PropertiesPage = () => {
 
       <PropertyFilters onFilterChange={handleFilterChange} />
 
-      {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((n) => (
-            <div key={n} className="animate-pulse bg-gray-200 min-h-80 rounded-lg" />
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProperties?.map((property) => (
-            <PropertyCard key={property.id} property={property} />
-          ))}
-        </div>
-      )}
+      <AnimatePresence>
+        {isLoading ? (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {[1, 2, 3].map((n) => (
+              <div key={n} className="animate-pulse bg-gray-200 min-h-80 rounded-lg" />
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {filteredProperties?.map((property) => (
+              <PropertyCard key={property.id} property={property} />
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
+
 
 export default PropertiesPage;

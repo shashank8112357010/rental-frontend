@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Faq() {
     const [openIndex, setOpenIndex] = useState(null);
@@ -9,11 +10,11 @@ export default function Faq() {
             answer: 'We work on your schedule! Typically you’ll receive 2 initial design concepts within a week and then once you choose your favorite designer they will provide revisions based on your feedback and help you source the items (this usually takes one to three weeks). Our process can be expedited or extended based on your needs.',
         },
         {
-            question: 'Do you Offer in-home services ?',
+            question: 'Do you Offer in-home services?',
             answer: 'Yes! In most major U.S. cities we offer in-person assistance from home visits to shopping trips. You can start with a one hour initial consultation. Sign-up here to book your in-home consultation today!',
         },
         {
-            question: 'What happens once I select the winning design ?',
+            question: 'What happens once I select the winning design?',
             answer: 'Once you choose your designer you’ll be in constant communication with them, and you may even tell them if you really liked something from another proposal. Your chosen designer will refine the design based on your feedback when completing the realistic 3D model & shopping list that’s included in your package.',
         },
         {
@@ -31,9 +32,9 @@ export default function Faq() {
     };
 
     return (
-        <div className=" mt-12 ">
+        <div className="mt-12">
             <h1 className="text-4xl font-bold mb-12 text-center text-black">Frequently Asked Questions</h1>
-            <div className=" p-4">
+            <div className="p-4">
                 {faqs.map((faq, index) => (
                     <div key={index} className="mb-4">
                         <button
@@ -43,9 +44,20 @@ export default function Faq() {
                             {faq.question}
                             <span className="ml-2">{openIndex === index ? '-' : '+'}</span>
                         </button>
-                        {openIndex === index && (
-                            <p className="p-4 mt-4 text-gray-600 bg-gray-50 rounded-lg">{faq.answer}</p>
-                        )}
+                        <AnimatePresence>
+                            {openIndex === index && (
+                                <motion.div
+                                    key="content"
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="overflow-hidden"
+                                >
+                                    <p className="p-4 mt-4 text-gray-600 bg-gray-50 rounded-lg">{faq.answer}</p>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 ))}
             </div>

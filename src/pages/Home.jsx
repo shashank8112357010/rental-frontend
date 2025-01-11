@@ -1,26 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Building2, Bike, BookOpenIcon } from 'lucide-react';
-import TopServices from '../components/TopServices/TopServices';
-import Blogs from './Blogs/Blogs';
-// import About from '../components/About/About';
-
-
+import { motion } from 'framer-motion';
 
 const Home = () => {
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <>
-      <div className="space-y-8 px-4 md:px-8 lg:px-16">
-        <header className="text-center">
+      <motion.div
+        className="space-y-8 px-4 md:px-8 lg:px-16"
+        initial="hidden"
+        animate="visible"
+        transition={{ staggerChildren: 0.2 }}
+      >
+        <motion.header
+          className="text-center"
+          variants={fadeInUp}
+          transition={{ duration: 0.5 }}
+        >
           <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Find Your Perfect Space or Ride
           </h1>
-          <p className="text-md sm:text-xl  text-gray-600 max-w-2xl mx-auto">
+          <p className="text-md sm:text-xl text-gray-600 max-w-2xl mx-auto">
             Browse through our selection of quality accommodations and vehicles for rent
           </p>
-        </header>
+        </motion.header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-12">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ staggerChildren: 0.2 }}
+        >
           <CategoryCard
             title="Properties"
             description="Find the perfect flat or PG accommodation"
@@ -42,13 +58,23 @@ const Home = () => {
             link="/academic"
             image="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000"
           />
-        </div>
+        </motion.div>
 
-        <section className="mt-16">
+        <motion.section
+          className="mt-16"
+          variants={fadeInUp}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 text-center">
             How It Works
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ staggerChildren: 0.2 }}
+          >
             {[
               {
                 title: 'Browse Listings',
@@ -63,53 +89,56 @@ const Home = () => {
                 description: 'Complete the booking process with our verified owners',
               },
             ].map((step, index) => (
-              <div
+              <motion.div
                 key={index}
                 className="bg-white p-6 rounded-lg shadow-sm"
+                variants={fadeInUp}
+                transition={{ duration: 0.5 }}
               >
                 <div className="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center mb-4">
                   {index + 1}
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
                 <p className="text-gray-600">{step.description}</p>
-              </div>
+              </motion.div>
             ))}
-
-          </div>
-        </section>
-
-        {/* <TopServices /> */}
-        {/* <Blogs /> */}
-        {/* <About /> */}
-      </div>
-
+          </motion.div>
+        </motion.section>
+      </motion.div>
     </>
-
   );
 };
 
 const CategoryCard = ({ title, description, icon, link, image }) => {
   return (
-    <Link
-      to={link}
+    <motion.div
       className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: 0.5 }}
     >
-      <div className="absolute inset-0">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/20" />
-      </div>
-      <div className="relative p-6 sm:p-8 text-white">
-        <div className="flex items-center mb-4">
-          <div className="p-2 bg-white/10 rounded-lg backdrop-blur-sm">{icon}</div>
+      <Link to={link}>
+        <div className="absolute inset-0">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/20" />
         </div>
-        <h3 className="text-xl sm:text-2xl font-bold mb-2">{title}</h3>
-        <p className="text-white/90">{description}</p>
-      </div>
-    </Link>
+        <div className="relative p-6 sm:p-8 text-white">
+          <div className="flex items-center mb-4">
+            <div className="p-2 bg-white/10 rounded-lg backdrop-blur-sm">{icon}</div>
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold mb-2">{title}</h3>
+          <p className="text-white/90">{description}</p>
+        </div>
+      </Link>
+    </motion.div>
   );
 };
 

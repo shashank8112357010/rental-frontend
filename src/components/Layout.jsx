@@ -9,7 +9,6 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import { FiLogOut } from "react-icons/fi";
 import { toast } from "react-toastify";
-import Message from "./Message";
 import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 const Layout = () => {
@@ -237,8 +236,6 @@ const Layout = () => {
       <main className="p-4 sm:p-24">
         <Outlet />
       </main>
-      {/* tawk to  */}
-      <Message />
       <Footer />
       <Dialog open={isLoginDialogOpen} onClose={closeDialog}>
         {isRegisterMode ? (
@@ -251,8 +248,8 @@ const Layout = () => {
         )}
       </Dialog>
       <TawkMessengerReact
-                propertyId="property_id"
-                widgetId="default"/>
+        propertyId="property_id"
+        widgetId="default" />
 
     </div>
   );

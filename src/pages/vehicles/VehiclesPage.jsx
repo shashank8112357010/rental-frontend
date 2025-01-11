@@ -4,6 +4,7 @@ import VehicleCard from './VehicleCard';
 import VehicleFilters from './VehicleFilters';
 import { GetVehicleService } from '../../services/api.service';
 import Faq from '../faqs/Faq';
+import { motion } from 'framer-motion';
 
 const VehiclesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -78,25 +79,57 @@ const VehiclesPage = () => {
   return (
     <div>
       <header className="mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Available Vehicles</h1>
-        <p className="text-sm md:text-base text-gray-600">Rent bikes and scooters for your daily commute</p>
+        <motion.h1
+          className="text-2xl md:text-3xl font-bold text-gray-900 mb-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Available Vehicles
+        </motion.h1>
+        <motion.p
+          className="text-sm md:text-base text-gray-600"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          Rent bikes and scooters for your daily commute
+        </motion.p>
       </header>
 
-      <VehicleFilters filters={filters} onFilterChange={handleFilterChange} />
+      <motion.div
+        className="mb-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        <VehicleFilters filters={filters} onFilterChange={handleFilterChange} />
+      </motion.div>
 
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           {[1, 2, 3].map((n) => (
             <div key={n} className="animate-pulse bg-gray-200 min-h-80 rounded-lg" />
           ))}
-        </div>
+        </motion.div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           {filteredVehicles?.map((vehicle) => (
             <VehicleCard key={vehicle.id} vehicle={vehicle} />
           ))}
-        </div>
+        </motion.div>
       )}
+
       <div>
         <Faq />
       </div>

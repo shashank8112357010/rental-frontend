@@ -2,46 +2,46 @@ import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import { Select, Option } from '@material-tailwind/react';
 
-const PropertyFilters = ({ onFilterChange }) => {
-  const [type, setType] = useState('');
-  const [price, setPrice] = useState('');
-  const [location, setLocation] = useState('');
-  const [priceRange, setPriceRange] = useState(500);
+const PropertyFilters = ({ filters, onFilterChange, filterOptions }) => {
 
-  const handleFilterChange = () => {
-    onFilterChange({ type, price, location, priceRange });
+  const handleFilterChange = (name, value) => {
+    onFilterChange({ ...filters, [name]: value });
   };
 
   const handleRangeChange = (e) => {
-    setPriceRange(e.target.value);
+    const { value } = e.target;
+    onFilterChange({ ...filters, priceRange: value });
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+    <div className="bg-white p-6 rounded-xl shadow-lg mb-8 max-w-screen-xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
         {/* Type Filter */}
-        <div>
+        <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Type</label>
           <Select
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
+            name="type"
+            value={filters.type}
+            onChange={(value) => handleFilterChange('type', value)}
+            className="w-full p-3 text-black border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200"
           >
             <Option value="">All Types</Option>
-            <Option value="1BHK">1BHK</Option>
-            <Option value="2BHK">2BHK</Option>
-            <Option value="3BHK">3BHK</Option>
-            <Option value="PG">PG</Option>
+            {filterOptions.types.map((type, index) => (
+              <Option key={index} value={type}>
+                {type}
+              </Option>
+            ))}
           </Select>
         </div>
 
         {/* Price Range Dropdown */}
-        <div>
+        <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Price Range</label>
           <Select
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            name="priceRange"
+            value={filters.priceRange}
+            onChange={(value) => handleFilterChange('priceRange', value)}
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200"
           >
             <Option value="">Any Price</Option>
             <Option value="0-500">High To Low</Option>
@@ -50,10 +50,10 @@ const PropertyFilters = ({ onFilterChange }) => {
         </div>
 
         {/* Price Range Slider */}
-        <div>
+        <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Price Range</label>
           <div className="flex justify-between items-center">
-            <span className="font-medium text-gray-600">₹{priceRange} - ₹100000</span>
+            <span className="font-medium text-gray-600">₹500 - ₹100000</span>
           </div>
           <input
             type="range"
@@ -61,37 +61,40 @@ const PropertyFilters = ({ onFilterChange }) => {
             min="500"
             max="100000"
             step="100"
-            value={priceRange}
+            value={filters.priceRange || 500}
             onChange={handleRangeChange}
             className="w-full h-2 bg-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
           />
         </div>
 
         {/* Location Filter */}
-        <div>
+        <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Location</label>
           <Select
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            name="location"
+            value={filters.location}
+            onChange={(value) => handleFilterChange('location', value)}
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200"
           >
-            <Option value="">Select Location</Option>
-            <Option value="Koramangala, Pune">Koramangala, Pune</Option>
-            <Option value="Indiranagar, Pune">Indiranagar, Pune</Option>
-            <Option value="Whitefield, Pune">Whitefield, Pune</Option>
+            <Option value="">All Locations</Option>
+            {filterOptions.locations.map((location, index) => (
+              <Option key={index} value={location}>
+                {location}
+              </Option>
+            ))}
           </Select>
         </div>
 
         {/* Search Button */}
-        <div className="flex items-end">
+        {/* <div className="flex items-end col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5">
           <button
-            className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors flex items-center justify-center"
-            onClick={handleFilterChange}
+            className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 transition duration-200 flex items-center justify-center"
+            onClick={() => onFilterChange(filters)}
           >
-            <Search className="h-4 w-4 mr-2" />
-            Search
+            <Search className="h-5 w-5 mr-2" />
+            <span className="font-medium">Search</span>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

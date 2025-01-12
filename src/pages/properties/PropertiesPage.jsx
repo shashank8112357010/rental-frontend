@@ -11,6 +11,7 @@ const PropertiesPage = () => {
   const [isLoading, setisLoading] = useState(true);
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
+  const [filterOptions, setFilterOptions] = useState({ types: [], locations: [] });
 
   // Filter states
   const [filters, setFilters] = useState({
@@ -21,7 +22,6 @@ const PropertiesPage = () => {
 
   const fetchPropertiesData = async () => {
     await GetPropertyService().then((res) => {
-
       const modified = res.data.map((property) => {
         return {
           id: property._id,
@@ -37,6 +37,11 @@ const PropertiesPage = () => {
         }
       })
       setProperties(modified)
+      setFilteredProperties(modified)
+      const types = [...new Set(modified.map((v) => v.type))];
+      const locations = [...new Set(modified.map((v) => v.location))];
+      setFilterOptions({ types, locations });
+      setisLoading(false)
     }).catch((err) => {
       setisLoading(false)
       console.log("err", err);
@@ -49,6 +54,13 @@ const PropertiesPage = () => {
       setisLoading(false)
     }, 2000)
   }, [])
+
+
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+    applyFilters(newFilters);
+  };
 
   // Apply filters to the properties
   const applyFilters = (filters) => {
@@ -77,13 +89,11 @@ const PropertiesPage = () => {
     setFilteredProperties(filteredData);
   };
 
-  // Handle filter change
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters);
-    applyFilters(newFilters);
-  };
 
 
+  useEffect(() => {
+    console.log('Filters in VehicleFilters:', filters);
+  }, [filters]);
 
   return (
     <div className=''>
@@ -92,7 +102,11 @@ const PropertiesPage = () => {
         <p className="text-sm md:text-base text-gray-600">Find your perfect accommodation</p>
       </header>
 
-      <PropertyFilters filters={filters} onFilterChange={handleFilterChange} />
+      <PropertyFilters
+        filters={filters}
+        onFilterChange={handleFilterChange}
+        filterOptions={filterOptions}
+      />
 
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -102,7 +116,7 @@ const PropertiesPage = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {properties?.map((property) => (
+          {filteredProperties?.map((property) => (
             <PropertyCard key={property.id} property={property} />
           ))}
 

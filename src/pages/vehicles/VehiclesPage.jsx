@@ -10,6 +10,8 @@ const VehiclesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [vehicles, setVehicles] = useState([]);
   const [filteredVehicles, setFilteredVehicles] = useState([]);
+  const [filterOptions, setFilterOptions] = useState({ types: [], locations: [] });
+
 
   // Filter states
   const [filters, setFilters] = useState({
@@ -20,6 +22,7 @@ const VehiclesPage = () => {
 
   const fetchVehicleData = async () => {
     await GetVehicleService().then((res) => {
+      console.log(res)
       const modified = res.data.map((vehicle) => ({
         id: vehicle._id,
         type: vehicle.type,
@@ -34,6 +37,9 @@ const VehiclesPage = () => {
 
       setVehicles(modified);
       setFilteredVehicles(modified);
+      const types = [...new Set(modified.map((v) => v.type))];
+      const locations = [...new Set(modified.map((v) => v.location))];
+      setFilterOptions({ types, locations });
       setIsLoading(false);
     }).catch((err) => {
       setIsLoading(false);
@@ -45,13 +51,13 @@ const VehiclesPage = () => {
     fetchVehicleData();
   }, []);
 
-  // Function to handle filter change
+
+
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
     applyFilters(newFilters);
   };
 
-  // Apply filters to the vehicles
   const applyFilters = (filters) => {
     let filteredData = [...vehicles];
 
@@ -70,11 +76,17 @@ const VehiclesPage = () => {
     }
 
     if (filters.location) {
-      filteredData = filteredData.filter((vehicle) => vehicle.location.toLowerCase().includes(filters.location.toLowerCase()));
+      filteredData = filteredData.filter((vehicle) =>
+        vehicle.location?.toLowerCase().includes(filters.location.toLowerCase())
+      );
     }
 
     setFilteredVehicles(filteredData);
   };
+
+  useEffect(() => {
+    console.log('Filters in VehicleFilters:', filters);
+  }, [filters]);
 
   return (
     <div>
@@ -103,7 +115,12 @@ const VehiclesPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        <VehicleFilters filters={filters} onFilterChange={handleFilterChange} />
+        <VehicleFilters
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          filterOptions={filterOptions}
+        />
+
       </motion.div>
 
       {isLoading ? (

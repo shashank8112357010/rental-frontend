@@ -52,8 +52,9 @@ const PropertyFilters = ({ filters, onFilterChange, filterOptions }) => {
         {/* Price Range Slider */}
         <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Price Range</label>
-          <div className="flex justify-between items-center">
-            <span className="font-medium text-gray-600">₹500 - ₹100000</span>
+          <div className="flex justify-between items-center text-sm font-medium text-gray-600">
+            <span>₹{filters.priceRange || 500}</span>
+            <span>₹100000</span>
           </div>
           <input
             type="range"

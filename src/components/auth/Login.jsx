@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserLoginService } from '../../services/api.service';
 import { setToken } from '../../helper/tokenHelper';
 import { toast } from 'react-toastify';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 const Login = ({ switchToRegister, closeDialog }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -57,7 +59,7 @@ const Login = ({ switchToRegister, closeDialog }) => {
                                 name="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
                                 placeholder="Enter your email"
                             />
                         </div>
@@ -69,7 +71,7 @@ const Login = ({ switchToRegister, closeDialog }) => {
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
                                     placeholder="Enter your password"
                                 />
                                 <button
@@ -77,16 +79,20 @@ const Login = ({ switchToRegister, closeDialog }) => {
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                                 >
-                                    {showPassword ? 'Hide' : 'Show'}
+                                    {showPassword ? <FiEye size={20} /> : <FiEyeOff size={20} />}
                                 </button>
                             </div>
                         </div>
 
                         <button
                             type="submit"
-                            className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition duration-200"
+                            className={`w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-500 transition duration-200 flex justify-center items-center`}
+                            disabled={loading}
                         >
-                            Sign In
+                            {loading ? (
+                                <AiOutlineLoading className="animate-spin mr-2" size={20} />
+                            ) : null}
+                            {loading ? 'Signing In...' : 'Sign In'}
                         </button>
                     </form>
 

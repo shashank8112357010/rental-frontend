@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { UserChangePasswordService } from '../../services/api.service';
 import { toast } from 'react-toastify';
+import { Eye, EyeOff } from 'lucide-react';
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
@@ -18,6 +19,8 @@ const ProfilePage = () => {
 
   const [oldPassword, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   const [activeTab, setActiveTab] = useState('settings');
   // const [loading, setLoading] = useState(false);
 
@@ -102,35 +105,49 @@ const ProfilePage = () => {
           {activeTab === 'password' && (
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4">Change Password</h2>
-              <div className="mb-4">
+              <div className="mb-4 relative">
                 <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="current-password">
                   Current Password
                 </label>
                 <input
-                  type="password"
+                  type={showOldPassword ? 'text' : 'password'}
                   id="current-password"
                   value={oldPassword}
                   onChange={(e) => setPassword(e.target.value)}
                   className="border rounded p-2 w-full"
                   placeholder="Enter your current password"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowOldPassword(!showOldPassword)}
+                  className="absolute top-8  right-3 flex items-center text-gray-500"
+                >
+                  {showOldPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+                </button>
               </div>
-              <div className="mb-4">
+              <div className="mb-4 relative">
                 <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="new-password">
                   New Password
                 </label>
                 <input
-                  type="password"
+                  type={showNewPassword ? 'text' : 'password'}
                   id="new-password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   className="border rounded p-2 w-full"
                   placeholder="Enter your new password"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  className="absolute top-8 right-3 flex items-center text-gray-500"
+                >
+                  {showNewPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+                </button>
               </div>
               <button
                 onClick={handlePasswordChange}
-                className=" bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-200"
+                className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition duration-200"
               >
                 Update Password
               </button>

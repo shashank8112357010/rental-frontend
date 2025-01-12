@@ -1,57 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { Bike } from 'lucide-react';
-import VehicleCard from './VehicleCard';
-import VehicleFilters from './VehicleFilters';
-import { GetVehicleService } from '../../services/api.service';
-import Faq from '../faqs/Faq';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import VehicleCard from "./VehicleCard";
+import VehicleFilters from "./VehicleFilters";
+import { GetVehicleService } from "../../services/api.service";
+import Faq from "../faqs/Faq";
 
 const VehiclesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [vehicles, setVehicles] = useState([]);
   const [filteredVehicles, setFilteredVehicles] = useState([]);
-  const [filterOptions, setFilterOptions] = useState({ types: [], locations: [] });
-
+  const [filterOptions, setFilterOptions] = useState({
+    types: [],
+    locations: [],
+  });
 
   // Filter states
   const [filters, setFilters] = useState({
-    type: '',
-    priceRange: '',
-    location: '',
+    type: [],
+    priceRange: [0, 1000],  // Min and Max price range
+    location: [],
+    sortOrder: ""  // Sort order: 'highToLow', 'lowToHigh', ''
   });
 
   const fetchVehicleData = async () => {
-    await GetVehicleService().then((res) => {
-      console.log(res)
-      const modified = res.data.map((vehicle) => ({
-        id: vehicle._id,
-        type: vehicle.type,
-        model: vehicle.model,
-        description: vehicle.description,
-        pricePerDay: vehicle.pricePerDay,
-        owner: vehicle.owner,
-        image: vehicle.images[0],
-        available: vehicle.available,
-        createdAt: new Date().toISOString(),
-      }));
+    await GetVehicleService()
+      .then((res) => {
+        const modified = res.data.map((vehicle) => ({
+          id: vehicle._id,
+          type: vehicle.type,
+          model: vehicle.model,
+          description: vehicle.description,
+          pricePerDay: vehicle.pricePerDay,
+          owner: vehicle.owner,
+          image: vehicle.images[0],
+          available: vehicle.available,
+          location: vehicle.location,
+          createdAt: new Date().toISOString(),
+        }));
 
-      setVehicles(modified);
-      setFilteredVehicles(modified);
-      const types = [...new Set(modified.map((v) => v.type))];
-      const locations = [...new Set(modified.map((v) => v.location))];
-      setFilterOptions({ types, locations });
-      setIsLoading(false);
-    }).catch((err) => {
-      setIsLoading(false);
-      console.log("err", err);
-    });
+        setVehicles(modified);
+        setFilteredVehicles(modified);
+        const types = [...new Set(modified.map((v) => v.type))];
+        const locations = [...new Set(modified.map((v) => v.location))];
+        setFilterOptions({ types, locations });
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log("err", err);
+      });
   };
 
   useEffect(() => {
     fetchVehicleData();
   }, []);
-
-
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
@@ -61,32 +63,36 @@ const VehiclesPage = () => {
   const applyFilters = (filters) => {
     let filteredData = [...vehicles];
 
-    if (filters.type) {
-      filteredData = filteredData.filter((vehicle) => vehicle.type === filters.type);
-    }
-
-    if (filters.priceRange) {
-      const [minPrice, maxPrice] = filters.priceRange.split('-').map(Number);
-      filteredData = filteredData.filter((vehicle) => {
-        if (maxPrice) {
-          return vehicle.pricePerDay >= minPrice && vehicle.pricePerDay <= maxPrice;
-        }
-        return vehicle.pricePerDay >= minPrice;
-      });
-    }
-
-    if (filters.location) {
+    // Apply type filter
+    if (filters.type.length) {
       filteredData = filteredData.filter((vehicle) =>
-        vehicle.location?.toLowerCase().includes(filters.location.toLowerCase())
+        filters.type.includes(vehicle.type)
       );
+    }
+
+    // Apply location filter
+    if (filters.location.length) {
+      filteredData = filteredData.filter((vehicle) =>
+        filters.location.some((loc) => vehicle.location?.toLowerCase().includes(loc.toLowerCase()))
+      );
+    }
+
+    // Apply price range filter
+    const [minPrice, maxPrice] = filters.priceRange || [0, 1000]; // Default range
+    filteredData = filteredData.filter((vehicle) =>
+      vehicle.pricePerDay >= minPrice && vehicle.pricePerDay <= maxPrice
+    );
+
+
+    // Apply sorting (high to low)
+    if (filters.sortOrder === "highToLow") {
+      filteredData = filteredData.sort((a, b) => b.pricePerDay - a.pricePerDay);
+    } else if (filters.sortOrder === "lowToHigh") {
+      filteredData = filteredData.sort((a, b) => a.pricePerDay - b.pricePerDay);
     }
 
     setFilteredVehicles(filteredData);
   };
-
-  useEffect(() => {
-    console.log('Filters in VehicleFilters:', filters);
-  }, [filters]);
 
   return (
     <div>
@@ -120,7 +126,6 @@ const VehiclesPage = () => {
           onFilterChange={handleFilterChange}
           filterOptions={filterOptions}
         />
-
       </motion.div>
 
       {isLoading ? (

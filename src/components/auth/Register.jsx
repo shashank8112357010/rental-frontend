@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserRegisterService } from '../../services/api.service';
 import { toast } from 'react-toastify';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { AiOutlineLoading } from 'react-icons/ai';
+
 
 const Register = ({ switchToLogin }) => {
     const [formData, setFormData] = useState({ email: '', name: '', phone: '', password: '' });
@@ -56,8 +59,8 @@ const Register = ({ switchToLogin }) => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-                            placeholder="Enter your name"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                            placeholder="Name"
                         />
                     </div>
 
@@ -68,8 +71,8 @@ const Register = ({ switchToLogin }) => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-                            placeholder="Enter your email"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                            placeholder=" your Email"
                         />
                     </div>
 
@@ -80,8 +83,8 @@ const Register = ({ switchToLogin }) => {
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-                            placeholder="Enter your phone number"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                            placeholder="Your phone number"
                         />
                     </div>
 
@@ -93,24 +96,28 @@ const Register = ({ switchToLogin }) => {
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-                                placeholder="Enter your password"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                                placeholder="Your password"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                             >
-                                {showPassword ? 'Hide' : 'Show'}
+                                {showPassword ? <FiEye size={20} /> : <FiEyeOff size={20} />}
                             </button>
                         </div>
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition duration-200"
+                        className={`w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-500 transition duration-200 flex justify-center items-center`}
+                        disabled={loading}
                     >
-                        Sign Up
+                        {loading ? (
+                            <AiOutlineLoading className="animate-spin mr-2" size={20} />
+                        ) : null}
+                        {loading ? 'Signing Up...' : 'Sign Up'}
                     </button>
                 </form>
 

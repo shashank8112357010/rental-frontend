@@ -4,7 +4,7 @@ import PropertyCard from './PropertyCard';
 import PropertyFilters from './PropertyFilters';
 import { GetPropertyService } from '../../services/api.service';
 import Faq from '../faqs/Faq';
-
+import Properties from '../../assets/Properties.png'
 
 const PropertiesPage = () => {
   //   const { data: properties, isLoading } = useProperties();
@@ -13,15 +13,17 @@ const PropertiesPage = () => {
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [filterOptions, setFilterOptions] = useState({ types: [], locations: [] });
 
-  // Filter states
+
   const [filters, setFilters] = useState({
     type: '',
-    priceRange: '',
+    priceRange: [500, 100000],
     location: '',
+    sortOrder: '',
   });
 
   const fetchPropertiesData = async () => {
     await GetPropertyService().then((res) => {
+      console.log(res)
       const modified = res.data.map((property) => {
         return {
           id: property._id,
@@ -38,9 +40,6 @@ const PropertiesPage = () => {
       })
       setProperties(modified)
       setFilteredProperties(modified)
-      const types = [...new Set(modified.map((v) => v.type))];
-      const locations = [...new Set(modified.map((v) => v.location))];
-      setFilterOptions({ types, locations });
       setisLoading(false)
     }).catch((err) => {
       setisLoading(false)
@@ -56,79 +55,74 @@ const PropertiesPage = () => {
   }, [])
 
 
+  const applyFilters = (filters) => {
+    let filteredData = [...properties];
+
+    if (filters.type) {
+      filteredData = filteredData.filter((property) =>
+        property.type?.replace(/\s+/g, '') === filters.type?.replace(/\s+/g, '')
+      );
+    }
+
+    if (filters.location) {
+      filteredData = filteredData.filter((property) =>
+        property.location?.toLowerCase().includes(filters.location.toLowerCase())
+      );
+    }
+
+    const [minPrice, maxPrice] = filters.priceRange;
+    filteredData = filteredData.filter(
+      (property) => property.price >= minPrice && property.price <= maxPrice
+    );
+
+    if (filters.sortOrder === 'highToLow') {
+      filteredData.sort((a, b) => b.price - a.price);
+    } else if (filters.sortOrder === 'lowToHigh') {
+      filteredData.sort((a, b) => a.price - b.price);
+    }
+
+    setFilteredProperties(filteredData);
+  };
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
     applyFilters(newFilters);
   };
 
-  // Apply filters to the properties
-  const applyFilters = (filters) => {
-    let filteredData = [...properties];
-
-    if (filters.type) {
-      filteredData = filteredData.filter((property) => property.type === filters.type);
-    }
-
-    if (filters.priceRange) {
-      const [minPrice, maxPrice] = filters.priceRange.split('-').map(Number);
-      filteredData = filteredData.filter((property) => {
-        if (maxPrice) {
-          return property.price >= minPrice && property.price <= maxPrice;
-        }
-        return property.price >= minPrice;
-      });
-    }
-
-    if (filters.location) {
-      filteredData = filteredData.filter((property) =>
-        property.location.toLowerCase().includes(filters.location.toLowerCase())
-      );
-    }
-
-    setFilteredProperties(filteredData);
-  };
-
-
-
-  useEffect(() => {
-    console.log('Filters in VehicleFilters:', filters);
-  }, [filters]);
-
   return (
-    <div className=''>
+    <div>
       <header className="mb-8">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Available Properties</h1>
         <p className="text-sm md:text-base text-gray-600">Find your perfect accommodation</p>
       </header>
 
-      <PropertyFilters
-        filters={filters}
-        onFilterChange={handleFilterChange}
-        filterOptions={filterOptions}
-      />
+      <PropertyFilters filters={filters} onFilterChange={handleFilterChange} />
 
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="animate-pulse bg-gray-200 min-h-80  rounded-lg" />
+            <div key={n} className="animate-pulse bg-gray-200 h-80 rounded-lg" />
           ))}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProperties?.map((property) => (
-            <PropertyCard key={property.id} property={property} />
-          ))}
-
+          {filteredProperties.length > 0 ? (
+            filteredProperties.map((property) => (
+              <PropertyCard key={property.id} property={property} />
+            ))
+          ) : (
+            <div className="flex justify-center items-center w-full">
+              <img src={Properties} alt="No Properties" className="w-full" />
+            </div>
+          )}
         </div>
       )}
-      <div>
+
+      <div className="mt-8">
         <Faq />
       </div>
     </div>
-
-
   );
-}
+};
 
 export default PropertiesPage;

@@ -4,6 +4,7 @@ import VehicleCard from "./VehicleCard";
 import VehicleFilters from "./VehicleFilters";
 import { GetVehicleService } from "../../services/api.service";
 import Faq from "../faqs/Faq";
+import Vehicles from '../../assets/Vehicles.png'
 
 const VehiclesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -146,10 +147,17 @@ const VehiclesPage = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          {filteredVehicles?.map((vehicle) => (
-            <VehicleCard key={vehicle.id} vehicle={vehicle} />
-          ))}
+          {filteredVehicles?.length > 0 ? (
+            filteredVehicles.map((vehicle) => (
+              <VehicleCard key={vehicle.id} vehicle={vehicle} />
+            ))
+          ) : (
+            <div className='flex justify-center items-center w-full'>
+              <img src={Vehicles} alt="Properties" className='w-full justify-center flex items-center' />
+            </div>
+          )}
         </motion.div>
+
       )}
 
       <div>

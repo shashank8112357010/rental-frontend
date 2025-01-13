@@ -23,7 +23,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg mb-8 max-w-screen-xl mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
         {/* Type Filter */}
         <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Type</label>
@@ -44,7 +44,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
 
         {/* Sort Order Dropdown */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Sort By</label>
+          <label className="text-sm font-semibold text-gray-700">Sort By </label>
           <Select
             value={filters.sortOrder}
             onChange={(value) => handleFilterChange("sortOrder", value)}
@@ -76,7 +76,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
         </div>
 
         {/* Location Filter */}
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Location</label>
           <Select
             name="location"
@@ -91,7 +91,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
               </Option>
             ))}
           </Select>
-        </div>
+        </div> */}
       </div>
     </div>
   );

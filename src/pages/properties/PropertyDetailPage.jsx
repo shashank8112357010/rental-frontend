@@ -10,48 +10,36 @@ import { motion } from 'framer-motion';
 
 const PropertiesPage = () => {
   const { id } = useParams();
-  const [vehicle, setVehicle] = useState({
-    id,
-    type: 'BIKE',
-    title: 'Royal Enfield Classic 350',
-    description: 'Well-maintained bike for daily commute',
-    price: 800,
-    location: 'Indiranagar, Bangalore',
-    image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000',
-    available: true,
-    createdAt: new Date().toISOString()
-  });
-
-  const [isLoading, setIsLoading] = useState();
+  const [properties, setProperties] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const [isEnquiryDialogOpen, setIsEnquiryDialogOpen] = useState(false);
 
-
-  if (isLoading) return <div className="animate-pulse">Loading...</div>;
-  if (!vehicle) return <div>Vehicle not found</div>;
-
-
   useEffect(() => {
-    GetPropertyByIdService(id).then(({ data }) => {
-      setVehicle({
-        id: data._id,
-        type: data.type,
-        title: data.title,
-        locationLink: data.locationLink,
-        description: data.description,
-        price: data.price,
-        location: data.location,
-        occupancy: data.occupancy,
-        pgCategory: data.pgCategory,
-        owner: data.owner,
-        amenities: data.amenities,
-        image: data.images[0],
-        available: data.available,
-        createdAt: new Date().toISOString()
+    GetPropertyByIdService(id)
+      .then(({ data }) => {
+        setProperties({
+          id: data._id,
+          type: data.type,
+          title: data.title,
+          locationLink: data.locationLink,
+          description: data.description,
+          price: data.price,
+          location: data.location,
+          occupancy: data.occupancy,
+          pgCategory: data.pgCategory,
+          owner: data.owner,
+          amenities: data.amenities,
+          image: data.images[0],
+          available: data.available,
+          createdAt: new Date().toISOString(),
+        });
+        setIsLoading(false);
       })
-    }).catch((err) => {
-
-    })
-  }, [id])
+      .catch((err) => {
+        console.error('Error fetching property:', err);
+        setIsLoading(false);
+      });
+  }, [id]);
 
   const openEnquiryDialog = () => {
     setIsEnquiryDialogOpen(true);
@@ -60,6 +48,9 @@ const PropertiesPage = () => {
   const closeDialog = () => {
     setIsEnquiryDialogOpen(false);
   };
+
+  if (isLoading) return <div className="animate-pulse">Loading...</div>;
+  if (!properties.id) return <div>Property not found</div>;
 
   return (
     <motion.div
@@ -72,48 +63,34 @@ const PropertiesPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <motion.img
-            src={vehicle.image}
-            alt={vehicle.title}
+            src={properties.image}
+            alt={properties.title}
             className="w-full h-96 object-cover rounded-lg"
             initial={{ scale: 0.95 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.3 }}
           />
-
-          <motion.div
-            className="mt-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <h1 className="text-3xl font-bold text-gray-900">{vehicle.title}</h1>
+          <motion.div className="mt-8">
+            <h1 className="text-3xl font-bold text-gray-900">{properties.title}</h1>
             <div className="flex items-center mt-2 text-gray-600">
               <User className="h-5 w-5 mr-2" />
-              <span>{vehicle.owner}</span>
+              <span>{properties.owner}</span>
             </div>
-
-            <div className="flex mt-6 text-gray-600 mb-2">
-              <MapPin className="h-4 w-4 mr-1" />
-
-              <span className="text-sm">{vehicle.location}</span>
+            <div className="flex justify-between mt-6 text-gray-600 mb-2">
+              <div>
+                <MapPin className="h-4 w-4 mr-1" />
+                <span className="text-sm">{properties.location}</span>
+              </div>
+              <div>
+                <p>{properties.pgCategory}</p>
+              </div>
             </div>
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-4">Description</h2>
-              <p className="text-gray-600">{vehicle.description}</p>
-            </div>
-
-            <div className="mt-6">
-              <h2 className="text-xl font-semibold mb-4">Features</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center text-gray-600">
-                  <span className="w-2 h-2 bg-indigo-600 rounded-full mr-2" />
-                  {vehicle.type}
-                </div>
-                {/* Add more features */}
-              </div>
+              <p className="text-gray-600">{properties.description}</p>
             </div>
           </motion.div>
-        </div >
+        </div>
 
         <motion.div
           className="lg:col-span-1"
@@ -124,24 +101,22 @@ const PropertiesPage = () => {
           <div className="bg-white rounded-lg shadow-lg p-6 sticky top-6">
             <div className="flex items-center justify-between mb-6">
               <span className="text-2xl font-bold text-gray-900">
-                {formatCurrency(vehicle.price)}
+                {formatCurrency(properties.price)}
                 <span className="text-sm font-normal text-gray-600">/day</span>
               </span>
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${vehicle.available
-                ? 'bg-green-100 text-green-800'
-                : 'bg-red-100 text-red-800'
-                }`}>
-                {vehicle.available ? 'Available' : 'Not Available'}
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${properties.available ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  }`}
+              >
+                {properties.available ? 'Available' : 'Not Available'}
               </span>
             </div>
 
             <BookingForm
-              itemId={vehicle.id}
-              itemType="VEHICLE"
-              disabled={!vehicle.available}
+              itemId={properties.id}
+              itemType="Property"  // Set itemType to "Property"
+              disabled={!properties.available}
             />
-
-
 
             <div className="flex justify-center items-center mt-12">
               <button
@@ -152,16 +127,15 @@ const PropertiesPage = () => {
               </button>
             </div>
           </div>
-
-
         </motion.div>
-      </div >
+      </div>
+
+      {/* Enquiry Dialog */}
       <Dialog open={isEnquiryDialogOpen} onClose={closeDialog}>
-        <EnquiryFormPage />
+        <EnquiryFormPage vehicleId={properties.id} vehicleType="Property" />
       </Dialog>
-    </motion.div >
+    </motion.div>
   );
 };
-
 
 export default PropertiesPage;

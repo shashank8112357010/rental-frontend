@@ -6,19 +6,22 @@ const PropertyFilters = ({ filters, onFilterChange }) => {
 
   const predefinedLocations = ['Koregaon Park', 'Baner', 'Kalyani Nagar'];
 
+
   const handleFilterChange = (name, value) => {
+    // When type filter changes, update the furnish options or pgCategory filters
     onFilterChange({ ...filters, [name]: value });
 
     if (name === 'type') {
-      if (['PG Boys', 'PG Girls'].includes(value)) {
+      if (['1 BHK', '2 BHK', '3 BHK'].includes(value)) {
         setFurnishOptions(['Semi-Furnished', 'Fully-Furnished', 'Unfurnished']);
-      } else if (['1 BHK', '2 BHK', '3 BHK'].includes(value)) {
+      } else if (['PG Boys', 'PG Girls'].includes(value)) {
         setFurnishOptions(['Single Occupancy', 'Double Occupancy', 'Triple Occupancy']);
       } else {
-        setFurnishOptions([]);
+        setFurnishOptions([]); // Clear options for other types
       }
     }
   };
+
 
   const handleRangeChange = (e) => {
     const newPriceRange = [...filters.priceRange];
@@ -28,7 +31,7 @@ const PropertyFilters = ({ filters, onFilterChange }) => {
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg mb-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+      <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-${furnishOptions.length > 0 ? '5' : '4'} gap-6`}>
         {/* Type Filter */}
         <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Type</label>

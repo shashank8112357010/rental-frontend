@@ -23,29 +23,36 @@ const PropertiesPage = () => {
 
   const fetchPropertiesData = async () => {
     await GetPropertyService().then((res) => {
-      console.log(res)
+      console.log(res);
       const modified = res.data.map((property) => {
         return {
           id: property._id,
-          type: property.flatType,
+          type: property.type,
           title: property.title,
           description: property.description,
           price: property.price,
           location: property.location,
+          locationLink: property.locationLink,
           images: property.images,
+          flatType: property.flatType,
           amenities: property.amenities,
           available: property.available,
-          createdAt: property.createdAt
-        }
-      })
-      setProperties(modified)
-      setFilteredProperties(modified)
-      setisLoading(false)
+          occupancy: property.occupancy,
+          owner: property.owner,
+          pgCategory: property.pgCategory,
+          createdAt: property.createdAt,
+          updatedAt: property.updatedAt,
+        };
+      });
+      setProperties(modified);
+      setFilteredProperties(modified);
+      setisLoading(false);
     }).catch((err) => {
-      setisLoading(false)
+      setisLoading(false);
       console.log("err", err);
-    })
-  }
+    });
+  };
+
 
   useEffect(() => {
     fetchPropertiesData()
@@ -59,22 +66,32 @@ const PropertiesPage = () => {
     let filteredData = [...properties];
 
     if (filters.type) {
-      filteredData = filteredData.filter((property) =>
-        property.type?.replace(/\s+/g, '') === filters.type?.replace(/\s+/g, '')
-      );
+      if (['1 BHK', '2 BHK', '3 BHK'].includes(filters.type)) {
+        filteredData = filteredData.filter((property) =>
+          property.flatType === filters.type
+        );
+      } else if (['PG Boys', 'PG Girls'].includes(filters.type)) {
+        // For PG categories (PG Boys, PG Girls)
+        filteredData = filteredData.filter((property) =>
+          property.pgCategory === filters.type
+        );
+      }
     }
 
+    // Filter by location
     if (filters.location) {
       filteredData = filteredData.filter((property) =>
         property.location?.toLowerCase().includes(filters.location.toLowerCase())
       );
     }
 
+    // Filter by price range
     const [minPrice, maxPrice] = filters.priceRange;
     filteredData = filteredData.filter(
       (property) => property.price >= minPrice && property.price <= maxPrice
     );
 
+    // Sort by price
     if (filters.sortOrder === 'highToLow') {
       filteredData.sort((a, b) => b.price - a.price);
     } else if (filters.sortOrder === 'lowToHigh') {

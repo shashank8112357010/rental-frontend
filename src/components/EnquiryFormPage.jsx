@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { UserEnquiryService } from '../services/api.service';
 
-const EnquiryFormPage = () => {
+const EnquiryFormPage = ({ vehicleId, vehicleType }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
-        inquiry: ''
+        // inquiry: ''
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleFormChange = (e) => {
         const { name, value } = e.target;
@@ -15,13 +18,35 @@ const EnquiryFormPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         // Validate form data
-        if (!formData.name || !formData.email || !formData.phone || !formData.inquiry) {
+        if (!formData.name || !formData.email || !formData.phone) {
             alert('All fields are required.');
             return;
         }
 
-        console.log('Enquiry Form Submitted:', formData);
+        setIsSubmitting(true);
+        setErrorMessage('');
+
+        // Prepare data for the API call
+        const enquiryData = {
+            ...formData,
+            serviceId: vehicleId,
+            itemType: vehicleType,
+        };
+
+        // Make API call to submit the enquiry
+        UserEnquiryService(enquiryData)
+            .then((response) => {
+                alert('Enquiry submitted successfully!');
+                console.log('Enquiry Response:', response.data);
+                setIsSubmitting(false);
+            })
+            .catch((error) => {
+                setErrorMessage('An error occurred while submitting the enquiry. Please try again.');
+                console.error('Enquiry Error:', error);
+                setIsSubmitting(false);
+            });
     };
 
     return (
@@ -29,6 +54,9 @@ const EnquiryFormPage = () => {
             <div className="w-full sm:w-[500px] px-4 py-8 bg-white rounded-lg">
                 <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Enquiry Form</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    {errorMessage && (
+                        <div className="text-red-500 text-center mb-4">{errorMessage}</div>
+                    )}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Name</label>
                         <input
@@ -62,7 +90,7 @@ const EnquiryFormPage = () => {
                             required
                         />
                     </div>
-                    <div>
+                    {/* <div>
                         <label className="block text-sm font-medium text-gray-700">Inquiry</label>
                         <textarea
                             name="inquiry"
@@ -71,13 +99,14 @@ const EnquiryFormPage = () => {
                             className="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                             required
                         />
-                    </div>
+                    </div> */}
 
                     <button
                         type="submit"
                         className="w-full bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+                        disabled={isSubmitting}
                     >
-                        Submit Enquiry
+                        {isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
                     </button>
                 </form>
             </div>
@@ -86,4 +115,3 @@ const EnquiryFormPage = () => {
 };
 
 export default EnquiryFormPage;
-

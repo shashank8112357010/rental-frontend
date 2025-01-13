@@ -33,7 +33,7 @@ const Register = ({ switchToLogin }) => {
         }
         setLoading(true)
         await UserRegisterService(formData).then((response) => {
-            // console.log(response)
+            console.log(response)
             setLoading(false);
             toast.success("Signup successful!")
             localStorage.setItem("name", formData.name);

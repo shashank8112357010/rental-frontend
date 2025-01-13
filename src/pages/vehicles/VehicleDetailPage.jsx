@@ -126,10 +126,9 @@ const VehicleDetailPage = () => {
 
             <BookingForm
               itemId={vehicle.id}
-              itemType="VEHICLE"
+              itemType="Vehicle"  // Set itemType to "Vehicle"
               disabled={!vehicle.available}
             />
-
 
 
             <div className="flex justify-center items-center mt-12">
@@ -146,7 +145,7 @@ const VehicleDetailPage = () => {
         </motion.div>
       </div>
       <Dialog open={isEnquiryDialogOpen} onClose={closeDialog}>
-        <EnquiryFormPage />
+        <EnquiryFormPage vehicleId={vehicle.id} vehicleType="Vehicle" />
       </Dialog>
     </motion.div >
   );

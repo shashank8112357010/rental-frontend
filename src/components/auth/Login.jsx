@@ -32,7 +32,7 @@ const Login = ({ switchToRegister, closeDialog }) => {
         }
 
         await UserLoginService({ ...formData }).then((response) => {
-            // console.log(response.data)
+            console.log(response?.data?.user?._id);
             setToken(response?.data?.token);
             localStorage.setItem("name", response?.data?.user?.name);
             localStorage.setItem("email", response?.data?.user?.email);

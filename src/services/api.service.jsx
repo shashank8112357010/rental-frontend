@@ -29,3 +29,14 @@ export const GetVehicleService = () => {
 export const GetVehicleByIdService = (vehicleId) => {
   return clientAxios.get(`/vehicles/${vehicleId}`)
 }
+
+
+
+export const UserEnquiryService = (data) => {
+  return clientAxios.post('/enquire', data)
+}
+
+// bookings api 
+export const UserBookingService = (data) => {
+  return clientAxios.post('/bookings', data)
+}

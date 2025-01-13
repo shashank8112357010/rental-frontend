@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { UserEnquiryService } from '../services/api.service';
+import { toast } from 'react-toastify';
 
 const EnquiryFormPage = ({ vehicleId, vehicleType }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
-        // inquiry: ''
+        enquire: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -20,8 +21,8 @@ const EnquiryFormPage = ({ vehicleId, vehicleType }) => {
         e.preventDefault();
 
         // Validate form data
-        if (!formData.name || !formData.email || !formData.phone) {
-            alert('All fields are required.');
+        if (!formData.name || !formData.email || !formData.phone || !formData.enquire) {
+            toast.success('All fields are required.');
             return;
         }
 
@@ -38,7 +39,7 @@ const EnquiryFormPage = ({ vehicleId, vehicleType }) => {
         // Make API call to submit the enquiry
         UserEnquiryService(enquiryData)
             .then((response) => {
-                alert('Enquiry submitted successfully!');
+                toast.success('Enquiry submitted successfully!');
                 console.log('Enquiry Response:', response.data);
                 setIsSubmitting(false);
             })
@@ -90,16 +91,16 @@ const EnquiryFormPage = ({ vehicleId, vehicleType }) => {
                             required
                         />
                     </div>
-                    {/* <div>
-                        <label className="block text-sm font-medium text-gray-700">Inquiry</label>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Enquire</label>
                         <textarea
-                            name="inquiry"
-                            value={formData.inquiry}
+                            name="enquire"
+                            value={formData.enquire}
                             onChange={handleFormChange}
                             className="w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                             required
                         />
-                    </div> */}
+                    </div>
 
                     <button
                         type="submit"

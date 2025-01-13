@@ -4,7 +4,6 @@ import VehicleCard from "./VehicleCard";
 import VehicleFilters from "./VehicleFilters";
 import { GetVehicleService } from "../../services/api.service";
 import Faq from "../faqs/Faq";
-import Vehicles from '../../assets/Vehicles.png'
 
 const VehiclesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -142,7 +141,7 @@ const VehiclesPage = () => {
         </motion.div>
       ) : (
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className={`grid ${filteredVehicles?.length > 0 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -152,8 +151,15 @@ const VehiclesPage = () => {
               <VehicleCard key={vehicle.id} vehicle={vehicle} />
             ))
           ) : (
-            <div className='flex justify-center items-center w-full'>
-              <img src={Vehicles} alt="Properties" className='w-full justify-center flex items-center' />
+            <div className="flex justify-center items-center w-full min-h-[300px]">
+              <div className="text-center">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                  No Vehicles Found
+                </h1>
+                <p className="text-sm md:text-base text-gray-500 mt-2">
+                  Try adjusting your filters to find the perfect vehicle.
+                </p>
+              </div>
             </div>
           )}
         </motion.div>

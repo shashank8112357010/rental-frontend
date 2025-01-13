@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <>
       <motion.div
-        className="space-y-8 px-4 md:px-8 lg:px-16"
+        className="space-y-8 px-4 mt-8 md:px-8 lg:px-16"
         initial="hidden"
         animate="visible"
         transition={{ staggerChildren: 0.2 }}
@@ -113,7 +113,7 @@ const Home = () => {
 const CategoryCard = ({ title, description, icon, link, image }) => {
   return (
     <motion.div
-      className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+      className="group relative overflow-hidden rounded-xl  shadow-lg hover:shadow-xl transition-shadow"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       variants={{

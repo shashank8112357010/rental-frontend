@@ -125,14 +125,21 @@ const PropertiesPage = () => {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className={`grid ${filteredProperties.length > 0 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
           {filteredProperties.length > 0 ? (
             filteredProperties.map((property) => (
               <PropertyCard key={property.id} property={property} />
             ))
           ) : (
-            <div className="flex justify-center items-center w-full">
-              <img src={Properties} alt="No Properties" className="w-full" />
+            <div className="flex justify-center items-center w-full min-h-[300px]">
+              <div className="text-center">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                  No Property Found
+                </h1>
+                <p className="text-sm md:text-base text-gray-500 mt-2">
+                  Try adjusting your filters to find the perfect property.
+                </p>
+              </div>
             </div>
           )}
         </div>

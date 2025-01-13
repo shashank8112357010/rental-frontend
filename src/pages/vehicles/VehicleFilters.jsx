@@ -60,13 +60,13 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
         <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Price Range</label>
           <div className="flex justify-between items-center text-sm font-medium text-gray-600">
-            <span>₹{filters.priceRange ? filters.priceRange[0] : 500}</span>
+            <span>₹{filters.priceRange ? filters.priceRange[0] : 0}</span>
             <span>₹100000</span>
           </div>
           <input
             type="range"
             name="priceRange"
-            min="500"
+            min="0"
             max="100000"
             step="100"
             value={filters.priceRange[0]}  // Use the first value of priceRange

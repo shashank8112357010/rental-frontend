@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Finding from '../../assets/rentalimg/Finding.png'
-import RideEasy from '../../assets/rentalimg/RideEasy.png'
-import Crack from '../../assets/rentalimg/Crack.png'
+import Finding from '../../assets/rentalimg/Finding.png';
+import RideEasy from '../../assets/rentalimg/RideEasy.png';
+import Crack from '../../assets/rentalimg/Crack.png';
 
 const Blogs = () => {
     const blogData = [
@@ -30,23 +30,25 @@ const Blogs = () => {
     ];
 
     return (
-        <div>
+        <div className='w-full h-auto px-4 md:px-8 lg:px-16 py-8'>
             <div className="text-center mb-12">
                 <h1 className="text-2xl md:text-4xl font-bold text-gray-900">Our Blogs</h1>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {blogData.map((blog) => (
-                    <div key={blog.id} className="bg-white pb-8 h-full rounded-lg shadow-lg overflow-hidden relative flex flex-col">
-                        <img src={blog.image} alt={blog.title} className="w-full object-cover" />
+                    <div key={blog.id} className="bg-white pb-8 rounded-lg shadow-lg overflow-hidden relative flex flex-col">
+                        <img
+                            src={blog.image}
+                            alt={blog.title}
+                            className="w-full h-56 sm:h-72 lg:h-80 object-cover transition-all duration-300"
+                        />
                         <div className="p-6 flex flex-col flex-grow">
-                            <h2 className="text-xl md:text-2xl line-clamp-2 font-semibold text-gray-800">{blog.title}</h2>
-                            <p className="text-gray-600 line-clamp-3 mt-2">{blog.description}</p>
+                            <h2 className="text-md sm:text-xl line-clamp-2 font-semibold text-gray-800">{blog.title}</h2>
+                            <p className="text-gray-900 font-serif text-sm sm:text-base line-clamp-3 mt-2">{blog.description}</p>
                         </div>
-                        {/* Fixed Position for Read More Button */}
                         <Link to={blog.link}>
                             <div className='flex justify-center items-center'>
-
-                                <button className="bg-indigo-600  text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300">
+                                <button className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300">
                                     Read more
                                 </button>
                             </div>

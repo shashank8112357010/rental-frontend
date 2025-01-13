@@ -5,6 +5,8 @@ import { formatCurrency } from '../../utils/format';
 import { motion } from 'framer-motion';
 
 const PropertyCard = ({ property }) => {
+  const isInternalLink = property.locationLink.startsWith('/');
+
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -25,32 +27,49 @@ const PropertyCard = ({ property }) => {
             {property.type}
           </div>
         </div>
-
-        <div className="p-4">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.title}</h3>
-
-          <div className="flex items-center text-gray-600 mb-2">
-            <MapPin className="h-4 w-4 mr-1" />
-            <span className="text-sm">{property.location}</span>
-          </div>
-
-          <div className="flex items-center text-gray-900 font-medium">
-            <IndianRupee className="h-4 w-4 mr-1" />
-            <span>{formatCurrency(property.price)}/month</span>
-          </div>
-
-          <div className="mt-3 flex flex-wrap gap-2">
-            {property.amenities.slice(0, 3).map((amenity, index) => (
-              <span
-                key={index}
-                className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded"
-              >
-                {amenity}
-              </span>
-            ))}
-          </div>
-        </div>
       </Link>
+      <div className="p-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.title}</h3>
+
+        <div className="flex items-center text-gray-600 mb-2">
+          {isInternalLink ? (
+            <Link
+              to={property.locationLink}
+              className="text-sm text-gray-600 hover:text-blue-600 flex items-center"
+            >
+              <MapPin className="h-4 w-4 mr-1" />
+              <span>{property.location}</span>
+            </Link>
+          ) : (
+            <Link
+              to={property.locationLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-gray-600 hover:text-blue-600 flex items-center"
+            >
+              <MapPin className="h-4 w-4 mr-1" />
+              <span>{property.location}</span>
+            </Link>
+          )}
+        </div>
+
+        <div className="flex items-center text-gray-900 font-medium">
+          <IndianRupee className="h-4 w-4 mr-1" />
+          <span>{formatCurrency(property.price)}/month</span>
+        </div>
+
+        <div className="mt-3 flex flex-wrap gap-2">
+          {property.amenities.slice(0, 3).map((amenity, index) => (
+            <span
+              key={index}
+              className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded"
+            >
+              {amenity}
+            </span>
+          ))}
+        </div>
+      </div>
+
     </motion.div>
   );
 };

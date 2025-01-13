@@ -4,14 +4,11 @@ import PropertyCard from './PropertyCard';
 import PropertyFilters from './PropertyFilters';
 import { GetPropertyService } from '../../services/api.service';
 import Faq from '../faqs/Faq';
-import Properties from '../../assets/Properties.png'
 
 const PropertiesPage = () => {
-  //   const { data: properties, isLoading } = useProperties();
   const [isLoading, setisLoading] = useState(true);
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
-  const [filterOptions, setFilterOptions] = useState({ types: [], locations: [] });
 
 
   const [filters, setFilters] = useState({
@@ -52,7 +49,6 @@ const PropertiesPage = () => {
       console.log("err", err);
     });
   };
-
 
   useEffect(() => {
     fetchPropertiesData()

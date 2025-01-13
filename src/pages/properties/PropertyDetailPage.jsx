@@ -77,7 +77,7 @@ const PropertiesPage = () => {
               <span>{properties.owner}</span>
             </div>
             <div className="flex justify-between mt-6 text-gray-600 mb-2">
-              <div>
+              <div className='flex  gap-3'>
                 <MapPin className="h-4 w-4 mr-1" />
                 <span className="text-sm">{properties.location}</span>
               </div>

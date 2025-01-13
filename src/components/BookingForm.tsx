@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Calendar } from "lucide-react";
 import { UserBookingService } from "../services/api.service";
 import { toast } from "react-toastify";
+import { getToken, setToken } from "../helper/tokenHelper";
 
 const BookingForm = ({ itemId, itemType, disabled }) => {
   const [date, setDate] = useState("");
@@ -11,7 +12,10 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    if (!getToken) {
+      toast.error("You need to login first!");
+      return; 
+    }
     if (!date || !time) {
       setError("Please select both a date and time.");
       return;
@@ -31,11 +35,11 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
         toast.success("Appointment booked successfully!");
         setDate("");
         setTime("");
-        // setIsLoading(false)
+        setIsLoading(false)
       })
       .catch((err) => {
         console.error("Booking Error:", err);
-        setError("An error occurred while booking. Please try again.");
+        // setError("An error occurred while booking. Please try again.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -72,7 +76,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
         />
       </div>
 
-      {error && <p className="text-sm text-red-600 text-center">{error}</p>}
+      {/* {error && <p className="text-sm text-red-600 text-center">{error}</p>} */}
 
       <button
         type="submit"

@@ -65,8 +65,10 @@ const PropertiesPage = () => {
   const applyFilters = (filters) => {
     let filteredData = [...properties];
 
+    // Filter by type (1 BHK, 2 BHK, 3 BHK, PG Boys, PG Girls)
     if (filters.type) {
       if (['1 BHK', '2 BHK', '3 BHK'].includes(filters.type)) {
+        // For flat types (1 BHK, 2 BHK, 3 BHK)
         filteredData = filteredData.filter((property) =>
           property.flatType === filters.type
         );
@@ -100,6 +102,7 @@ const PropertiesPage = () => {
 
     setFilteredProperties(filteredData);
   };
+
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);

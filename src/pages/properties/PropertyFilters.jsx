@@ -6,7 +6,6 @@ const PropertyFilters = ({ filters, onFilterChange }) => {
 
   const predefinedLocations = ['Koregaon Park', 'Baner', 'Kalyani Nagar'];
 
-
   const handleFilterChange = (name, value) => {
     // When type filter changes, update the furnish options or pgCategory filters
     onFilterChange({ ...filters, [name]: value });
@@ -21,7 +20,6 @@ const PropertyFilters = ({ filters, onFilterChange }) => {
       }
     }
   };
-
 
   const handleRangeChange = (e) => {
     const newPriceRange = [...filters.priceRange];

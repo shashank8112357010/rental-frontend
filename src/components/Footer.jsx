@@ -71,7 +71,7 @@ export default function Footer() {
               <div className="flex gap-4 mb-4">
                 <FaFacebook className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
                 <FaInstagram className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
-                <FaWhatsapp className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
+                {/* <FaWhatsapp className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" /> */}
 
                 <FaLinkedin className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
                 <FaTwitter className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />

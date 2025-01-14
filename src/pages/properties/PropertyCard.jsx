@@ -5,7 +5,7 @@ import { formatCurrency } from '../../utils/format';
 import { motion } from 'framer-motion';
 
 const PropertyCard = ({ property }) => {
-  const isInternalLink = property.locationLink.startsWith('/');
+  const isInternalLink = property.locationLink?.startsWith('/');
 
   return (
     <motion.div
@@ -59,7 +59,7 @@ const PropertyCard = ({ property }) => {
         </div>
 
         <div className="mt-3 flex flex-wrap gap-2">
-          {property.amenities.slice(0, 3).map((amenity, index) => (
+          {property.amenities?.slice(0, 3).map((amenity, index) => (
             <span
               key={index}
               className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded"

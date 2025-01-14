@@ -1,63 +1,94 @@
 import React, { useState } from 'react';
-import { Select, Option } from '@material-tailwind/react';
+import { Select, Option, Button } from '@material-tailwind/react';
 
-const PropertyFilters = ({ filters, onFilterChange }) => {
-  const [furnishOptions, setFurnishOptions] = useState([]);
 
-  const predefinedLocations = ['Koregaon Park', 'Baner', 'Kalyani Nagar'];
+const PropertyFilters = ({  propertyType ,location , filters, onFilterChange, onClearFilters }) => {
+  const [furnishOptions, setFurnishOptions] = useState({
+    type : "",
+    data : []
+  });
+
+ console.log(location);
+ const [selected , setSelected] = useState("");
 
   const handleFilterChange = (name, value) => {
-    // When type filter changes, update the furnish options or pgCategory filters
-    onFilterChange({ ...filters, [name]: value });
+    setSelected(value);
+    const updatedFilters = { ...filters, [name]: value };
+    onFilterChange(updatedFilters);
 
     if (name === 'type') {
-      if (['1 BHK', '2 BHK', '3 BHK'].includes(value)) {
-        setFurnishOptions(['Semi-Furnished', 'Fully-Furnished', 'Unfurnished']);
-      } else if (['PG Boys', 'PG Girls'].includes(value)) {
-        setFurnishOptions(['Single Occupancy', 'Double Occupancy', 'Triple Occupancy']);
+      if (['FLAT'].includes(value)) {
+        setFurnishOptions({
+          type : "FLAT",
+          data : ['Semi-Furnished', 'Fully-Furnished', 'Unfurnished']
+        });
+      } else if (['PG'].includes(value)) {
+        setFurnishOptions({
+            type : "PG",
+            data : ['Single', 'Double', 'Triple', 'Four']
+          });
       } else {
-        setFurnishOptions([]); // Clear options for other types
+        setFurnishOptions({
+          type : "",
+          data : []
+        });
       }
     }
   };
 
-  const handleRangeChange = (e) => {
-    const newPriceRange = [...filters.priceRange];
-    newPriceRange[0] = parseInt(e.target.value, 10);
-    onFilterChange({ ...filters, priceRange: newPriceRange });
-  };
-
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg mb-8">
-      <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-${furnishOptions.length > 0 ? '5' : '4'} gap-6`}>
-        {/* Type Filter */}
-        <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Type</label>
+    <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-semibold text-gray-800">Filter Properties</h2>
+        <Button
+          size="sm"
+          color="gray"
+          variant="outlined"
+          onClick={onClearFilters}
+          className="text-xs"
+        >
+          Clear All
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {/* Property Type Filter */}
+        <div>
+          <label className="text-xs font-medium text-gray-600">Property Type</label>
+          {
+            console.log(selected , "selected")
+          }
           <Select
-            value={filters.type}
+            value={selected}
             onChange={(value) => handleFilterChange('type', value)}
-            className="w-full border-gray-300"
+            placeholder="Select Type"
+            className="mt-1"
           >
-            <Option value="">All Types</Option>
-            <Option value="1 BHK">1 BHK</Option>
-            <Option value="2 BHK">2 BHK</Option>
-            <Option value="3 BHK">3 BHK</Option>
-            <Option value="PG Boys">PG Boys</Option>
-            <Option value="PG Girls">PG Girls</Option>
+            <Option value="All Types">All Types</Option>
+            {
+              propertyType.map((type, index) => (
+                <Option key={index} value={type}>
+                  {type}
+                </Option>
+              ))
+            }
+            
           </Select>
         </div>
 
         {/* Furnish Type Filter */}
-        {furnishOptions.length > 0 && (
-          <div className="space-y-2">
-            <label className="text-sm font-semibold text-gray-700">Furnish Type</label>
+        {furnishOptions.data.length > 0 && (
+          <div>
+            <label className="text-xs font-medium text-gray-600">{furnishOptions.type === 'PG' ? 'Occupency' : 'Furnish Type'    }</label>
+           
             <Select
               value={filters.furnishType}
               onChange={(value) => handleFilterChange('furnishType', value)}
-              className="w-full border-gray-300"
+              placeholder="Select Furnish Type"
+              className="mt-1"
             >
               <Option value="">All Types</Option>
-              {furnishOptions.map((option, index) => (
+              {furnishOptions.data.map((option, index) => (
                 <Option key={index} value={option}>
                   {option}
                 </Option>
@@ -66,48 +97,35 @@ const PropertyFilters = ({ filters, onFilterChange }) => {
           </div>
         )}
 
-        {/* Sort By Price */}
-        <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Sort By Price</label>
-          <Select
-            value={filters.sortOrder}
-            onChange={(value) => handleFilterChange('sortOrder', value)}
-            className="w-full border-gray-300"
-          >
-            <Option value="">Select</Option>
-            <Option value="lowToHigh">Low to High</Option>
-            <Option value="highToLow">High to Low</Option>
-          </Select>
-        </div>
-
         {/* Price Range */}
-        <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Price Range</label>
-          <div className="flex justify-between items-center text-sm font-medium text-gray-600">
+        <div>
+          <label className="text-xs font-medium text-gray-600">Price Range (₹)</label>
+          <div className="mt-1 flex items-center justify-between text-sm text-gray-500">
             <span>₹{filters.priceRange[0]}</span>
-            <span>₹100000</span>
+            <span>₹{filters.priceRange[1]}</span>
           </div>
           <input
             type="range"
             min="500"
             max="100000"
-            step="100"
+            step="500"
             value={filters.priceRange[0]}
-            onChange={handleRangeChange}
-            className="w-full h-2 bg-gray-200 rounded-lg"
+            onChange={(e) => handleFilterChange('priceRange', [parseInt(e.target.value), filters.priceRange[1]])}
+            className="w-full"
           />
         </div>
 
         {/* Location Filter */}
-        <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Location</label>
+        <div>
+          <label className="text-xs font-medium text-gray-600">Location</label>
           <Select
             value={filters.location}
             onChange={(value) => handleFilterChange('location', value)}
-            className="w-full border-gray-300"
+            placeholder="Select Location"
+            className="mt-1"
           >
             <Option value="">All Locations</Option>
-            {predefinedLocations.map((location, index) => (
+            {location.map((location, index) => (
               <Option key={index} value={location}>
                 {location}
               </Option>

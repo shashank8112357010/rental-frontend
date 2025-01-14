@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Calendar } from "lucide-react";
 import { UserBookingService } from "../services/api.service";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { getToken } from "../helper/tokenHelper";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
@@ -11,8 +12,9 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
   const [time, setTime] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // Modal control
-  const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Register
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +22,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
     // Check if the user is logged in
     if (!getToken()) {
       toast.info("You need to log in first!");
-      setIsLoginModalOpen(true); // Open the login/register modal
+      setIsLoginModalOpen(true);
       return;
     }
 
@@ -44,6 +46,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
       toast.success("Appointment booked successfully!");
       setDate("");
       setTime("");
+      navigate("/booking"); // Redirect to booking page
     } catch (err) {
       console.error("Booking Error:", err);
       setError("An error occurred while booking. Please try again.");
@@ -52,7 +55,6 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
     }
   };
 
-  // Close the modal when clicking outside
   const closeModal = (e) => {
     if (e.target.id === "modal-overlay") {
       setIsLoginModalOpen(false);
@@ -111,7 +113,6 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
         )}
       </form>
 
-      {/* Login/Register Modal */}
       {isLoginModalOpen && (
         <div
           id="modal-overlay"
@@ -120,17 +121,15 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
         >
           <div
             className="bg-white p-6 rounded-md shadow-md w-full max-w-sm"
-            onClick={(e) => e.stopPropagation()} 
+            onClick={(e) => e.stopPropagation()}
           >
             {isLogin ? (
               <Login
                 closeDialog={() => setIsLoginModalOpen(false)}
-                switchToRegister={() => setIsLogin(false)} 
+                switchToRegister={() => setIsLogin(false)}
               />
             ) : (
-              <Register
-                switchToLogin={() => setIsLogin(true)}
-              />
+              <Register switchToLogin={() => setIsLogin(true)} />
             )}
           </div>
         </div>

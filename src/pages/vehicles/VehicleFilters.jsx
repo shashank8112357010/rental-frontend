@@ -27,7 +27,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
         <h2 className="text-lg font-semibold text-gray-800">Filter Vehicles</h2>
         <button
           onClick={handleClearFilters}
-          className="text-sm bg-gray-100 border border-gray-300 px-3 py-1 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="text-sm bg-gray-100 border border-gray-300 text-black px-3 py-1 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-black"
         >
           Clear All
         </button>
@@ -41,7 +41,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
             name="type"
             value={filters.type || ""}
             onChange={(e) => handleFilterChange("type", e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
             <option value="">All Types</option>
             {filterOptions.types.map((type, index) => (
@@ -56,7 +56,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
           <select
             value={filters.sortOrder || ""}
             onChange={(e) => handleFilterChange("sortOrder", e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
             <option value="">Select</option>
             <option value="lowToHigh">Low to High</option>

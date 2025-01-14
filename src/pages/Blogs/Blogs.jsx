@@ -32,7 +32,7 @@ const Blogs = () => {
     return (
         <div className='w-full h-auto px-4 md:px-8 lg:px-16 py-8 mt-44 md:mt-0'>
             <div className="text-center mb-12">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Our Blogs</h1>
+                <h1 className="text-3xl md:text-4xl font-bold text-white">Our Blogs</h1>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {blogData.map((blog) => (

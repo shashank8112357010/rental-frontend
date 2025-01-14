@@ -36,10 +36,10 @@ export default function TopServices() {
 
       {/* Header Section */}
       <div className="text-center mb-12">
-        <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
+        <h1 className="text-2xl md:text-4xl font-bold text-white">
           Explore Our Services
         </h1>
-        <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mt-4">
+        <p className="text-lg md:text-xl text-white max-w-2xl mx-auto mt-4">
           Discover a range of services designed to meet your lifestyle needs.
         </p>
       </div>

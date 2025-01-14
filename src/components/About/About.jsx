@@ -11,7 +11,7 @@ export default function About() {
     <div className="h-fit pb-16 md:mt-8  mt-44">
       {/* Header Section */}
       <div className=" flex items-center justify-center">
-        <h1 className="text-2xl md:text-3xl font-serif  font-bold text-black">
+        <h1 className="text-2xl md:text-3xl font-serif  font-bold text-white">
           Welcome to your all-in-one platform designed especially for students in Pune!
         </h1>
       </div>
@@ -35,7 +35,7 @@ export default function About() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-xl md:text-2xl font-serif  font-bold text-black mb-6"
+            className="text-xl md:text-2xl font-serif  font-bold text-white mb-6"
           >
             WHAT: Making Student Life Simple
           </motion.h1>
@@ -55,7 +55,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: index * 0.3 }}
-                className="text-md text-gray-900 font-serif leading-relaxed"
+                className="text-md text-white font-serif leading-relaxed"
               >
                 {text}
               </motion.p>
@@ -73,7 +73,7 @@ export default function About() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-xl md:text-2xl font-serif  font-bold text-gray-900 mb-6"
+            className="text-xl md:text-2xl font-serif  font-bold text-white mb-6"
           >
             WHY: Because We Understand Students
           </motion.h1>
@@ -95,7 +95,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: index * 0.3 }}
-                className="text-md text-gray-900 font-serif leading-relaxed"
+                className="text-md text-white font-serif leading-relaxed"
               >
                 {text}
               </motion.p>
@@ -133,7 +133,7 @@ export default function About() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-xl md:text-2xl font-serif  font-bold text-gray-900 mb-6"
+            className="text-xl md:text-2xl font-serif  font-bold text-white mb-6"
           >
             HOW: A Seamless Student-Centric Approach
           </motion.h1>
@@ -155,7 +155,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: index * 0.3 }}
-                className="text-md text-gray-900 font-serif leading-relaxed"
+                className="text-md text-white font-serif leading-relaxed"
               >
                 {text}
               </motion.p>

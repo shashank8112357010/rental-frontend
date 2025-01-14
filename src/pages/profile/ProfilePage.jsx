@@ -57,27 +57,27 @@ const ProfilePage = () => {
   return (
     <div className="">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Manage Account</h1>
-        <p className="text-gray-600">Switch between your settings, profile, and password options</p>
+        <h1 className="text-3xl font-bold text-white mb-2">Manage Account</h1>
+        <p className="text-white">Switch between your settings, profile, and password options</p>
       </header>
 
       {/* Tab Navigation */}
       <div className="mb-6 flex flex-wrap md:justify-start justify-center space-x-4 gap-4">
         <button
           onClick={() => setActiveTab('settings')}
-          className={`px-4 py-2 rounded ${activeTab === 'settings' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2 rounded ${activeTab === 'settings' ? 'bg-white text-black' : 'bg-white text-black'}`}
         >
           Settings
         </button>
         <button
           onClick={() => setActiveTab('profile')}
-          className={` px-4 py-2 rounded ${activeTab === 'profile' ? ' bg-indigo-600 text-white' : 'bg-gray-200'}`}
+          className={` px-4 py-2 rounded ${activeTab === 'profile' ? 'bg-white text-black' : 'bg-white text-black'}`}
         >
           Profile
         </button>
         <button
           onClick={() => setActiveTab('password')}
-          className={`px-4 py-2  rounded ${activeTab === 'password' ? ' bg-indigo-600 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2  rounded ${activeTab === 'password' ? ' bg-whiet text-black' : 'bg-white text-black'}`}
         >
           Change Password
         </button>
@@ -106,7 +106,7 @@ const ProfilePage = () => {
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4">Change Password</h2>
               <div className="mb-4 relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="current-password">
+                <label className="block text-sm font-medium text-white mb-1" htmlFor="current-password">
                   Current Password
                 </label>
                 <input
@@ -126,7 +126,7 @@ const ProfilePage = () => {
                 </button>
               </div>
               <div className="mb-4 relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="new-password">
+                <label className="block text-sm font-medium text-white mb-1" htmlFor="new-password">
                   New Password
                 </label>
                 <input
@@ -147,7 +147,7 @@ const ProfilePage = () => {
               </div>
               <button
                 onClick={handlePasswordChange}
-                className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition duration-200"
+                className="bg-white text-black px-4 py-2 rounded transition duration-200"
               >
                 Update Password
               </button>

@@ -7,7 +7,7 @@ import { setToken } from '../../helper/tokenHelper';
 import { toast } from 'react-toastify';
 import { AiOutlineLoading } from 'react-icons/ai';
 
-const Login = ({ switchToRegister, closeDialog }) => {
+const Login = ({ switchToRegister, switchToForgetPassword, closeDialog }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ const Login = ({ switchToRegister, closeDialog }) => {
                                 name="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                 placeholder="Enter your email"
                             />
                         </div>
@@ -71,7 +71,7 @@ const Login = ({ switchToRegister, closeDialog }) => {
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                     placeholder="Enter your password"
                                 />
                                 <button
@@ -82,11 +82,21 @@ const Login = ({ switchToRegister, closeDialog }) => {
                                     {showPassword ? <FiEye size={20} /> : <FiEyeOff size={20} />}
                                 </button>
                             </div>
+                            <div className="text-right mt-2">
+                                <button
+                                    type="button"
+                                    onClick={switchToForgetPassword}
+                                    className="text-blue-500 text-sm hover:underline"
+                                >
+                                    Forgot Password?
+                                </button>
+                            </div>
+
                         </div>
 
                         <button
                             type="submit"
-                            className={`w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-500 transition duration-200 flex justify-center items-center`}
+                            className={`w-full bg-black text-white py-3 rounded-md hover:bg-black transition duration-200 flex justify-center items-center`}
                             disabled={loading}
                         >
                             {loading ? (

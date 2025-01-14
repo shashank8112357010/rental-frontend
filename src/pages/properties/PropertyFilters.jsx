@@ -36,7 +36,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
         <h2 className="text-lg font-semibold text-gray-800">Filter Properties</h2>
         <button
           onClick={onClearFilters}
-          className="text-xs bg-gray-100 border border-gray-300 px-2 py-1 rounded hover:bg-gray-200"
+          className="text-xs text-black bg-gray-100 border border-gray-300 px-2 py-1 rounded hover:bg-gray-200"
         >
           Clear All
         </button>
@@ -49,7 +49,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
           <select
             value={filters.type || ""}
             onChange={(e) => handleFilterChange('type', e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
             <option value="">All Types</option>
             {propertyType.map((type, index) => (
@@ -61,11 +61,11 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
         {/* Furnish Type Filter */}
         {furnishOptions.data.length > 0 && (
           <div>
-            <label className="text-xs font-medium text-gray-600">{furnishOptions.type === 'PG' ? 'Occupency' : 'Furnish Type'}</label>
+            <label className="text-xs font-medium text-black">{furnishOptions.type === 'PG' ? 'Occupency' : 'Furnish Type'}</label>
             <select
               value={filters.furnishType || ""}
               onChange={(e) => handleFilterChange('furnishType', e.target.value)}
-             className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
             >
               <option value="">All Types</option>
               {furnishOptions.data.map((option, index) => (
@@ -99,11 +99,11 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
           <select
             value={filters.location || ""}
             onChange={(e) => handleFilterChange('location', e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
-            <option value="">All Locations</option>
+            <option value="" className='text-black'>All Locations</option>
             {location.map((loc, index) => (
-              <option key={index} value={loc}>{loc}</option>
+              <option className='text-black' key={index} value={loc}>{loc}</option>
             ))}
           </select>
         </div>

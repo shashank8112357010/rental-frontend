@@ -59,7 +59,7 @@ const Register = ({ switchToLogin }) => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                             placeholder="Name"
                         />
                     </div>
@@ -71,7 +71,7 @@ const Register = ({ switchToLogin }) => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                             placeholder=" your Email"
                         />
                     </div>
@@ -83,7 +83,7 @@ const Register = ({ switchToLogin }) => {
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                             placeholder="Your phone number"
                         />
                     </div>
@@ -96,7 +96,7 @@ const Register = ({ switchToLogin }) => {
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                 placeholder="Your password"
                             />
                             <button
@@ -111,7 +111,7 @@ const Register = ({ switchToLogin }) => {
 
                     <button
                         type="submit"
-                        className={`w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-500 transition duration-200 flex justify-center items-center`}
+                        className={`w-full bg-black text-white py-3 rounded-md  transition duration-200 flex justify-center items-center`}
                         disabled={loading}
                     >
                         {loading ? (

@@ -95,7 +95,7 @@ const VehiclesPage = () => {
     <div className=" mt-44 md:mt-0">
       <header className="mb-8">
         <motion.h1
-          className="text-2xl md:text-3xl font-bold text-gray-900 mb-2"
+          className="text-2xl md:text-3xl font-bold text-white mb-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -103,7 +103,7 @@ const VehiclesPage = () => {
           Available Vehicles
         </motion.h1>
         <motion.p
-          className="text-sm md:text-base text-gray-600"
+          className="text-sm md:text-base text-white"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -151,10 +151,10 @@ const VehiclesPage = () => {
           ) : (
             <div className="flex justify-center items-center w-full min-h-[300px]">
               <div className="text-center">
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                <h1 className="text-2xl md:text-3xl font-bold text-white">
                   No Vehicles Found
                 </h1>
-                <p className="text-sm md:text-base text-gray-500 mt-2">
+                <p className="text-sm md:text-base text-white mt-2">
                   Try adjusting your filters to find the perfect vehicle.
                 </p>
               </div>

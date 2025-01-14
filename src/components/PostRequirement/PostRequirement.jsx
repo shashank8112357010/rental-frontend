@@ -163,7 +163,7 @@ const PostRequirement = ({ closeDialog }) => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="px-6 py-2 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition"
+                            className="px-6 py-2 text-sm bg-black text-white rounded-md  transition"
                         >
                             {isLoading ? 'Submitting...' : 'Submit'}
                         </button>

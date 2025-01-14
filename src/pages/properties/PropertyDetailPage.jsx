@@ -91,12 +91,12 @@ const PropertiesPage = () => {
           </Slider>
 
           <motion.div className="mt-8">
-            <h1 className="text-3xl font-bold text-gray-900">{properties.title}</h1>
-            <div className="flex items-center mt-2 text-gray-600">
+            <h1 className="text-3xl font-bold text-white">{properties.title}</h1>
+            <div className="flex items-center mt-2 text-white">
               <User className="h-5 w-5 mr-2" />
               <span>{properties.owner}</span>
             </div>
-            <div className="flex justify-between mt-6 text-gray-600 mb-2">
+            <div className="flex justify-between mt-6 text-white mb-2">
               <div className='flex gap-3'>
                 <Link to={properties.locationLink} target="_blank" className="flex items-center gap-2 text-sm hover:text-indigo-600">
                   <MapPin className="h-4 w-4" />
@@ -109,13 +109,13 @@ const PropertiesPage = () => {
             </div>
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-4">Description</h2>
-              <p className="text-gray-600">{properties.description}</p>
+              <p className="text-white">{properties.description}</p>
             </div>
 
             {/* Occupancy */}
             <div className="mt-6 flex gap-4 ">
               <h2 className="text-xl font-semibold mb-4">Occupancy</h2>
-              <p className="text-gray-600 mt-1">{properties.occupancy}</p>
+              <p className="text-white mt-1">{properties.occupancy}</p>
             </div>
 
             {/* Amenities */}
@@ -158,7 +158,7 @@ const PropertiesPage = () => {
             <div className="flex justify-center items-center mt-12">
               <button
                 onClick={openEnquiryDialog}
-                className="w-full bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+                className="w-full bg-black text-white px-6 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50"
               >
                 Enquiry
               </button>

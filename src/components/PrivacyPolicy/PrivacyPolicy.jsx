@@ -80,7 +80,7 @@ const PrivacyPolicy = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
-                className="text-3xl md:text-3xl font-bold text-center text-indigo-900 mb-6"
+                className="text-3xl md:text-3xl font-bold text-center text-white mb-6"
             >
                 Privacy Policy
             </motion.h1>
@@ -90,7 +90,7 @@ const PrivacyPolicy = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1 }}
-                    className="text-gray-900 font-serif "
+                    className="text-white font-serif "
                 >
                     At GradCommune, we are committed to protecting your privacy and ensuring that your personal
                     information is handled in a safe and responsible manner. This Privacy Policy outlines how we
@@ -109,7 +109,7 @@ const PrivacyPolicy = () => {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
-                            className="text-xl md:text-2xl font-semibold font-serif  mb-2 text-indigo-700"
+                            className="text-xl md:text-2xl font-semibold font-serif  mb-2 text-white"
                         >
                             {section.title}
                         </motion.h2>
@@ -120,7 +120,7 @@ const PrivacyPolicy = () => {
                                     initial={{ opacity: 0, y: -20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 1 }}
-                                    className="text-lg font-medium font-serif  text-gray-900"
+                                    className="text-lg font-medium font-serif  text-white"
                                 >
                                     {subsection.subtitle}
                                 </motion.h3>
@@ -128,7 +128,7 @@ const PrivacyPolicy = () => {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 1, staggerChildren: 0.2 }}
-                                    className="list-disc list-inside space-y-2 text-gray-900"
+                                    className="list-disc list-inside space-y-2 text-white"
                                 >
                                     {subsection.items.map((item, itemIndex) => (
                                         <motion.li
@@ -149,7 +149,7 @@ const PrivacyPolicy = () => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 1, staggerChildren: 0.2 }}
-                                className="list-disc font-serif list-inside space-y-2 text-gray-900"
+                                className="list-disc font-serif list-inside space-y-2 text-white"
                             >
                                 {section.items.map((item, itemIndex) => (
                                     <motion.li
@@ -169,7 +169,7 @@ const PrivacyPolicy = () => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 1 }}
-                                className="text-gray-900"
+                                className="text-white"
                             >
                                 {section.content}
                             </motion.p>

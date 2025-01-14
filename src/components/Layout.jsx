@@ -10,12 +10,14 @@ import { FiLogOut } from "react-icons/fi";
 import { toast } from "react-toastify";
 import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import PostRequirement from "./PostRequirement/PostRequirement";
+import ForgetPassword from "./auth/ForgetPassword";
 
 const Layout = () => {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState(location.pathname);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
+  const [isForgetPasswordMode, setForgetPasswordMode] = useState(false);
   const [isRegisterMode, setRegisterMode] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -91,8 +93,9 @@ const Layout = () => {
   };
 
   return (
-    <div className="bg-gray-50 mx-auto sticky top-0">
-      <nav className="bg-white shadow-md fixed w-full z-[9999] ">
+    <div className="bg-black !text-white mx-auto sticky top-0">
+
+      <nav className="bg-black border-b-2 border-white text-white shadow-md fixed w-full z-[9999]">
         <div className="max-w-7xl  mx-auto px-4 pb-3 md:pb-0">
           <div className="flex justify-between h-16 items-center">
             <div className="flex gap-12">
@@ -113,8 +116,8 @@ const Layout = () => {
                   to="/"
                   onClick={() => handleNavClick("/")}
                   className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-all ${activeLink === "/"
-                    ? "text-indigo-600 border-b-2 border-indigo-600"
-                    : "text-gray-500 hover:text-indigo-600 hover:border-b-2 hover:border-indigo-600" // Hover state
+                    ? "text-white border-b-2 border-white"
+                    : "text-white hover:text-white hover:border-b-2 hover:border-white"
                     }`}
                 >
                   <Home className="h-5 w-5" />
@@ -124,8 +127,8 @@ const Layout = () => {
                   to="/about"
                   onClick={() => handleNavClick("/about")}
                   className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-all ${activeLink === "/about"
-                    ? "text-indigo-600 border-b-2 border-indigo-600"
-                    : "text-gray-500 hover:text-indigo-600 hover:border-b-2 hover:border-indigo-600"
+                    ? "text-white border-b-2 border-white"
+                    : "text-white hover:text-white hover:border-b-2 hover:border-white"
                     }`}
                 >
                   <Building2 className="h-5 w-5" />
@@ -135,8 +138,8 @@ const Layout = () => {
                   to="/services"
                   onClick={() => handleNavClick("/services")}
                   className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-all ${activeLink === "/services"
-                    ? "text-indigo-600 border-b-2 border-indigo-600"
-                    : "text-gray-500 hover:text-indigo-600 hover:border-b-2 hover:border-indigo-600"
+                    ? "text-white border-b-2 border-white"
+                    : "text-white hover:text-white hover:border-b-2 hover:border-white"
                     }`}
                 >
                   <Bike className="h-5 w-5" />
@@ -146,8 +149,8 @@ const Layout = () => {
                   to="/blogs"
                   onClick={() => handleNavClick("/blogs")}
                   className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-all ${activeLink === "/blogs"
-                    ? "text-indigo-600 border-b-2 border-indigo-600"
-                    : "text-gray-500 hover:text-indigo-600 hover:border-b-2 hover:border-indigo-600"
+                    ? "text-white border-b-2 border-white"
+                    : "text-white hover:text-white hover:border-b-2 hover:border-white"
                     }`}
                 >
                   <Building2 className="h-5 w-5" />
@@ -164,16 +167,16 @@ const Layout = () => {
                   className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                 >
                   {isMobileMenuOpen ? (
-                    <X className="h-6 w-6 text-gray-600" />
+                    <X className="h-6 w-6 text-white" />
                   ) : (
-                    <Menu className="h-6 w-6 text-gray-600" />
+                    <Menu className="h-6 w-6 text-white" />
                   )}
                 </button>
               </div>
               <div className="hidden md:flex">
                 <button
                   onClick={openPostRequirementModal}
-                  className="ml-4 border-2 border-indigo-500 px-4 py-2 text-black text-sm font-semibold rounded-lg shadow-md hover:border-indigo-700 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
+                  className="ml-4 border-2 border-white px-4 py-2 text-white text-sm font-semibold rounded-lg shadow-md hover:border-white focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
                 >
                   Post Requirement
                 </button>
@@ -185,7 +188,7 @@ const Layout = () => {
                       className="rounded-full dropHeader hover:bg-gray-100 transition-colors"
                       onClick={() => setDropdownOpen(!isDropdownOpen)}
                     >
-                      <UserCircle className="h-6 w-6 text-gray-600" />
+                      <UserCircle className="h-6 w-6 text-white" />
                     </button>
                     {isDropdownOpen && (
                       <div className="absolute -right-2 mt-4  w-40 bg-white shadow-lg rounded-lg border border-gray-200">
@@ -218,7 +221,7 @@ const Layout = () => {
                 ) : (
                   <button
                     onClick={openLoginDialog}
-                    className="border-2 border-indigo-500 px-4 py-2 text-black  text-sm font-semibold rounded-lg shadow-md hover:border-indigo-700 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
+                    className="border-2 border-white px-4 py-2 text-white  text-sm font-semibold rounded-lg shadow-md hover:border-white focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
                   >
                     Login
                   </button>
@@ -230,13 +233,13 @@ const Layout = () => {
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="sm:hidden bg-white border-t">
+            <div className="sm:hidden bg-black border-t">
               <Link
                 to="/"
                 onClick={() => handleNavClick("/")}
                 className={`block px-4 py-2 text-sm font-medium transition-all ${activeLink === "/"
-                  ? "text-indigo-600 bg-gray-100"
-                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100"
+                  ? "text-black bg-gray-100"
+                  : "text-white hover:text-white hover:bg-gray-100"
                   }`}
               >
                 <Home className="h-5 w-5 inline-block mr-2" />
@@ -247,8 +250,8 @@ const Layout = () => {
                 to="/about"
                 onClick={() => handleNavClick("/about")}
                 className={`block px-4 py-2 text-sm font-medium transition-all ${activeLink === "/about"
-                  ? "text-indigo-600 bg-gray-100"
-                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100"
+                  ? "text-black bg-gray-100"
+                  : "text-white hover:text-black hover:bg-gray-100"
                   }`}
               >
                 <Building2 className="h-5 w-5 inline-block mr-2" />
@@ -259,8 +262,8 @@ const Layout = () => {
                 to="/services"
                 onClick={() => handleNavClick("/services")}
                 className={`block px-4 py-2 text-sm font-medium transition-all ${activeLink === "/services"
-                  ? "text-indigo-600 bg-gray-100"
-                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100"
+                  ? "text-black bg-gray-100"
+                  : "text-white hover:text-black hover:bg-gray-100"
                   }`}
               >
                 <Bike className="h-5 w-5 inline-block mr-2" />
@@ -271,8 +274,8 @@ const Layout = () => {
                 to="/blogs"
                 onClick={() => handleNavClick("/blogs")}
                 className={`block px-4 py-2 text-sm font-medium transition-all ${activeLink === "/blogs"
-                  ? "text-indigo-600 bg-gray-100"
-                  : "text-gray-500 hover:text-indigo-600 hover:bg-gray-100"
+                  ? "text-black bg-gray-100"
+                  : "text-white hover:text-black hover:bg-gray-100"
                   }`}
               >
                 <Building2 className="h-5 w-5 inline-block mr-2" />
@@ -284,7 +287,7 @@ const Layout = () => {
                   <Link
                     to="/profile"
                     onClick={() => handleNavClick("/profile")}
-                    className="block px-4 py-2 text-sm text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors"
+                    className="block px-4 py-2 text-sm text-white hover:text-black hover:bg-gray-100 transition-colors"
                   >
                     <UserCircle className="h-5 w-5 inline-block mr-2" />
                     Profile
@@ -292,7 +295,7 @@ const Layout = () => {
                   <Link
                     to="/booking"
                     onClick={() => handleNavClick("/booking")}
-                    className="block px-4 py-2 text-sm text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors"
+                    className="block px-4 py-2 text-sm text-white hover:text-black hover:bg-gray-100 transition-colors"
                   >
                     Booking Details
                   </Link>
@@ -312,7 +315,7 @@ const Layout = () => {
                     openLoginDialog();
                     setMobileMenuOpen(false);
                   }}
-                  className="block w-full px-4 py-2 text-sm font-medium text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors text-left"
+                  className="block w-full px-4 py-2 text-sm font-medium text-white hover:text-white hover:bg-gray-100 transition-colors text-left"
                 >
                   Login
                 </button>
@@ -324,7 +327,7 @@ const Layout = () => {
           <div className="flex justify-center items-center p-4">
             <button
               onClick={openPostRequirementModal}
-              className="border-2 border-indigo-500 text-sm px-6 py-2 text-black font-semibold rounded-lg shadow-md hover:border-indigo-700 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
+              className="border-2 border-black text-sm px-6 py-2 text-black font-semibold rounded-lg shadow-md hover:border-white focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
             >
               Post Requirement
             </button>
@@ -337,15 +340,24 @@ const Layout = () => {
       </main>
       <Footer />
       <Dialog open={isLoginDialogOpen} onClose={closeDialog}>
-        {isRegisterMode ? (
+        {isForgetPasswordMode ? (
+          <ForgetPassword
+            switchToLogin={() => {
+              setForgetPasswordMode(false);
+              setRegisterMode(false);
+            }}
+          />
+        ) : isRegisterMode ? (
           <Register switchToLogin={() => setRegisterMode(false)} />
         ) : (
           <Login
             switchToRegister={() => setRegisterMode(true)}
+            switchToForgetPassword={() => setForgetPasswordMode(true)}
             closeDialog={handleLoginSuccess}
           />
         )}
       </Dialog>
+
       <Dialog open={isPostRequirementOpen} onClose={closePostRequirementModal}>
         <PostRequirement closeDialog={closePostRequirementModal} />
       </Dialog>

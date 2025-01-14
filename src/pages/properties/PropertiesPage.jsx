@@ -96,8 +96,8 @@ const PropertiesPage = () => {
   return (
     <div className=" mt-44 md:mt-0">
       <header className="mb-6">
-        <h1 className="text-xl md:text-2xl font-bold text-gray-900">Available Properties</h1>
-        <p className="text-sm text-gray-600">Find your perfect accommodation</p>
+        <h1 className="text-xl md:text-2xl font-bold text-white">Available Properties</h1>
+        <p className="text-sm text-white">Find your perfect accommodation</p>
       </header>
 
       <PropertyFilters propertyType={propertyType} location={location} filters={filters} onFilterChange={handleFilterChange} onClearFilters={clearFilters} />
@@ -116,10 +116,10 @@ const PropertiesPage = () => {
 
             <div className="flex justify-center items-center w-full min-h-[300px]">
               <div className="text-center">
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                <h1 className="text-2xl md:text-3xl font-bold text-white">
                   No properties match your criteria.
                 </h1>
-                <p className="text-sm md:text-base text-gray-500 mt-2">
+                <p className="text-sm md:text-base text-white mt-2">
                   Try adjusting your filters to find the perfect Property.
                 </p>
               </div>

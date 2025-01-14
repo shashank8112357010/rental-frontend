@@ -55,10 +55,10 @@ const Home = () => {
           variants={fadeInUp}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Find Your Perfect Space or Ride
           </h1>
-          <p className="text-md sm:text-xl text-gray-800 max-w-2xl mx-auto">
+          <p className="text-md sm:text-xl text-white max-w-2xl mx-auto">
             Browse through our selection of quality accommodations and vehicles for rent
           </p>
         </motion.header>
@@ -98,7 +98,7 @@ const Home = () => {
           variants={fadeInUp}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 text-center">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-6 text-center">
             How It Works
           </h2>
           <motion.div
@@ -115,7 +115,7 @@ const Home = () => {
                 variants={fadeInUp}
                 transition={{ duration: 0.5 }}
               >
-                <h3 className="text-lg font-semibold mb-4 text-indigo-600">
+                <h3 className="text-lg font-semibold mb-4 text-black">
                   {category.category}
                 </h3>
                 <ol className="list-disc pl-5 space-y-4">

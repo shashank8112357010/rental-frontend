@@ -95,8 +95,8 @@ const VehicleDetailPage = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <h1 className="text-3xl font-bold text-gray-900">{vehicle.model}</h1>
-            <div className="flex items-center justify-between mt-2 text-gray-600">
+            <h1 className="text-3xl font-bold text-white">{vehicle.model}</h1>
+            <div className="flex items-center justify-between mt-2 text-white">
               <div className='flex '>
                 <User className="h-5 w-5 mr-2" />
                 <span>{vehicle.owner}</span>
@@ -119,7 +119,7 @@ const VehicleDetailPage = () => {
 
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-4">Description</h2>
-              <p className="text-gray-600">{vehicle.description}</p>
+              <p className="text-white">{vehicle.description}</p>
             </div>
 
             <div className="mt-6">
@@ -127,7 +127,7 @@ const VehicleDetailPage = () => {
               <div className="grid grid-cols-2 gap-4">
                 {vehicle.features && vehicle.features.map((feature, index) => (
                   <div key={index} className="flex items-center text-gray-600">
-                    <span className="w-2 h-2 bg-indigo-600 rounded-full mr-2" />
+                    <span className="w-2 h-2 bg-black rounded-full mr-2" />
                     {feature}
                   </div>
                 ))}
@@ -187,7 +187,7 @@ const VehicleDetailPage = () => {
             <div className="flex justify-center items-center mt-12">
               <button
                 onClick={openEnquiryDialog}
-                className="w-full bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+                className="w-full bg-black text-white px-6 py-2 rounded-md  focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50"
               >
                 Enquiry
               </button>

@@ -9,7 +9,7 @@ const TermsConditions = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
-                className="text-3xl md:text-3xl font-bold font-serif text-center text-indigo-900 mb-6"
+                className="text-3xl md:text-3xl font-bold font-serif text-center text-white mb-6"
             >
                 Terms and Conditions
             </motion.h1>
@@ -22,7 +22,7 @@ const TermsConditions = () => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
-                        className="text-xl md:text-2xl font-semibold mb-4 text-indigo-600"
+                        className="text-xl md:text-2xl font-semibold mb-4 text-white"
                     >
                         Scooty & Bike Rental
                     </motion.h2>
@@ -30,7 +30,7 @@ const TermsConditions = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1 }}
-                        className="list-disc list-inside space-y-2 font-serif text-gray-900"
+                        className="list-disc list-inside space-y-2 font-serif text-white"
                     >
                         {[
                             "Users must possess a valid driving license to rent any vehicle from our platform.",
@@ -61,7 +61,7 @@ const TermsConditions = () => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
-                        className="text-xl md:text-2xl font-semibold mb-4 font-serif text-indigo-600"
+                        className="text-xl md:text-2xl font-semibold mb-4 font-serif text-white"
                     >
                         Flats & PG's Rental
                     </motion.h2>
@@ -69,7 +69,7 @@ const TermsConditions = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1 }}
-                        className="list-disc list-inside space-y-2 font-serif text-gray-900"
+                        className="list-disc list-inside space-y-2 font-serif text-white"
                     >
                         {[
                             "We are a platform that connects tenants and landlords/PG owners. We do not guarantee the accuracy of property listings.",
@@ -97,7 +97,7 @@ const TermsConditions = () => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
-                        className="text-xl md:text-2xl font-semibold mb-4 font-serif text-indigo-600"
+                        className="text-xl md:text-2xl font-semibold mb-4 font-serif text-white"
                     >
                         Notes, Research Assistance, and Internships
                     </motion.h2>
@@ -105,7 +105,7 @@ const TermsConditions = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1 }}
-                        className="list-disc list-inside space-y-2 font-serif text-gray-900"
+                        className="list-disc list-inside space-y-2 font-serif text-white"
                     >
                         {[
                             "The study material and notes provided on our platform are for educational purposes only.",

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const TermsConditions = () => {
     return (
-        <div className="h-fit pb-16">
+        <div className="h-fit pb-16 mt-44 md:mt-0">
             {/* Page Heading */}
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}

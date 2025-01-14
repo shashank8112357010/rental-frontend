@@ -74,7 +74,7 @@ const PrivacyPolicy = () => {
     ];
 
     return (
-        <div className="h-fit">
+        <div className="h-fit mt-44 md:mt-0">
             {/* Page Heading */}
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}

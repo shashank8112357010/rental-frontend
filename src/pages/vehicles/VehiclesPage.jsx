@@ -92,7 +92,7 @@ const VehiclesPage = () => {
   };
 
   return (
-    <div>
+    <div className=" mt-44 md:mt-0">
       <header className="mb-8">
         <motion.h1
           className="text-2xl md:text-3xl font-bold text-gray-900 mb-2"
@@ -138,9 +138,8 @@ const VehiclesPage = () => {
         </motion.div>
       ) : (
         <motion.div
-          className={`grid ${
-            filteredVehicles?.length > 0 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
-          } gap-6`}
+          className={`grid ${filteredVehicles?.length > 0 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
+            } gap-6`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}

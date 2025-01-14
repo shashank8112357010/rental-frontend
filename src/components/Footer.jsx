@@ -69,8 +69,14 @@ export default function Footer() {
             <div className="py-4">
               <h1 className="text-xl font-bold mb-4">Connect with us</h1>
               <div className="flex gap-4 mb-4">
-                <FaFacebook className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
-                <FaInstagram className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
+                <Link target="_blank" to="https://www.facebook.com/share/1BahfgLwjz/?mibextid=wwXIfr">
+                  <FaFacebook className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
+                </Link>
+                <Link target="_blank" to="https://www.instagram.com/gradcommune?igsh=dTZndHBzYmE2ZGh1&utm_source=qr">
+                  <FaInstagram className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
+                </Link>
+
+
                 {/* <FaWhatsapp className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" /> */}
 
                 <FaLinkedin className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />

@@ -24,6 +24,7 @@ import Blogs from './pages/Blogs/Blogs.jsx'
 import BlogsPage1 from './pages/Blogs/BlogsPage1.jsx'
 import BlogsPage2 from './pages/Blogs/BlogsPage2.jsx'
 import BlogsPage3 from './pages/Blogs/BlogsPage3.jsx'
+import BookingPage from './pages/bookingPage/BookingPage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,19 +32,20 @@ const router = createBrowserRouter(
       <Route path='/' element={<Layout />}>
         <Route path='' element={<Home />} />
         <Route path='/properties' element={<PropertiesPage />} />
-        <Route path="properties/:id" element={<PropertyDetailPage />} />
-        <Route path="vehicles/:id" element={<VehicleDetailPage />} />
-        <Route path="vehicles" element={<VehiclesPage />} />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="academic" element={<Academic />} />
-        <Route path="about" element={<About />} />
-        <Route path="privacy_policy" element={<PrivacyPolicy />} />
-        <Route path="term_conditions" element={<TermsConditions />} />
-        <Route path="services" element={<TopServices />} />
-        <Route path="blogs" element={<Blogs />} />
-        <Route path="blog/blogs1" element={<BlogsPage1 />} />
-        <Route path="blog/blogs2" element={<BlogsPage2 />} />
-        <Route path="blog/blogs3" element={<BlogsPage3 />} />
+        <Route path="/properties/:id" element={<PropertyDetailPage />} />
+        <Route path="/vehicles/:id" element={<VehicleDetailPage />} />
+        <Route path="/vehicles" element={<VehiclesPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/academic" element={<Academic />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+        <Route path="/term_conditions" element={<TermsConditions />} />
+        <Route path="/services" element={<TopServices />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blog/blogs1" element={<BlogsPage1 />} />
+        <Route path="/blog/blogs2" element={<BlogsPage2 />} />
+        <Route path="/blog/blogs3" element={<BlogsPage3 />} />
+        <Route path="/booking" element={<BookingPage />} />
 
       </Route>
     </>

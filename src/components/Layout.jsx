@@ -154,9 +154,9 @@ const Layout = () => {
               </div>
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-4">
               {/* Mobile Menu Icon */}
-              <div className="sm:hidden flex items-center">
+              <div className="sm:hidden flex items-center ">
                 <button
                   onClick={toggleMobileMenu}
                   className="p-2 rounded-full hover:bg-gray-100 transition-colors"
@@ -168,7 +168,14 @@ const Layout = () => {
                   )}
                 </button>
               </div>
-
+              <div className="hidden md:flex">
+                <button
+                  onClick={openPostRequirementModal}
+                  className="ml-4 border-2 border-indigo-500 px-4 py-2 text-black text-sm font-semibold rounded-lg shadow-md hover:border-indigo-700 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
+                >
+                  Post Requirement
+                </button>
+              </div>
               <div className="hidden sm:flex justify-end items-center relative" ref={dropdownRef}>
                 {isLoggedIn ? (
                   <div>
@@ -208,14 +215,7 @@ const Layout = () => {
                   </button>
                 )}
               </div>
-              <div className="hidden md:flex">
-                <button
-                  onClick={openPostRequirementModal}
-                  className="ml-4 border-2 border-indigo-500 px-4 py-2 text-black text-sm font-semibold rounded-lg shadow-md hover:border-indigo-700 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
-                >
-                  Post Requirement
-                </button>
-              </div>
+
             </div>
           </div>
 

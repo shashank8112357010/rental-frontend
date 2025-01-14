@@ -46,7 +46,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
       toast.success("Appointment booked successfully!");
       setDate("");
       setTime("");
-      navigate("/booking"); // Redirect to booking page
+      navigate("/booking"); // Redirect to the booking page if booking is successful
     } catch (err) {
       console.error("Booking Error:", err);
       setError("An error occurred while booking. Please try again.");

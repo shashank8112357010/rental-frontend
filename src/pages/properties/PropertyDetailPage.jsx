@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { MapPin, User } from 'lucide-react';
 import BookingForm from '../../components/BookingForm';
 import { formatCurrency } from '../../utils/format';
@@ -7,6 +7,9 @@ import { GetPropertyByIdService } from '../../services/api.service';
 import { Dialog } from '@mui/material';
 import EnquiryFormPage from '../../components/EnquiryFormPage';
 import { motion } from 'framer-motion';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const PropertiesPage = () => {
   const { id } = useParams();
@@ -29,7 +32,7 @@ const PropertiesPage = () => {
           pgCategory: data.pgCategory,
           owner: data.owner,
           amenities: data.amenities,
-          image: data.images[0],
+          images: data.images,
           available: data.available,
           createdAt: new Date().toISOString(),
         });
@@ -52,6 +55,16 @@ const PropertiesPage = () => {
   if (isLoading) return <div className="animate-pulse">Loading...</div>;
   if (!properties.id) return <div>Property not found</div>;
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 3000,
+  };
+
   return (
     <motion.div
       className="max-w-6xl mx-auto px-4 py-8"
@@ -62,14 +75,21 @@ const PropertiesPage = () => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <motion.img
-            src={properties.image}
-            alt={properties.title}
-            className="w-full h-96 object-cover rounded-lg"
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
-          />
+          {/* Image Slider */}
+          <Slider {...settings}>
+            {properties.images && properties.images.map((image, index) => (
+              <motion.img
+                key={index}
+                src={image}
+                alt={properties.title}
+                className="w-full h-96 object-cover rounded-lg"
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+            ))}
+          </Slider>
+
           <motion.div className="mt-8">
             <h1 className="text-3xl font-bold text-gray-900">{properties.title}</h1>
             <div className="flex items-center mt-2 text-gray-600">
@@ -77,9 +97,11 @@ const PropertiesPage = () => {
               <span>{properties.owner}</span>
             </div>
             <div className="flex justify-between mt-6 text-gray-600 mb-2">
-              <div className='flex  gap-3'>
-                <MapPin className="h-4 w-4 mr-1" />
-                <span className="text-sm">{properties.location}</span>
+              <div className='flex gap-3'>
+                <Link to={properties.locationLink} target="_blank" className="flex items-center gap-2 text-sm hover:text-indigo-600">
+                  <MapPin className="h-4 w-4" />
+                  <span>{properties.location}</span>
+                </Link>
               </div>
               <div>
                 <p>{properties.pgCategory}</p>
@@ -88,6 +110,22 @@ const PropertiesPage = () => {
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-4">Description</h2>
               <p className="text-gray-600">{properties.description}</p>
+            </div>
+
+            {/* Occupancy */}
+            <div className="mt-6 flex gap-4 ">
+              <h2 className="text-xl font-semibold mb-4">Occupancy</h2>
+              <p className="text-gray-600 mt-1">{properties.occupancy}</p>
+            </div>
+
+            {/* Amenities */}
+            <div className="mt-6 flex flex-col">
+              <h2 className="text-xl font-semibold mb-4">Amenities</h2>
+              <p className="flex gap-4 list-disc-none  text-gray-600">
+                {properties.amenities.map((amenity, index) => (
+                  <span className="px-4 py-2 rounded-full bg-gray-200 text-gray-800 text-sm" key={index}>{amenity}</span>
+                ))}
+              </p>
             </div>
           </motion.div>
         </div>
@@ -105,8 +143,7 @@ const PropertiesPage = () => {
                 <span className="text-sm font-normal text-gray-600">/day</span>
               </span>
               <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${properties.available ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                  }`}
+                className={`px-3 py-1 rounded-full text-sm font-medium ${properties.available ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
               >
                 {properties.available ? 'Available' : 'Not Available'}
               </span>
@@ -114,7 +151,7 @@ const PropertiesPage = () => {
 
             <BookingForm
               itemId={properties.id}
-              itemType="Property"  // Set itemType to "Property"
+              itemType="Property"
               disabled={!properties.available}
             />
 

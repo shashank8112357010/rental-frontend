@@ -9,7 +9,7 @@ const TermsConditions = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
-                className="text-xl md:text-3xl font-bold font-serif text-center text-indigo-900 mb-6"
+                className="text-3xl md:text-3xl font-bold font-serif text-center text-indigo-900 mb-6"
             >
                 Terms and Conditions
             </motion.h1>
@@ -22,7 +22,7 @@ const TermsConditions = () => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
-                        className="text-2xl font-semibold mb-4 text-indigo-600"
+                        className="text-xl md:text-2xl font-semibold mb-4 text-indigo-600"
                     >
                         Scooty & Bike Rental
                     </motion.h2>
@@ -61,7 +61,7 @@ const TermsConditions = () => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
-                        className="text-2xl font-semibold mb-4 font-serif text-indigo-600"
+                        className="text-xl md:text-2xl font-semibold mb-4 font-serif text-indigo-600"
                     >
                         Flats & PG's Rental
                     </motion.h2>
@@ -97,7 +97,7 @@ const TermsConditions = () => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
-                        className="text-2xl font-semibold mb-4 font-serif text-indigo-600"
+                        className="text-xl md:text-2xl font-semibold mb-4 font-serif text-indigo-600"
                     >
                         Notes, Research Assistance, and Internships
                     </motion.h2>

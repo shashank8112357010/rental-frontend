@@ -4,7 +4,7 @@ import Crack from '../../assets/rentalimg/Crack.png'
 
 const BlogsPage3 = () => {
     return (
-        <div className="h-fit pb-16">
+        <div className="h-fit pb-16 mt-44 md:mt-0">
             {/* Header Section */}
             <div className="flex items-center justify-center px-6">
                 <motion.h1
@@ -56,7 +56,7 @@ const BlogsPage3 = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1, delay: index * 0.3 }}
-                                className="text-md text-gray-600 leading-relaxed"
+                                className="text-md text-gray-900 leading-relaxed"
                             >
                                 {text}
                             </motion.p>

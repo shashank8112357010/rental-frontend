@@ -58,6 +58,7 @@ const Layout = () => {
   const handleLoginSuccess = () => {
     setLoggedIn(true);
     closeDialog();
+    setMobileMenuOpen(false);
   };
 
   // Close dropdown when clicking outside
@@ -78,6 +79,7 @@ const Layout = () => {
     localStorage.removeItem('name');
     toast.success("Logout successful");
     navigate("/")
+    setMobileMenuOpen(false);
   };
 
   const openPostRequirementModal = () => {
@@ -194,6 +196,13 @@ const Layout = () => {
                         >
                           Profile
                         </Link>
+                        <Link
+                          onClick={() => setDropdownOpen(false)}
+                          to="/booking"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Booking Details
+                        </Link>
                         <button
                           onClick={handleLogout}
                           className="w-full text-left block px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
@@ -271,17 +280,38 @@ const Layout = () => {
               </Link>
 
               {isLoggedIn ? (
-                <Link
-                  to="/profile"
-                  onClick={() => handleNavClick("/profile")}
-                  className="block px-4 py-2 text-sm text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors"
-                >
-                  <UserCircle className="h-5 w-5 inline-block mr-2" />
-                  Profile
-                </Link>
+                <>
+                  <Link
+                    to="/profile"
+                    onClick={() => handleNavClick("/profile")}
+                    className="block px-4 py-2 text-sm text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors"
+                  >
+                    <UserCircle className="h-5 w-5 inline-block mr-2" />
+                    Profile
+                  </Link>
+                  <Link
+                    to="/booking"
+                    onClick={() => handleNavClick("/booking")}
+                    className="block px-4 py-2 text-sm text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors"
+                  >
+                    Booking Details
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full px-4 py-2 text-sm text-red-500 hover:bg-gray-100 transition-colors text-left"
+                  >
+                    <div className="flex items-center gap-2">
+                      <FiLogOut className="text-red-400" />
+                      Logout
+                    </div>
+                  </button>
+                </>
               ) : (
                 <button
-                  onClick={openLoginDialog}
+                  onClick={() => {
+                    openLoginDialog();
+                    setMobileMenuOpen(false);
+                  }}
                   className="block w-full px-4 py-2 text-sm font-medium text-gray-500 hover:text-indigo-600 hover:bg-gray-100 transition-colors text-left"
                 >
                   Login

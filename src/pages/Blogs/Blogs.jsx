@@ -30,9 +30,9 @@ const Blogs = () => {
     ];
 
     return (
-        <div className='w-full h-auto px-4 md:px-8 lg:px-16 py-8'>
+        <div className='w-full h-auto px-4 md:px-8 lg:px-16 py-8 mt-44 md:mt-0'>
             <div className="text-center mb-12">
-                <h1 className="text-2xl md:text-4xl font-bold text-gray-900">Our Blogs</h1>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Our Blogs</h1>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {blogData.map((blog) => (
@@ -43,8 +43,8 @@ const Blogs = () => {
                             className="w-full h-56 sm:h-72 lg:h-80 object-cover transition-all duration-300"
                         />
                         <div className="p-6 flex flex-col flex-grow">
-                            <h2 className="text-md sm:text-xl line-clamp-2 font-semibold text-gray-800">{blog.title}</h2>
-                            <p className="text-gray-900 font-serif text-sm sm:text-base line-clamp-3 mt-2">{blog.description}</p>
+                            <h2 className="text-xl sm:text-xl line-clamp-2 font-semibold text-gray-800">{blog.title}</h2>
+                            <p className="text-gray-900 font-serif text-md sm:text-base line-clamp-3 mt-2">{blog.description}</p>
                         </div>
                         <Link to={blog.link}>
                             <div className='flex justify-center items-center'>

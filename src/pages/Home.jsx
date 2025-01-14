@@ -45,7 +45,7 @@ const Home = () => {
   return (
     <>
       <motion.div
-        className="space-y-8 px-4 mt-8 md:px-8 lg:px-16"
+        className="space-y-8 px-4 md:mt-8 md:px-8 lg:px-16 mt-44"
         initial="hidden"
         animate="visible"
         transition={{ staggerChildren: 0.2 }}
@@ -58,7 +58,7 @@ const Home = () => {
           <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Find Your Perfect Space or Ride
           </h1>
-          <p className="text-md sm:text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-md sm:text-xl text-gray-800 max-w-2xl mx-auto">
             Browse through our selection of quality accommodations and vehicles for rent
           </p>
         </motion.header>
@@ -118,9 +118,12 @@ const Home = () => {
                 <h3 className="text-lg font-semibold mb-4 text-indigo-600">
                   {category.category}
                 </h3>
-                <ol className="list-disc list-inside space-y-2 ">
+                <ol className="list-disc pl-5 space-y-4">
                   {category.steps.map((step, idx) => (
-                    <li  key={idx} className="text-gray-600 text-sm ">
+                    <li
+                      key={idx}
+                      className="text-gray-800 text-sm leading-6"
+                    >
                       {step}
                     </li>
                   ))}
@@ -129,6 +132,8 @@ const Home = () => {
             ))}
           </motion.div>
         </motion.section>
+
+
       </motion.div>
     </>
   );

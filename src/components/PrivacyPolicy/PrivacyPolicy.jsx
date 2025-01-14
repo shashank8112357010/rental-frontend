@@ -80,7 +80,7 @@ const PrivacyPolicy = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
-                className="text-xl md:text-3xl font-bold text-center text-indigo-900 mb-6"
+                className="text-3xl md:text-3xl font-bold text-center text-indigo-900 mb-6"
             >
                 Privacy Policy
             </motion.h1>
@@ -109,7 +109,7 @@ const PrivacyPolicy = () => {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
-                            className="text-2xl font-semibold font-serif  mb-2 text-indigo-700"
+                            className="text-xl md:text-2xl font-semibold font-serif  mb-2 text-indigo-700"
                         >
                             {section.title}
                         </motion.h2>

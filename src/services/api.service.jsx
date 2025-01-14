@@ -40,6 +40,9 @@ export const UserEnquiryService = (data) => {
 export const UserBookingService = (data) => {
   return clientAxios.post('/bookings', data)
 }
+export const GetUserBookingService = (data) => {
+  return clientAxios.get('/bookings', data)
+}
 // requirement api 
 export const UserRequirementService = (data) => {
   return clientAxios.post('/requirement', data)

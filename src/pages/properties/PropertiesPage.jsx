@@ -9,8 +9,8 @@ const PropertiesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
-  const [location , setLocation] = useState([]);
-  const [propertyType , setPropertyType] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [propertyType, setPropertyType] = useState([]);
 
   const [filters, setFilters] = useState({
     type: '',
@@ -28,7 +28,7 @@ const PropertiesPage = () => {
         type: property.type,
         title: property.title,
         price: property.price,
-        location: property.location,  
+        location: property.location,
         images: property.images,
       }));
       const location = [...new Set(modified.map((property) => property.location))];
@@ -100,7 +100,7 @@ const PropertiesPage = () => {
         <p className="text-sm text-gray-600">Find your perfect accommodation</p>
       </header>
 
-      <PropertyFilters propertyType={propertyType}  location={location}  filters={filters} onFilterChange={handleFilterChange} onClearFilters={clearFilters} />
+      <PropertyFilters propertyType={propertyType} location={location} filters={filters} onFilterChange={handleFilterChange} onClearFilters={clearFilters} />
 
       {isLoading ? (
         <div className="flex justify-center items-center h-40">
@@ -113,9 +113,20 @@ const PropertiesPage = () => {
               <PropertyCard key={property.id} property={property} />
             ))
           ) : (
-            <div className="text-center text-gray-500">
-              <p>No properties match your criteria.</p>
+
+            <div className="flex justify-center items-center w-full min-h-[300px]">
+              <div className="text-center">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                  No properties match your criteria.
+                </h1>
+                <p className="text-sm md:text-base text-gray-500 mt-2">
+                  Try adjusting your filters to find the perfect Property.
+                </p>
+              </div>
             </div>
+
+
+
           )}
         </div>
       )}

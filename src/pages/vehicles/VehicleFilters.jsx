@@ -1,18 +1,9 @@
-import React from "react";
-import { Select, Option } from "@material-tailwind/react";
+import React, { useState, useEffect } from 'react';
 
 const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
   const handleFilterChange = (name, value) => {
-    onFilterChange({ ...filters, [name]: value });
-  };
-
-  const toggleFilter = (value, name) => {
-    onFilterChange({
-      ...filters,
-      [name]: filters[name].includes(value)
-        ? filters[name].filter((item) => item !== value)
-        : [...filters[name], value],
-    });
+    const updatedFilters = { ...filters, [name]: value };
+    onFilterChange(updatedFilters);
   };
 
   const handleRangeChange = (e) => {
@@ -21,39 +12,56 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
     onFilterChange({ ...filters, priceRange: newPriceRange });
   };
 
+  const handleClearFilters = () => {
+    onFilterChange({
+      type: "",
+      priceRange: [0, 100000],
+      location: "",
+      sortOrder: ""
+    });
+  };
+
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg mb-8 max-w-screen-xl mx-auto">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-semibold text-gray-800">Filter Vehicles</h2>
+        <button
+          onClick={handleClearFilters}
+          className="text-sm bg-gray-100 border border-gray-300 px-3 py-1 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          Clear All
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
         {/* Type Filter */}
         <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Type</label>
-          <Select
+          <select
             name="type"
-            value={filters.type}
-            onChange={(value) => handleFilterChange("type", value)}
-            className="w-full p-3 text-black border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200"
+            value={filters.type || ""}
+            onChange={(e) => handleFilterChange("type", e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            <Option value="">All Types</Option>
+            <option value="">All Types</option>
             {filterOptions.types.map((type, index) => (
-              <Option key={index} value={type}>
-                {type}
-              </Option>
+              <option key={index} value={type}>{type}</option>
             ))}
-          </Select>
+          </select>
         </div>
 
         {/* Sort Order Dropdown */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Sort By </label>
-          <Select
-            value={filters.sortOrder}
-            onChange={(value) => handleFilterChange("sortOrder", value)}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200"
+          <label className="text-sm font-semibold text-gray-700">Sort By</label>
+          <select
+            value={filters.sortOrder || ""}
+            onChange={(e) => handleFilterChange("sortOrder", e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            <Option value="">Select</Option>
-            <Option value="lowToHigh">Low to High</Option>
-            <Option value="highToLow">High to Low</Option>
-          </Select>
+            <option value="">Select</option>
+            <option value="lowToHigh">Low to High</option>
+            <option value="highToLow">High to Low</option>
+          </select>
         </div>
 
         {/* Price Range Slider */}
@@ -78,19 +86,17 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
         {/* Location Filter */}
         {/* <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Location</label>
-          <Select
+          <select
             name="location"
-            value={filters.location}
-            onChange={(value) => handleFilterChange("location", value)}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200"
+            value={filters.location || ""}
+            onChange={(e) => handleFilterChange("location", e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            <Option value="">All Locations</Option>
+            <option value="">All Locations</option>
             {filterOptions.locations.map((location, index) => (
-              <Option key={index} value={location}>
-                {location}
-              </Option>
+              <option key={index} value={location}>{location}</option>
             ))}
-          </Select>
+          </select>
         </div> */}
       </div>
     </div>

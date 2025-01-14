@@ -1,36 +1,30 @@
 import React, { useState } from 'react';
-import { Select, Option, Button } from '@material-tailwind/react';
 
-
-const PropertyFilters = ({  propertyType ,location , filters, onFilterChange, onClearFilters }) => {
+const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onClearFilters }) => {
   const [furnishOptions, setFurnishOptions] = useState({
-    type : "",
-    data : []
+    type: "",
+    data: []
   });
 
- console.log(location);
- const [selected , setSelected] = useState("");
-
   const handleFilterChange = (name, value) => {
-    setSelected(value);
     const updatedFilters = { ...filters, [name]: value };
     onFilterChange(updatedFilters);
 
     if (name === 'type') {
       if (['FLAT'].includes(value)) {
         setFurnishOptions({
-          type : "FLAT",
-          data : ['Semi-Furnished', 'Fully-Furnished', 'Unfurnished']
+          type: "FLAT",
+          data: ['Semi-Furnished', 'Fully-Furnished', 'Unfurnished']
         });
       } else if (['PG'].includes(value)) {
         setFurnishOptions({
-            type : "PG",
-            data : ['Single', 'Double', 'Triple', 'Four']
-          });
+          type: "PG",
+          data: ['Single', 'Double', 'Triple', 'Four']
+        });
       } else {
         setFurnishOptions({
-          type : "",
-          data : []
+          type: "",
+          data: []
         });
       }
     }
@@ -40,60 +34,44 @@ const PropertyFilters = ({  propertyType ,location , filters, onFilterChange, on
     <div className="bg-white p-4 rounded-lg shadow-md mb-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold text-gray-800">Filter Properties</h2>
-        <Button
-          size="sm"
-          color="gray"
-          variant="outlined"
+        <button
           onClick={onClearFilters}
-          className="text-xs"
+          className="text-xs bg-gray-100 border border-gray-300 px-2 py-1 rounded hover:bg-gray-200"
         >
           Clear All
-        </Button>
+        </button>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {/* Property Type Filter */}
         <div>
           <label className="text-xs font-medium text-gray-600">Property Type</label>
-          {
-            console.log(selected , "selected")
-          }
-          <Select
-            value={selected}
-            onChange={(value) => handleFilterChange('type', value)}
-            placeholder="Select Type"
-            className="mt-1"
+          <select
+            value={filters.type || ""}
+            onChange={(e) => handleFilterChange('type', e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            <Option value="All Types">All Types</Option>
-            {
-              propertyType.map((type, index) => (
-                <Option key={index} value={type}>
-                  {type}
-                </Option>
-              ))
-            }
-            
-          </Select>
+            <option value="">All Types</option>
+            {propertyType.map((type, index) => (
+              <option key={index} value={type}>{type}</option>
+            ))}
+          </select>
         </div>
 
         {/* Furnish Type Filter */}
         {furnishOptions.data.length > 0 && (
           <div>
-            <label className="text-xs font-medium text-gray-600">{furnishOptions.type === 'PG' ? 'Occupency' : 'Furnish Type'    }</label>
-           
-            <Select
-              value={filters.furnishType}
-              onChange={(value) => handleFilterChange('furnishType', value)}
-              placeholder="Select Furnish Type"
-              className="mt-1"
+            <label className="text-xs font-medium text-gray-600">{furnishOptions.type === 'PG' ? 'Occupency' : 'Furnish Type'}</label>
+            <select
+              value={filters.furnishType || ""}
+              onChange={(e) => handleFilterChange('furnishType', e.target.value)}
+             className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
-              <Option value="">All Types</Option>
+              <option value="">All Types</option>
               {furnishOptions.data.map((option, index) => (
-                <Option key={index} value={option}>
-                  {option}
-                </Option>
+                <option key={index} value={option}>{option}</option>
               ))}
-            </Select>
+            </select>
           </div>
         )}
 
@@ -118,19 +96,16 @@ const PropertyFilters = ({  propertyType ,location , filters, onFilterChange, on
         {/* Location Filter */}
         <div>
           <label className="text-xs font-medium text-gray-600">Location</label>
-          <Select
-            value={filters.location}
-            onChange={(value) => handleFilterChange('location', value)}
-            placeholder="Select Location"
-            className="mt-1"
+          <select
+            value={filters.location || ""}
+            onChange={(e) => handleFilterChange('location', e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            <Option value="">All Locations</Option>
-            {location.map((location, index) => (
-              <Option key={index} value={location}>
-                {location}
-              </Option>
+            <option value="">All Locations</option>
+            {location.map((loc, index) => (
+              <option key={index} value={loc}>{loc}</option>
             ))}
-          </Select>
+          </select>
         </div>
       </div>
     </div>

@@ -16,10 +16,10 @@ const VehiclesPage = () => {
 
   // Filter states
   const [filters, setFilters] = useState({
-    type: [],
-    priceRange: [0, 1000],  // Min and Max price range
-    location: [],
-    sortOrder: ""  // Sort order: 'highToLow', 'lowToHigh', ''
+    type: "",
+    priceRange: [0, 100000], // Min and Max price range
+    location: "",
+    sortOrder: "", // Sort order: 'highToLow', 'lowToHigh', ''
   });
 
   const fetchVehicleData = async () => {
@@ -64,31 +64,28 @@ const VehiclesPage = () => {
     let filteredData = [...vehicles];
 
     // Apply type filter
-    if (filters.type.length) {
-      filteredData = filteredData.filter((vehicle) =>
-        filters.type.includes(vehicle.type)
-      );
+    if (filters.type) {
+      filteredData = filteredData.filter((vehicle) => vehicle.type === filters.type);
     }
 
     // Apply location filter
-    if (filters.location.length) {
+    if (filters.location) {
       filteredData = filteredData.filter((vehicle) =>
-        filters.location.some((loc) => vehicle.location?.toLowerCase().includes(loc.toLowerCase()))
+        vehicle.location?.toLowerCase().includes(filters.location.toLowerCase())
       );
     }
 
     // Apply price range filter
-    const [minPrice, maxPrice] = filters.priceRange || [0, 1000]; // Default range
-    filteredData = filteredData.filter((vehicle) =>
-      vehicle.pricePerDay >= minPrice && vehicle.pricePerDay <= maxPrice
+    const [minPrice, maxPrice] = filters.priceRange;
+    filteredData = filteredData.filter(
+      (vehicle) => vehicle.pricePerDay >= minPrice && vehicle.pricePerDay <= maxPrice
     );
 
-
-    // Apply sorting (high to low)
+    // Apply sorting
     if (filters.sortOrder === "highToLow") {
-      filteredData = filteredData.sort((a, b) => b.pricePerDay - a.pricePerDay);
+      filteredData.sort((a, b) => b.pricePerDay - a.pricePerDay);
     } else if (filters.sortOrder === "lowToHigh") {
-      filteredData = filteredData.sort((a, b) => a.pricePerDay - b.pricePerDay);
+      filteredData.sort((a, b) => a.pricePerDay - b.pricePerDay);
     }
 
     setFilteredVehicles(filteredData);
@@ -141,7 +138,9 @@ const VehiclesPage = () => {
         </motion.div>
       ) : (
         <motion.div
-          className={`grid ${filteredVehicles?.length > 0 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}
+          className={`grid ${
+            filteredVehicles?.length > 0 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
+          } gap-6`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -163,7 +162,6 @@ const VehiclesPage = () => {
             </div>
           )}
         </motion.div>
-
       )}
 
       <div>

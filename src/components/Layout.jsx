@@ -294,7 +294,7 @@ const Layout = () => {
           <div className="flex justify-center items-center p-4">
             <button
               onClick={openPostRequirementModal}
-              className="border-2 border-indigo-500 px-6 py-3 text-black font-semibold rounded-lg shadow-md hover:border-indigo-700 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
+              className="border-2 border-indigo-500 text-sm px-6 py-2 text-black font-semibold rounded-lg shadow-md hover:border-indigo-700 focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
             >
               Post Requirement
             </button>

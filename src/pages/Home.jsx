@@ -9,6 +9,38 @@ const Home = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+  const steps = [
+    {
+      category: 'Property',
+      steps: [
+        'Search for properties that suit your needs.',
+        'View detailed property descriptions and amenities.',
+        'Contact the owner or agent to schedule a visit.',
+        'Visit the property and review the location.',
+        'Confirm the booking and finalize the details.',
+      ],
+    },
+    {
+      category: 'Vehicle',
+      steps: [
+        'Browse through available vehicles.',
+        'Check vehicle details and pricing.',
+        'Select your preferred vehicle.',
+        'Schedule a test ride or delivery.',
+        'Confirm your booking and enjoy the ride.',
+      ],
+    },
+    {
+      category: 'Academic',
+      steps: [
+        'Explore available academic courses.',
+        'Read course descriptions and reviews.',
+        'Choose a course that fits your goals.',
+        'Register and complete the payment process.',
+        'Start learning and achieve your goals.',
+      ],
+    },
+  ];
 
   return (
     <>
@@ -76,31 +108,23 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ staggerChildren: 0.2 }}
           >
-            {[
-              {
-                title: 'Browse Listings',
-                description: 'Explore our curated selection of properties and vehicles',
-              },
-              {
-                title: 'Book Appointment',
-                description: 'Schedule a viewing or test ride at your convenience',
-              },
-              {
-                title: 'Confirm Booking',
-                description: 'Complete the booking process with our verified owners',
-              },
-            ].map((step, index) => (
+            {steps.map((category, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 rounded-lg shadow-sm"
+                className="bg-white p-6 rounded-lg shadow-md"
                 variants={fadeInUp}
                 transition={{ duration: 0.5 }}
               >
-                <div className="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center mb-4">
-                  {index + 1}
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                <p className="text-gray-600">{step.description}</p>
+                <h3 className="text-lg font-semibold mb-4 text-indigo-600">
+                  {category.category}
+                </h3>
+                <ol className="list-disc list-inside space-y-2 ">
+                  {category.steps.map((step, idx) => (
+                    <li  key={idx} className="text-gray-600 text-sm ">
+                      {step}
+                    </li>
+                  ))}
+                </ol>
               </motion.div>
             ))}
           </motion.div>

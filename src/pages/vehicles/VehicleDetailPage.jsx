@@ -66,7 +66,7 @@ const VehicleDetailPage = () => {
 
   return (
     <motion.div
-      className="max-w-6xl mx-auto px-4 py-8"
+      className="max-w-6xl  mt-36 md:mt-0 mx-auto px-4 py-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}

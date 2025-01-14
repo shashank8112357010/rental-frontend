@@ -8,7 +8,7 @@ import SeamlessStudent from "../../assets/rentalimg/SeamlessStudent.png"
 
 export default function About() {
   return (
-    <div className="h-fit pb-16 mt-8  ">
+    <div className="h-fit pb-16 md:mt-8  mt-44">
       {/* Header Section */}
       <div className=" flex items-center justify-center">
         <h1 className="text-2xl md:text-3xl font-serif  font-bold text-black">
@@ -68,7 +68,7 @@ export default function About() {
       <div className="px-6 flex flex-col md:flex-row  mt-20">
 
         {/* Text Section */}
-        <div className="md:w-1/2 mt-8 md:mt-0 md:ml-12">
+        <div className="md:w-1/2 mt-8 md:mt-0 md:mb-0 mb-8 md:ml-12">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}

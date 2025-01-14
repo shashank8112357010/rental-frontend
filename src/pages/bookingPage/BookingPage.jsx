@@ -32,7 +32,7 @@ const BookingPage = () => {
     ];
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto px-4 py-8 mt-36 md:mt-0">
             <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
                 Booking Details
             </h1>
@@ -84,10 +84,10 @@ const BookingPage = () => {
                                 <td className="px-6 py-4">
                                     <span
                                         className={`px-3 py-1 rounded-full text-xs font-semibold ${booking.status === "Confirmed"
-                                                ? "bg-green-100 text-green-700"
-                                                : booking.status === "Pending"
-                                                    ? "bg-yellow-100 text-yellow-700"
-                                                    : "bg-red-100 text-red-700"
+                                            ? "bg-green-100 text-green-700"
+                                            : booking.status === "Pending"
+                                                ? "bg-yellow-100 text-yellow-700"
+                                                : "bg-red-100 text-red-700"
                                             }`}
                                     >
                                         {booking.status}

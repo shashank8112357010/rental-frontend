@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Building2, Bike, BookOpenIcon } from 'lucide-react';
+import { Building2, Bike, BookOpenIcon, SearchIcon, FileTextIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AcademicImg from '../assets/rentalimg/Academic.png'
 
@@ -85,14 +85,36 @@ const Home = () => {
             image="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000"
           />
           <CategoryCard
-            title="Academic"
+            title="Notes"
             description="Explore a variety of academic courses designed to enhance your knowledge "
             icon={<BookOpenIcon className="h-8 w-8" />}
-            link="/academic"
+            link="/notes"
             image={AcademicImg}
           />
         </motion.div>
-
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ staggerChildren: 0.2 }}
+        >
+          <CategoryCard
+            title="Research Assistance"
+            description="Get expert guidance for your academic research and projects"
+            icon={<SearchIcon className="h-8 w-8" />}
+            link="/research"
+            image={AcademicImg}
+          />
+          <CategoryCard
+            title="Plagiarism Check"
+            description="Ensure originality with professional plagiarism detection tools"
+            icon={<FileTextIcon className="h-8 w-8" />}
+            link="/plagiarism"
+            image={AcademicImg}
+          />
+        </motion.div>
+        {/* 
         <motion.section
           className="mt-16"
           variants={fadeInUp}
@@ -131,10 +153,10 @@ const Home = () => {
               </motion.div>
             ))}
           </motion.div>
-        </motion.section>
+        </motion.section> */}
 
 
-      </motion.div>
+      </motion.div >
     </>
   );
 };

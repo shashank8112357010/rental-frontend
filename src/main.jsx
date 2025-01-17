@@ -27,6 +27,8 @@ import BlogsPage3 from './pages/Blogs/BlogsPage3.jsx'
 import BookingPage from './pages/bookingPage/BookingPage.jsx'
 import E_Book from './pages/E_Book.jsx'
 import Contact from './pages/contact/Contact.jsx'
+import Plagiarism from './pages/Plagiarism/Plagiarism.jsx'
+import ResearchAssistance from './pages/ResearchAssistance/ResearchAssistance.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,6 +52,8 @@ const router = createBrowserRouter(
         <Route path="/booking" element={<BookingPage />} />
         <Route path="/e-Book" element={<E_Book />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/plagiarism" element={<Plagiarism />} />
+        <Route path="/research" element={<ResearchAssistance />} />
 
       </Route>
     </>

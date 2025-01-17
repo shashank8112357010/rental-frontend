@@ -74,7 +74,19 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             </select>
           </div>
         )}
-
+        {/* Sort Order Filter */}
+        <div>
+          <label className="text-xs font-medium text-gray-600">Sort By</label>
+          <select
+            value={filters.sortOrder || ""}
+            onChange={(e) => handleFilterChange('sortOrder', e.target.value)}
+            className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+          >
+            <option value="">Select</option>
+            <option value="lowToHigh">Price: Low to High</option>
+            <option value="highToLow">Price: High to Low</option>
+          </select>
+        </div>
         {/* Price Range */}
         <div>
           <label className="text-xs font-medium text-gray-600">Price Range (₹)</label>
@@ -99,7 +111,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
           <select
             value={filters.location || ""}
             onChange={(e) => handleFilterChange('location', e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
             <option value="" className='text-black'>All Locations</option>
             {location.map((loc, index) => (

@@ -104,9 +104,14 @@ const ProfilePage = () => {
 
           {activeTab === 'password' && (
             <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">Change Password</h2>
+              <h2 className="text-xl font-semibold mb-4 text-white">Change Password</h2>
+
+              {/* Current Password Field */}
               <div className="mb-4 relative">
-                <label className="block text-sm font-medium text-white mb-1" htmlFor="current-password">
+                <label
+                  className="block text-sm font-medium text-white mb-1"
+                  htmlFor="current-password"
+                >
                   Current Password
                 </label>
                 <input
@@ -114,19 +119,24 @@ const ProfilePage = () => {
                   id="current-password"
                   value={oldPassword}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="border rounded p-2 w-full"
+                  className="border border-gray-300 rounded p-2 w-full bg-gray-900 text-white placeholder-gray-500"
                   placeholder="Enter your current password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowOldPassword(!showOldPassword)}
-                  className="absolute top-8  right-3 flex items-center text-gray-500"
+                  className="absolute top-8 right-3 flex items-center text-gray-500"
                 >
                   {showOldPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
                 </button>
               </div>
+
+              {/* New Password Field */}
               <div className="mb-4 relative">
-                <label className="block text-sm font-medium text-white mb-1" htmlFor="new-password">
+                <label
+                  className="block text-sm font-medium text-white mb-1"
+                  htmlFor="new-password"
+                >
                   New Password
                 </label>
                 <input
@@ -134,7 +144,7 @@ const ProfilePage = () => {
                   id="new-password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="border rounded p-2 w-full"
+                  className="border border-gray-300 rounded p-2 w-full bg-gray-900 text-white placeholder-gray-500"
                   placeholder="Enter your new password"
                 />
                 <button
@@ -145,6 +155,8 @@ const ProfilePage = () => {
                   {showNewPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
                 </button>
               </div>
+
+              {/* Update Password Button */}
               <button
                 onClick={handlePasswordChange}
                 className="bg-white text-black px-4 py-2 rounded transition duration-200"

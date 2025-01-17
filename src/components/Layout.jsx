@@ -201,6 +201,13 @@ const Layout = () => {
                         </Link>
                         <Link
                           onClick={() => setDropdownOpen(false)}
+                          to="/e-Book"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          E Books
+                        </Link>
+                        <Link
+                          onClick={() => setDropdownOpen(false)}
                           to="/booking"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >

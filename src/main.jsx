@@ -26,6 +26,7 @@ import BlogsPage2 from './pages/Blogs/BlogsPage2.jsx'
 import BlogsPage3 from './pages/Blogs/BlogsPage3.jsx'
 import BookingPage from './pages/bookingPage/BookingPage.jsx'
 import E_Book from './pages/E_Book.jsx'
+import Contact from './pages/contact/Contact.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,7 +48,8 @@ const router = createBrowserRouter(
         <Route path="/blog/blogs2" element={<BlogsPage2 />} />
         <Route path="/blog/blogs3" element={<BlogsPage3 />} />
         <Route path="/booking" element={<BookingPage />} />
-        <Route path="//e-Book" element={<E_Book />} />
+        <Route path="/e-Book" element={<E_Book />} />
+        <Route path="/contact" element={<Contact />} />
 
       </Route>
     </>

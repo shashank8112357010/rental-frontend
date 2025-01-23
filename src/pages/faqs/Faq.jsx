@@ -33,7 +33,10 @@ export default function Faq() {
 
     return (
         <div className="mt-12">
-            <h1 className="text-4xl font-bold mb-12 text-center text-black">Frequently Asked Questions</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-center text-white">
+                Frequently Asked Questions
+            </h1>
+
             <div className="p-4">
                 {faqs.map((faq, index) => (
                     <div key={index} className="mb-4">

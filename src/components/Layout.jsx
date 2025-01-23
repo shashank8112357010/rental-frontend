@@ -342,7 +342,7 @@ const Layout = () => {
         </div>
       </nav>
 
-      <main className="p-4 sm:p-28">
+      <main className="p-4 sm:p-20">
         <Outlet />
       </main>
       <Footer />

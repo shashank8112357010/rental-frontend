@@ -46,9 +46,9 @@ const router = createBrowserRouter(
         <Route path="/term_conditions" element={<TermsConditions />} />
         <Route path="/services" element={<TopServices />} />
         <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blog/blogs1" element={<BlogsPage1 />} />
-        <Route path="/blog/blogs2" element={<BlogsPage2 />} />
-        <Route path="/blog/blogs3" element={<BlogsPage3 />} />
+        <Route path="/blog/blogsDetails1" element={<BlogsPage1 />} />
+        <Route path="/blog/blogsDetails2" element={<BlogsPage2 />} />
+        <Route path="/blog/blogsDetails3" element={<BlogsPage3 />} />
         <Route path="/booking" element={<BookingPage />} />
         <Route path="/e-Book" element={<E_Book />} />
         <Route path="/contact" element={<Contact />} />

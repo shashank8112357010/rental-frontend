@@ -47,3 +47,6 @@ export const GetUserBookingService = (data) => {
 export const UserRequirementService = (data) => {
   return clientAxios.post('/requirement', data)
 }
+export const UserResearchService = (data) => {
+  return clientAxios.post('/form', data)
+}

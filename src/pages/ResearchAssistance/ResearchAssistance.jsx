@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { UserResearchService } from "../../services/api.service";
 
 const ResearchAssistance = () => {
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
     });
 
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.name) newErrors.name = "Name is required.";
+        if (!formData.email) newErrors.email = "Email is required.";
+        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email format.";
+        if (!formData.phone) newErrors.phone = "Phone number is required.";
+        if (!formData.message) newErrors.message = "Message is required.";
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,31 +33,31 @@ const ResearchAssistance = () => {
             ...formData,
             [name]: value,
         });
+        setErrors({
+            ...errors,
+            [name]: "", // Clear field-specific error on change
+        });
     };
 
-    const validateForm = () => {
-        const newErrors = {};
-        if (!formData.name.trim()) newErrors.name = 'Name is required.';
-        if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Valid email is required.';
-        if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Valid 10-digit phone number is required.';
-        if (!formData.message.trim()) newErrors.message = 'Message is required.';
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            console.log('Form Data:', formData);
-            alert('Form submitted successfully!');
-            // Reset form
-            setFormData({
-                name: '',
-                email: '',
-                phone: '',
-                message: '',
-            });
-            setErrors({});
+        setLoading(true);
+
+        if (!validateForm()) {
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await UserResearchService(formData);
+            toast.success("Your request has been submitted successfully!");
+            console.log(response);
+            navigate("/thank-you"); // Navigate to a thank-you page
+        } catch (error) {
+            toast.error("Failed to submit the form. Please try again.");
+            console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -61,7 +78,7 @@ const ResearchAssistance = () => {
                             placeholder="Enter your name"
                             value={formData.name}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-500' : 'focus:ring-blue-500'
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.name ? "focus:ring-red-500" : "focus:ring-blue-500"
                                 }`}
                         />
                         {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
@@ -79,7 +96,7 @@ const ResearchAssistance = () => {
                             placeholder="Enter your email"
                             value={formData.email}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-blue-500'
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.email ? "focus:ring-red-500" : "focus:ring-blue-500"
                                 }`}
                         />
                         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -97,7 +114,7 @@ const ResearchAssistance = () => {
                             placeholder="Enter your phone number"
                             value={formData.phone}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? 'focus:ring-red-500' : 'focus:ring-blue-500'
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? "focus:ring-red-500" : "focus:ring-blue-500"
                                 }`}
                         />
                         {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -115,7 +132,7 @@ const ResearchAssistance = () => {
                             placeholder="Write your message"
                             value={formData.message}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-500' : 'focus:ring-blue-500'
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.message ? "focus:ring-red-500" : "focus:ring-blue-500"
                                 }`}
                         ></textarea>
                         {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
@@ -126,8 +143,9 @@ const ResearchAssistance = () => {
                         <button
                             type="submit"
                             className="w-full border-white border hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
+                            disabled={loading}
                         >
-                            Submit
+                            {loading ? "Submitting..." : "Submit"}
                         </button>
                     </div>
                 </form>

@@ -17,12 +17,16 @@ const PropertiesPage = () => {
     priceRange: [500, 100000],
     location: '',
     sortOrder: '',
+    furnishType: '',
+    flatType: '',
+    occupancy: '',
+    pgCategory: '',
   });
 
   const fetchPropertiesData = async () => {
     try {
       const res = await GetPropertyService();
-      console.log(res);
+      console.log(res)
       const modified = res.data.map((property) => ({
         id: property._id,
         type: property.type,
@@ -30,14 +34,16 @@ const PropertiesPage = () => {
         price: property.price,
         location: property.location,
         images: property.images,
+        flatType: property.flatType,
+        furnishType: property.furnishType,
+        occupancy: property.occupancy,
+        pgCategory: property.pgCategory,
       }));
       const location = [...new Set(modified.map((property) => property.location))];
       const propertyTypeRes = [...new Set(modified.map((property) => property.type))];
 
-
       setPropertyType(propertyTypeRes);
       setLocation(location);
-
       setProperties(modified);
       setFilteredProperties(modified);
     } catch (err) {
@@ -75,6 +81,31 @@ const PropertiesPage = () => {
       filteredData.sort((a, b) => b.price - a.price);
     }
 
+    if (filters.type === 'PG' && filters.occupancy) {
+      const occupancyFilterValue = parseInt(filters.occupancy, 10);
+      filteredData = filteredData.filter(
+        (property) => property.occupancy === occupancyFilterValue
+      );
+    }
+
+    if (filters.type === 'PG' && filters.pgCategory) {
+      filteredData = filteredData.filter(
+        (property) => property.pgCategory === filters.pgCategory
+      );
+    }
+
+    if (filters.type === 'FLAT' && filters.flatType) {
+      filteredData = filteredData.filter((property) => property.flatType === filters.flatType);
+    }
+
+    if (filters.type === 'FLAT' && filters.furnishType) {
+      filteredData = filteredData.filter(
+        (property) =>
+          property.furnishType.toLowerCase() === filters.furnishType.toLowerCase().replace('-', '')
+      );
+    }
+
+
     setFilteredProperties(filteredData);
   };
 
@@ -89,31 +120,42 @@ const PropertiesPage = () => {
       priceRange: [500, 100000],
       location: '',
       sortOrder: '',
+      flatType: '',
+      furnishType: '',
+      pgCategory: '',
+      occupancy: '',
     });
     setFilteredProperties(properties);
   };
 
   return (
-    <div className=" mt-44 md:mt-0">
+    <div className="mt-44 md:mt-0">
       <header className="mb-6">
         <h1 className="text-xl md:text-2xl font-bold text-white">Available Properties</h1>
         <p className="text-sm text-white">Find your perfect accommodation</p>
       </header>
 
-      <PropertyFilters propertyType={propertyType} location={location} filters={filters} onFilterChange={handleFilterChange} onClearFilters={clearFilters} />
+      <PropertyFilters
+        propertyType={propertyType}
+        location={location}
+        filters={filters}
+        onFilterChange={handleFilterChange}
+        onClearFilters={clearFilters}
+      />
 
       {isLoading ? (
         <div className="flex justify-center items-center h-40">
           <Spinner color="blue" size="lg" />
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <div className={`grid ${filteredProperties?.length > 0 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
+          } gap-6`}>
           {filteredProperties.length ? (
             filteredProperties.map((property) => (
               <PropertyCard key={property.id} property={property} />
             ))
           ) : (
-
             <div className="flex justify-center items-center w-full min-h-[300px]">
               <div className="text-center">
                 <h1 className="text-2xl md:text-3xl font-bold text-white">
@@ -124,9 +166,6 @@ const PropertiesPage = () => {
                 </p>
               </div>
             </div>
-
-
-
           )}
         </div>
       )}

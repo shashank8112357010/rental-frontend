@@ -1,34 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onClearFilters }) => {
   const [furnishOptions, setFurnishOptions] = useState({
-    type: "",
-    data: []
+    type: '',
+    data: [],
   });
+
+  useEffect(() => {
+    if (filters.type === 'FLAT') {
+      setFurnishOptions({
+        type: 'FLAT',
+        data: ['Semi-Furnished', 'Fully-Furnished', 'Unfurnished'],
+      });
+    } else if (filters.type === 'PG') {
+      setFurnishOptions({
+        type: 'PG',
+        data: ['Single', 'Double', 'Triple', 'Four'],
+      });
+    } else {
+      setFurnishOptions({
+        type: '',
+        data: [],
+      });
+    }
+  }, [filters.type]);
 
   const handleFilterChange = (name, value) => {
     const updatedFilters = { ...filters, [name]: value };
     onFilterChange(updatedFilters);
 
     if (name === 'type') {
-      if (['FLAT'].includes(value)) {
-        setFurnishOptions({
-          type: "FLAT",
-          data: ['Semi-Furnished', 'Fully-Furnished', 'Unfurnished']
-        });
-      } else if (['PG'].includes(value)) {
-        setFurnishOptions({
-          type: "PG",
-          data: ['Single', 'Double', 'Triple', 'Four']
-        });
-      } else {
-        setFurnishOptions({
-          type: "",
-          data: []
-        });
-      }
+      setFurnishOptions({
+        type: value,
+        data: value === 'FLAT' ? ['Semi-Furnished', 'Fully-Furnished', 'Unfurnished'] : (value === 'PG' ? ['Single', 'Double', 'Triple', 'Four'] : [])
+      });
+
+      if (value !== 'PG') updatedFilters.occupancy = '';
+      if (value !== 'FLAT') updatedFilters.furnishType = '';
+      updatedFilters.pgCategory = '';
+      onFilterChange(updatedFilters);
     }
   };
+
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md mb-6">
@@ -47,7 +60,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
         <div>
           <label className="text-xs font-medium text-gray-600">Property Type</label>
           <select
-            value={filters.type || ""}
+            value={filters.type || ''}
             onChange={(e) => handleFilterChange('type', e.target.value)}
             className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
@@ -57,19 +70,70 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             ))}
           </select>
         </div>
-
-        {/* Furnish Type Filter */}
-        {furnishOptions.data.length > 0 && (
+        {/* PG Category Filter */}
+        {filters.type === 'PG' && (
           <div>
-            <label className="text-xs font-medium text-black">{furnishOptions.type === 'PG' ? 'Occupency' : 'Furnish Type'}</label>
+            <label className="text-xs font-medium text-gray-600">PG Category</label>
             <select
-              value={filters.furnishType || ""}
-              onChange={(e) => handleFilterChange('furnishType', e.target.value)}
+              value={filters.pgCategory || ''}
+              onChange={(e) => handleFilterChange('pgCategory', e.target.value)}
+              className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            >
+              <option value="">All Categories</option>
+              <option value="GIRLS">Girls</option>
+              <option value="BOYS">Boys</option>
+            </select>
+          </div>
+        )}
+
+        {/* Occupancy Filter for PG Category */}
+        {filters.type === 'PG' && filters.pgCategory && (
+          <div>
+            <label className="text-xs font-medium text-gray-600">Occupancy</label>
+            <select
+              value={filters.occupancy || ''}
+              onChange={(e) => handleFilterChange('occupancy', parseInt(e.target.value, 10))}
+              className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            >
+              <option value="">Select Occupancy</option>
+              {furnishOptions.data.map((occupancy, index) => (
+                <option key={index} value={occupancy}>{occupancy}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {/* Flat Type Filter */}
+        {filters.type === 'FLAT' && (
+          <div>
+            <label className="text-xs font-medium text-gray-600">Flat Type</label>
+            <select
+              value={filters.flatType || ''}
+              onChange={(e) => handleFilterChange('flatType', e.target.value)}
               className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
             >
               <option value="">All Types</option>
-              {furnishOptions.data.map((option, index) => (
-                <option key={index} value={option}>{option}</option>
+              <option value="1BHK">1 BHK</option>
+              <option value="2BHK">2 BHK</option>
+              <option value="3BHK">3 BHK</option>
+            </select>
+          </div>
+        )}
+
+        {/* Furnish Type Filter */}
+        {filters.type === 'FLAT' && (
+          <div>
+            <label className="text-xs font-medium text-gray-600">Furnish Type</label>
+            <select
+              value={filters.furnishType || ''}
+              onChange={(e) => handleFilterChange('furnishType', e.target.value)}
+              className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            >
+              <option value="">All Furnish Types</option>
+              {furnishOptions.data.map((furnishType, index) => (
+                <option key={index} value={furnishType.replace('-', '').toLowerCase()}>
+                  {furnishType}
+                </option>
               ))}
             </select>
           </div>
@@ -87,6 +151,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             <option value="highToLow">Price: High to Low</option>
           </select>
         </div>
+
         {/* Price Range */}
         <div>
           <label className="text-xs font-medium text-gray-600">Price Range (₹)</label>
@@ -113,9 +178,9 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             onChange={(e) => handleFilterChange('location', e.target.value)}
             className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
-            <option value="" className='text-black'>All Locations</option>
+            <option value="">All Locations</option>
             {location.map((loc, index) => (
-              <option className='text-black' key={index} value={loc}>{loc}</option>
+              <option key={index} value={loc}>{loc}</option>
             ))}
           </select>
         </div>

@@ -6,6 +6,14 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
     data: [],
   });
 
+
+  const occupancyOptions = [
+    { value: 1, label: 'Single' },
+    { value: 2, label: 'Double' },
+    { value: 3, label: 'Triple' },
+    // { value: 4, label: 'Quadruple' },
+  ];
+
   useEffect(() => {
     if (filters.type === 'FLAT') {
       setFurnishOptions({
@@ -15,7 +23,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
     } else if (filters.type === 'PG') {
       setFurnishOptions({
         type: 'PG',
-        data: ['Single', 'Double', 'Triple', 'Four'],
+        data: occupancyOptions,
       });
     } else {
       setFurnishOptions({
@@ -27,14 +35,20 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
 
   const handleFilterChange = (name, value) => {
     const updatedFilters = { ...filters, [name]: value };
+    if (name === 'occupancy') {
+      updatedFilters.occupancy = parseInt(value, 10) || '';
+    }
     onFilterChange(updatedFilters);
 
     if (name === 'type') {
       setFurnishOptions({
         type: value,
-        data: value === 'FLAT' ? ['Semi-Furnished', 'Fully-Furnished', 'Unfurnished'] : (value === 'PG' ? ['Single', 'Double', 'Triple', 'Four'] : [])
+        data: value === 'FLAT'
+          ? ['Semi-Furnished', 'Fully-Furnished', 'Unfurnished']
+          : value === 'PG'
+            ? occupancyOptions
+            : [],
       });
-
       if (value !== 'PG') updatedFilters.occupancy = '';
       if (value !== 'FLAT') updatedFilters.furnishType = '';
       updatedFilters.pgCategory = '';
@@ -92,12 +106,14 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             <label className="text-xs font-medium text-gray-600">Occupancy</label>
             <select
               value={filters.occupancy || ''}
-              onChange={(e) => handleFilterChange('occupancy', parseInt(e.target.value, 10))}
+              onChange={(e) => handleFilterChange('occupancy', e.target.value)}
               className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
             >
               <option value="">Select Occupancy</option>
-              {furnishOptions.data.map((occupancy, index) => (
-                <option key={index} value={occupancy}>{occupancy}</option>
+              {occupancyOptions.map((occupancy) => (
+                <option key={occupancy.value} value={occupancy.value}>
+                  {occupancy.label}
+                </option>
               ))}
             </select>
           </div>

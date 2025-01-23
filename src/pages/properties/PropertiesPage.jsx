@@ -82,9 +82,8 @@ const PropertiesPage = () => {
     }
 
     if (filters.type === 'PG' && filters.occupancy) {
-      const occupancyFilterValue = parseInt(filters.occupancy, 10);
       filteredData = filteredData.filter(
-        (property) => property.occupancy === occupancyFilterValue
+        (property) => property.occupancy === filters.occupancy
       );
     }
 

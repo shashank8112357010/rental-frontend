@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Building2, Bike, BookOpenIcon, SearchIcon, FileTextIcon } from 'lucide-react';
+import { Building2, Bike, BookOpenIcon, SearchIcon, FileTextIcon, Building2Icon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AcademicImg from '../assets/rentalimg/Academic.png'
+import { FaGraduationCap } from 'react-icons/fa';
+import { LuBookOpenCheck } from 'react-icons/lu';
 
 const Home = () => {
   const fadeInUp = {
@@ -93,7 +95,7 @@ const Home = () => {
           />
         </motion.div>
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -109,9 +111,16 @@ const Home = () => {
           <CategoryCard
             title="Plagiarism Check"
             description="Ensure originality with professional plagiarism detection tools"
-            icon={<FileTextIcon className="h-8 w-8" />}
+            icon={<LuBookOpenCheck className="h-8 w-8" />}
             link="/plagiarism"
-            image={AcademicImg}
+            image="https://media.istockphoto.com/id/2094337676/photo/diverse-team-working-together-in-modern-co-working-space.webp?a=1&b=1&s=612x612&w=0&k=20&c=FbH7i1I3oCXoRfZKFvGj3jMXnsljD8mPmDmvY4IxQuA="
+          />
+          <CategoryCard
+            title="Internship"
+            description="Find exciting internship opportunities to kickstart your career"
+            icon={<FaGraduationCap className="h-8 w-8" />}
+            link="/internship"
+            image="https://media.istockphoto.com/id/1434742171/photo/laptop-ppt-presentation-business-meeting-and-team-working-on-review-for-new-digital-website.webp?a=1&b=1&s=612x612&w=0&k=20&c=QGR4lIXS1P30qiZnhfq5cKMKLba1N3QGjWT1e012cYU="
           />
         </motion.div>
         {/* 

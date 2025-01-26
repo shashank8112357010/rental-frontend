@@ -124,8 +124,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
             onClick={(e) => e.stopPropagation()}
           >
             {isLogin ? (
-              <Login
-                closeDialog={() => setIsLoginModalOpen(false)}
+              <Login closeDialog={() => setIsLoginModalOpen(false)}
                 switchToRegister={() => setIsLogin(false)}
               />
             ) : (

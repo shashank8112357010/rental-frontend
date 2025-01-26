@@ -29,6 +29,9 @@ import E_Book from './pages/E_Book.jsx'
 import Contact from './pages/contact/Contact.jsx'
 import Plagiarism from './pages/Plagiarism/Plagiarism.jsx'
 import ResearchAssistance from './pages/ResearchAssistance/ResearchAssistance.jsx'
+import Notes from './pages/notes/Notes.jsx'
+import Subjects from './pages/notes/Subjects.jsx'
+import ModuleDetail from './pages/notes/ModuleDetail.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,6 +57,10 @@ const router = createBrowserRouter(
         <Route path="/contact" element={<Contact />} />
         <Route path="/plagiarism" element={<Plagiarism />} />
         <Route path="/research" element={<ResearchAssistance />} />
+        {/* notes */}
+        <Route path="/notes" element={<Notes />} />
+        <Route path="/subjects/:subjectName" element={<Subjects />} />
+        <Route path="/modules/:subjectName/:id" element={<ModuleDetail />} />
 
       </Route>
     </>

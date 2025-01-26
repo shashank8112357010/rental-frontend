@@ -7,18 +7,16 @@ import Register from "../../components/auth/Register";
 
 const ModuleDetail = () => {
     const { subjectName, id } = useParams();
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
 
     // Handle "Read More" click
     const handleReadMoreClick = useCallback(() => {
         if (!getToken()) {
-            toast.info("You need to log in first!"); // Show toast message
-            setIsAuthModalOpen(true); // Open login/register modal
+            toast.info("You need to log in first!");
+            setIsAuthModalOpen(true);
             return;
         }
-        setIsModalOpen(true); // Open purchase modal
     }, []);
 
     // Close modals
@@ -26,9 +24,6 @@ const ModuleDetail = () => {
         setIsAuthModalOpen(false);
     }, []);
 
-    const closeModal = useCallback(() => {
-        setIsModalOpen(false);
-    }, []);
 
     return (
         <div className="bg-black mt-44 md:mt-0 p-8">
@@ -44,42 +39,11 @@ const ModuleDetail = () => {
                 </p>
                 <button
                     onClick={handleReadMoreClick}
-                    className="w-32 bg-white text-black px-6 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 hover:bg-gray-200 transition"
+                    className="w-60 bg-white text-black px-6 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 hover:bg-gray-200 transition"
                 >
-                    Read More
+                    Read More Buy Now
                 </button>
             </div>
-
-            {/* Purchase Modal */}
-            {isModalOpen && (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-                    onClick={closeModal}
-                >
-                    <div
-                        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <h2 className="text-xl font-bold text-black mb-4">
-                            Purchase Module {id}
-                        </h2>
-                        <p className="text-black mb-6">Price: ₹500</p>
-                        <div className="flex justify-between">
-                            <button
-                                className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-500"
-                            >
-                                Buy Now
-                            </button>
-                            <button
-                                onClick={closeModal}
-                                className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-500"
-                            >
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
 
             {/* Login/Register Modal */}
             {isAuthModalOpen && (

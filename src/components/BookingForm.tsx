@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar } from "lucide-react";
 import { UserBookingService } from "../services/api.service";
 import { toast } from "react-toastify";
@@ -16,10 +16,29 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (isLoginModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isLoginModalOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsLoginModalOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Check if the user is logged in
     if (!getToken()) {
       toast.info("You need to log in first!");
       setIsLoginModalOpen(true);
@@ -34,22 +53,20 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
     setError("");
     setIsLoading(true);
 
-    const bookingDetails = {
-      itemType,
-      item: itemId,
-      appointmentDate: `${date}T${time}:00.000Z`,
-      preferredTime: time,
-    };
-
     try {
+      const bookingDetails = {
+        itemType,
+        item: itemId,
+        appointmentDate: `${date}T${time}:00.000Z`,
+        preferredTime: time,
+      };
       await UserBookingService(bookingDetails);
       toast.success("Appointment booked successfully!");
       setDate("");
       setTime("");
-      navigate("/booking"); // Redirect to the booking page if booking is successful
+      navigate("/booking");
     } catch (err) {
-      console.error("Booking Error:", err);
-      setError("An error occurred while booking. Please try again.");
+      toast.error("An error occurred while booking. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +90,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
             value={date}
             onChange={(e) => setDate(e.target.value)}
             min={new Date().toISOString().split("T")[0]}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
+            className="w-full rounded-md border-gray-300 text-black shadow-sm focus:border-black focus:ring-black"
             required
           />
         </div>
@@ -86,7 +103,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
             type="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
+            className="w-full rounded-md border-gray-300 text-black shadow-sm focus:border-black focus:ring-black"
             required
           />
         </div>
@@ -117,16 +134,14 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
         <div
           id="modal-overlay"
           onClick={closeModal}
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto"
         >
           <div
-            className="bg-white p-6 rounded-md shadow-md w-full max-w-sm"
+            className="bg-white p-2 md:p-6 rounded-md shadow-md w-[80%] md:h-auto mt-72 md:mt-0 max-w-sm"
             onClick={(e) => e.stopPropagation()}
           >
             {isLogin ? (
-              <Login closeDialog={() => setIsLoginModalOpen(false)}
-                switchToRegister={() => setIsLogin(false)}
-              />
+              <Login  closeDialog={() => setIsLoginModalOpen(false)} switchToRegister={() => setIsLogin(false)}/>
             ) : (
               <Register switchToLogin={() => setIsLogin(true)} />
             )}

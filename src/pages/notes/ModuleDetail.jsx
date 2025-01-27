@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getToken } from "../../helper/tokenHelper";
@@ -24,9 +24,17 @@ const ModuleDetail = () => {
         setIsAuthModalOpen(false);
     }, []);
 
+    useEffect(() => {
+        if (isAuthModalOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+    }, [isAuthModalOpen]);
+
 
     return (
-        <div className="bg-black mt-44 md:mt-0 p-8">
+        <div className="bg-black mt-44 md:mt-0 p-2 pb-8 md:p-8">
             <h1 className="text-3xl font-bold text-white mb-8 text-center">
                 {subjectName} - Module {id}
             </h1>
@@ -48,11 +56,11 @@ const ModuleDetail = () => {
             {/* Login/Register Modal */}
             {isAuthModalOpen && (
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto"
                     onClick={closeAuthModal}
                 >
                     <div
-                        className="bg-white p-6 rounded-md shadow-md w-full max-w-sm"
+                        className="bg-white rounded-xl shadow-md w-[80%] h-[50%] md:h-auto  mt-40 max-w-sm mx-auto"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {isLogin ? (
@@ -66,6 +74,7 @@ const ModuleDetail = () => {
                     </div>
                 </div>
             )}
+
         </div>
     );
 };

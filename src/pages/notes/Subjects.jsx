@@ -10,6 +10,18 @@ const Subjects = () => {
         { id: "2", name: "Module 2" },
         { id: "3", name: "Module 3" },
         { id: "4", name: "Module 4" },
+        { id: "5", name: "Module 5" },
+        { id: "6", name: "Module 6" },
+        { id: "7", name: "Module 7" },
+        { id: "8", name: "Module 8" },
+        { id: "9", name: "Module 9" },
+        { id: "10", name: "Module 10" },
+        { id: "11", name: "Module 11" },
+        { id: "12", name: "Module 12" },
+        { id: "13", name: "Module 13" },
+        { id: "14", name: "Module 14" },
+        { id: "15", name: "Module 15" },
+        { id: "16", name: "Module 16" },
     ];
 
     const handleModuleClick = (id) => {
@@ -25,7 +37,7 @@ const Subjects = () => {
     }, []);
 
     return (
-        <div className="bg-black min-h-screen mt-44 md:mt-0 p-8">
+        <div className="bg-black  mt-44 md:mt-0 p-2 md:p-8">
             <h1 className="text-3xl font-bold text-white mb-8 text-center">
                 {subjectName} Modules
             </h1>

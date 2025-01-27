@@ -32,6 +32,7 @@ import ResearchAssistance from './pages/ResearchAssistance/ResearchAssistance.js
 import Notes from './pages/notes/Notes.jsx'
 import Subjects from './pages/notes/Subjects.jsx'
 import ModuleDetail from './pages/notes/ModuleDetail.jsx'
+import Internship from './pages/internship/Internship.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,7 +62,8 @@ const router = createBrowserRouter(
         <Route path="/notes" element={<Notes />} />
         <Route path="/subjects/:subjectName" element={<Subjects />} />
         <Route path="/modules/:subjectName/:id" element={<ModuleDetail />} />
-
+        {/* internship */}
+        <Route path="/internship" element={<Internship />} />
       </Route>
     </>
   )

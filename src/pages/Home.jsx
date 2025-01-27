@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import { Building2, Bike, BookOpenIcon, SearchIcon, FileTextIcon, Building2Icon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AcademicImg from '../assets/rentalimg/Academic.png'
+import ResearchImg from '../assets/Research.jpg'
+import PropertiesImg from '../assets/Properties.avif'
+import VehiclesImg from '../assets/Vehicles.avif'
+import plagiarismImg from '../assets/plagiarism.webp'
+import internshipImg from '../assets/internship.webp'
 import { FaGraduationCap } from 'react-icons/fa';
 import { LuBookOpenCheck } from 'react-icons/lu';
 
@@ -11,38 +16,38 @@ const Home = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
-  const steps = [
-    {
-      category: 'Property',
-      steps: [
-        'Search for properties that suit your needs.',
-        'View detailed property descriptions and amenities.',
-        'Contact the owner or agent to schedule a visit.',
-        'Visit the property and review the location.',
-        'Confirm the booking and finalize the details.',
-      ],
-    },
-    {
-      category: 'Vehicle',
-      steps: [
-        'Browse through available vehicles.',
-        'Check vehicle details and pricing.',
-        'Select your preferred vehicle.',
-        'Schedule a test ride or delivery.',
-        'Confirm your booking and enjoy the ride.',
-      ],
-    },
-    {
-      category: 'Academic',
-      steps: [
-        'Explore available academic courses.',
-        'Read course descriptions and reviews.',
-        'Choose a course that fits your goals.',
-        'Register and complete the payment process.',
-        'Start learning and achieve your goals.',
-      ],
-    },
-  ];
+  // const steps = [
+  //   {
+  //     category: 'Property',
+  //     steps: [
+  //       'Search for properties that suit your needs.',
+  //       'View detailed property descriptions and amenities.',
+  //       'Contact the owner or agent to schedule a visit.',
+  //       'Visit the property and review the location.',
+  //       'Confirm the booking and finalize the details.',
+  //     ],
+  //   },
+  //   {
+  //     category: 'Vehicle',
+  //     steps: [
+  //       'Browse through available vehicles.',
+  //       'Check vehicle details and pricing.',
+  //       'Select your preferred vehicle.',
+  //       'Schedule a test ride or delivery.',
+  //       'Confirm your booking and enjoy the ride.',
+  //     ],
+  //   },
+  //   {
+  //     category: 'Academic',
+  //     steps: [
+  //       'Explore available academic courses.',
+  //       'Read course descriptions and reviews.',
+  //       'Choose a course that fits your goals.',
+  //       'Register and complete the payment process.',
+  //       'Start learning and achieve your goals.',
+  //     ],
+  //   },
+  // ];
 
   return (
     <>
@@ -66,7 +71,7 @@ const Home = () => {
         </motion.header>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-12"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 md:p-0 pb-8 mt-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -77,14 +82,15 @@ const Home = () => {
             description="Find the perfect flat or PG accommodation"
             icon={<Building2 className="h-8 w-8" />}
             link="/properties"
-            image="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=1000"
+            image={PropertiesImg}
           />
           <CategoryCard
             title="Vehicles"
             description="Rent bikes and scooters for your daily commute"
             icon={<Bike className="h-8 w-8" />}
             link="/vehicles"
-            image="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000"
+            image={VehiclesImg}
+
           />
           <CategoryCard
             title="Notes"
@@ -93,77 +99,29 @@ const Home = () => {
             link="/notes"
             image={AcademicImg}
           />
-        </motion.div>
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ staggerChildren: 0.2 }}
-        >
           <CategoryCard
             title="Research Assistance"
             description="Get expert guidance for your academic research and projects"
             icon={<SearchIcon className="h-8 w-8" />}
             link="/research"
-            image={AcademicImg}
+            image={ResearchImg}
           />
           <CategoryCard
             title="Plagiarism Check"
             description="Ensure originality with professional plagiarism detection tools"
             icon={<LuBookOpenCheck className="h-8 w-8" />}
             link="/plagiarism"
-            image="https://media.istockphoto.com/id/2094337676/photo/diverse-team-working-together-in-modern-co-working-space.webp?a=1&b=1&s=612x612&w=0&k=20&c=FbH7i1I3oCXoRfZKFvGj3jMXnsljD8mPmDmvY4IxQuA="
+            image={plagiarismImg}
           />
+
           <CategoryCard
             title="Internship"
             description="Find exciting internship opportunities to kickstart your career"
             icon={<FaGraduationCap className="h-8 w-8" />}
             link="/internship"
-            image="https://media.istockphoto.com/id/1434742171/photo/laptop-ppt-presentation-business-meeting-and-team-working-on-review-for-new-digital-website.webp?a=1&b=1&s=612x612&w=0&k=20&c=QGR4lIXS1P30qiZnhfq5cKMKLba1N3QGjWT1e012cYU="
+            image={internshipImg}
           />
         </motion.div>
-        {/* 
-        <motion.section
-          className="mt-16"
-          variants={fadeInUp}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-6 text-center">
-            How It Works
-          </h2>
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ staggerChildren: 0.2 }}
-          >
-            {steps.map((category, index) => (
-              <motion.div
-                key={index}
-                className="bg-white p-6 rounded-lg shadow-md"
-                variants={fadeInUp}
-                transition={{ duration: 0.5 }}
-              >
-                <h3 className="text-lg font-semibold mb-4 text-black">
-                  {category.category}
-                </h3>
-                <ol className="list-disc pl-5 space-y-4">
-                  {category.steps.map((step, idx) => (
-                    <li
-                      key={idx}
-                      className="text-gray-800 text-sm leading-6"
-                    >
-                      {step}
-                    </li>
-                  ))}
-                </ol>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.section> */}
-
 
       </motion.div >
     </>

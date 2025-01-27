@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { UserRequirementService } from '../../services/api.service';
 import { toast } from 'react-toastify';
+import Loader from '../loder/Loader';
 
 const PostRequirement = ({ closeDialog }) => {
     const [formData, setFormData] = useState({
@@ -164,8 +165,9 @@ const PostRequirement = ({ closeDialog }) => {
                             type="submit"
                             disabled={isLoading}
                             className="px-6 py-2 text-sm bg-black text-white rounded-md  transition"
+                            style={{ width: '40%', height: '42px' }}
                         >
-                            {isLoading ? 'Submitting...' : 'Submit'}
+                            {isLoading ? <Loader /> : 'Submit'}
                         </button>
                     </div>
                 </form>

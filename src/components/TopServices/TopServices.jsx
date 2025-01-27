@@ -12,12 +12,12 @@ export default function TopServices() {
   const categories = [
     {
       id: 1,
-      categoryName: "PG Rent",
+      categoryName: "properties",
       subcategoryImage: EventManagementImage,
     },
     {
       id: 2,
-      categoryName: "Notes Selling",
+      categoryName: "notes",
       subcategoryImage: BrandingImage,
     },
     {
@@ -28,7 +28,7 @@ export default function TopServices() {
   ];
 
   const handleExploreClick = (categoryName) => {
-    navigate(`/vehicles/${categoryName}`);
+    navigate(`/${categoryName}`);
   };
 
   return (
@@ -65,7 +65,7 @@ export default function TopServices() {
                   {category.categoryName}
                 </h2>
                 <button
-                  className="mt-4 text-white bg-indigo-600 py-2 px-4 md:px-6 rounded-lg hover:bg-indigo-500 transition-colors"
+                  className="mt-4 text-white bg-black py-2 px-4 md:px-6 rounded-lg transition-colors"
                   onClick={() => handleExploreClick(category.categoryName)}
                 >
                   Explore

@@ -55,8 +55,8 @@ const Plagiarism = () => {
     };
 
     return (
-        <div className="min-h-screen  mt-24 md:mt-0 text-white flex items-center justify-center px-4 sm:px-8 py-12">
-            <div className="max-w-4xl w-full p-6 sm:p-10 rounded-lg shadow-lg">
+        <div className="min-h-screen  mt-24 md:mt-0 text-white flex items-center justify-center px-4 sm:px-2 py-12">
+            <div className="max-w-4xl w-full p-2 sm:p-10 rounded-lg shadow-lg">
                 <h2 className="text-3xl font-bold mb-6 text-center">Plagiarism Check Form</h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* Name */}

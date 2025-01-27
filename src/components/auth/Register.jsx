@@ -49,7 +49,7 @@ const Register = ({ switchToLogin }) => {
     return (
         <div className='container flex justify-center items-center'>
             <div className="flex flex-col bg-white p-8 w-96">
-                <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center text-black">Sign Up</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
@@ -113,11 +113,12 @@ const Register = ({ switchToLogin }) => {
                         type="submit"
                         className={`w-full bg-black text-white py-3 rounded-md  transition duration-200 flex justify-center items-center`}
                         disabled={loading}
+                        style={{ width: '100%', height: '44px' }}
                     >
                         {loading ? (
                             <AiOutlineLoading className="animate-spin mr-2" size={20} />
                         ) : null}
-                        {loading ? 'Signing Up...' : 'Sign Up'}
+                        {loading ? '' : 'Sign Up'}
                     </button>
                 </form>
 

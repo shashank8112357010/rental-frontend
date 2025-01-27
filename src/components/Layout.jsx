@@ -164,7 +164,7 @@ const Layout = () => {
               <div className="sm:hidden flex items-center ">
                 <button
                   onClick={toggleMobileMenu}
-                  className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                  className="p-2 rounded-full  transition-colors"
                 >
                   {isMobileMenuOpen ? (
                     <X className="h-6 w-6 text-white" />

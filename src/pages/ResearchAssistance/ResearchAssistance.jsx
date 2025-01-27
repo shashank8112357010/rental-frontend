@@ -63,7 +63,7 @@ const ResearchAssistance = () => {
 
     return (
         <div className="min-h-screen mt-24 md:mt-0 bg-black text-white flex items-center justify-center px-4 py-12">
-            <div className="max-w-3xl w-full p-6 sm:p-10 rounded-lg shadow-lg">
+            <div className="max-w-3xl w-full p-2 sm:p-10 rounded-lg shadow-lg">
                 <h2 className="text-3xl font-bold mb-6 text-center">Research Assistance Form</h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* Name */}

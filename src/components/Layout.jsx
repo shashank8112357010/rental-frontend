@@ -206,13 +206,7 @@ const Layout = () => {
                         >
                           E Books
                         </Link>
-                        <Link
-                          onClick={() => setDropdownOpen(false)}
-                          to="/booking"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          Booking Details
-                        </Link>
+
                         <button
                           onClick={handleLogout}
                           className="w-full text-left block px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
@@ -299,13 +293,7 @@ const Layout = () => {
                     <UserCircle className="h-5 w-5 inline-block mr-2" />
                     Profile
                   </Link>
-                  <Link
-                    to="/booking"
-                    onClick={() => handleNavClick("/booking")}
-                    className="block px-4 py-2 text-sm text-white hover:text-black hover:bg-gray-100 transition-colors"
-                  >
-                    Booking Details
-                  </Link>
+
                   <button
                     onClick={handleLogout}
                     className="block w-full px-4 py-2 text-sm text-red-500 hover:bg-gray-100 transition-colors text-left"

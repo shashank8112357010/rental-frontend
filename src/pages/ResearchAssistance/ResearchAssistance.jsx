@@ -9,14 +9,28 @@ const ResearchAssistance = () => {
         email: "",
         phone: "",
         message: "",
-        researchArea: "", // Research area selection
-        deliveryOption: "", // Delivery option selection
-        paymentOption: "", // Payment option selection
+        researchArea: "",
+        deliveryOption: "",
+        paymentOption: "",
+        wordCount: "",
     });
 
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    const getCalculatedPriceForOption = (wordCount, baseRate) => {
+        if (!wordCount || isNaN(wordCount)) return baseRate.toFixed(2);
+
+        let totalPrice;
+        if (wordCount <= 1000) {
+            totalPrice = baseRate;
+        } else {
+            totalPrice = baseRate + ((wordCount - 1000) / 1000) * baseRate;
+        }
+
+        return totalPrice.toFixed(2);
+    };
 
     const validateForm = () => {
         const newErrors = {};
@@ -27,7 +41,8 @@ const ResearchAssistance = () => {
         if (!formData.message) newErrors.message = "Message is required.";
         if (!formData.researchArea) newErrors.researchArea = "Please select an area of research.";
         if (!formData.deliveryOption) newErrors.deliveryOption = "Please select a delivery option.";
-        if (!formData.paymentOption) newErrors.paymentOption = "Please select a payment option."; // Validation for payment option
+        if (!formData.paymentOption) newErrors.paymentOption = "Please select a payment option.";
+        if (!formData.wordCount || isNaN(formData.wordCount)) newErrors.wordCount = "Please enter a valid word count.";
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -35,14 +50,11 @@ const ResearchAssistance = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
+        setFormData((prev) => {
+            const updatedFormData = { ...prev, [name]: value };
+            return updatedFormData;
         });
-        setErrors({
-            ...errors,
-            [name]: "", // Clear field-specific error on change
-        });
+        setErrors((prev) => ({ ...prev, [name]: "" }));
     };
 
     const handleSubmit = async (e) => {
@@ -70,7 +82,7 @@ const ResearchAssistance = () => {
     return (
         <div className="min-h-screen mt-24 md:mt-0 bg-black text-white flex items-center justify-center px-4 py-12">
             <div className="max-w-3xl w-full p-2 sm:p-10 rounded-lg shadow-lg">
-                <h2 className="text-3xl font-bold mb-6 text-center">Research Assistance Form</h2>
+                <h2 className="text-3xl font-bold mb-6 text-center">Research Assistance</h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
 
                     {/* Name */}
@@ -110,13 +122,13 @@ const ResearchAssistance = () => {
                     {/* Phone */}
                     <div>
                         <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                            Phone
+                            Phone ( WhatsApp Number )
                         </label>
                         <input
                             type="tel"
                             id="phone"
                             name="phone"
-                            placeholder="Enter your phone number"
+                            placeholder="Enter your whatapp number"
                             value={formData.phone}
                             onChange={handleChange}
                             className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
@@ -141,12 +153,30 @@ const ResearchAssistance = () => {
                         {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                     </div>
 
+                    {/* Word Count */}
+                    <div>
+                        <label htmlFor="wordCount" className="block text-sm font-medium mb-2">
+                            Word Count
+                        </label>
+                        <input
+                            type="number"
+                            id="wordCount"
+                            name="wordCount"
+                            placeholder="Enter the number of words"
+                            value={formData.wordCount}
+                            onChange={handleChange}
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.wordCount ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
+                        />
+                        {errors.wordCount && <p className="text-red-500 text-sm mt-1">{errors.wordCount}</p>}
+                    </div>
+
+
                     <div className="flex justify-between gap-8">
                         {/* Area of Research (Radio Buttons) */}
                         <div>
                             <label className="block text-sm font-medium mb-2">Area of Research</label>
                             <div className="space-y-2">
-                                {["Research", "Review", "Presentation Speech", "Critical Analysis", "Case Commentary", "IRAC Analysis", "Book / Movie Review"].map((area, index) => (
+                                {["Research Paper", "Literature Review", "Presentation Speech", "Critical Analysis", "Case Commentary", "IRAC Analysis", "Book / Movie Review"].map((area, index) => (
                                     <div key={index} className="flex items-center">
                                         <input
                                             type="radio"
@@ -186,38 +216,53 @@ const ResearchAssistance = () => {
                                 </div>
                                 {errors.deliveryOption && <p className="text-red-500 text-sm mt-1">{errors.deliveryOption}</p>}
                             </div>
-
                             {/* Payment Options */}
-                            <div className="">
+                            <div>
                                 <label className="block text-sm font-medium mb-2">Payment Option</label>
                                 <div className="space-y-2">
-                                    {["Standard (399/1000 words)", "Premium (599/1000 words)"].map((payment, index) => (
-                                        <div key={index} className="flex items-center">
-                                            <input
-                                                type="radio"
-                                                id={`paymentOption${index}`}
-                                                name="paymentOption"
-                                                value={payment}
-                                                checked={formData.paymentOption === payment}
-                                                onChange={handleChange}
-                                                className="text-blue-500 focus:ring-blue-500"
-                                            />
-                                            <label htmlFor={`paymentOption${index}`} className="ml-2 text-white">{payment}</label>
-                                        </div>
-                                    ))}
+                                    {[
+                                        { label: "Standard", rate: 399 },
+                                        { label: "Premium", rate: 599 },
+                                    ].map((option, index) => {
+                                        const calculatedPrice = getCalculatedPriceForOption(formData.wordCount, option.rate);
+
+                                        return (
+                                            <div key={index} className="flex items-center">
+                                                <input
+                                                    type="radio"
+                                                    id={`paymentOption${index}`}
+                                                    name="paymentOption"
+                                                    value={`${option.label} (${option.rate}/1000 words)`}
+                                                    checked={formData.paymentOption === `${option.label} (${option.rate}/1000 words)`}
+                                                    onChange={handleChange}
+                                                    className="text-blue-500 focus:ring-blue-500"
+                                                />
+                                                <label htmlFor={`paymentOption${index}`} className="ml-2 text-white">
+                                                    {option.label} ({option.rate}/1000 words) - ₹{calculatedPrice}
+                                                </label>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                                 {errors.paymentOption && <p className="text-red-500 text-sm mt-1">{errors.paymentOption}</p>}
                             </div>
+
                         </div>
                     </div>
+
                     {/* Submit Button */}
-                    <div className="text-center">
+                    <div className="text-center pt-8">
                         <button
                             type="submit"
-                            className="w-full border-white border hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
+                            className=" border-white border hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
                             disabled={loading}
+                            style={{ width: '100%', height: '44px' }}
                         >
-                            {loading ? "Submitting..." : "Submit"}
+                            {loading ? (
+                                <AiOutlineLoading3Quarters className="animate-spin text-center text-white" size={20} />
+                            ) : (
+                                'Submit'
+                            )}
                         </button>
                     </div>
                 </form>

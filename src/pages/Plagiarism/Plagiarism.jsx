@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { AiOutlineLoading, AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { ImSpinner2 } from 'react-icons/im';
 
 const Plagiarism = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +11,7 @@ const Plagiarism = () => {
         file: null,
         checkType: '', // To store selected check type
     });
+    const [loading, setLoading] = useState(false);
 
     const [errors, setErrors] = useState({});
 
@@ -47,6 +50,7 @@ const Plagiarism = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true)
         if (validateForm()) {
             console.log('Form Data:', formData);
             alert('Form submitted successfully!');
@@ -66,7 +70,7 @@ const Plagiarism = () => {
     return (
         <div className="min-h-screen mt-24 md:mt-0 text-white flex items-center justify-center px-4 sm:px-2 py-12">
             <div className="max-w-4xl w-full p-2 sm:p-10 rounded-lg shadow-lg">
-                <h2 className="text-3xl font-bold mb-6 text-center">Plagiarism Check Form</h2>
+                <h2 className="text-3xl font-bold mb-6 text-center">Plagiarism Check </h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* Name */}
                     <div>
@@ -105,13 +109,13 @@ const Plagiarism = () => {
                     {/* Phone */}
                     <div>
                         <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                            Phone
+                            Phone ( WhatsApp Number )
                         </label>
                         <input
                             type="tel"
                             id="phone"
                             name="phone"
-                            placeholder="Enter your phone number"
+                            placeholder="Enter your whatsapp  number"
                             value={formData.phone}
                             onChange={handleChange}
                             className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
@@ -174,13 +178,13 @@ const Plagiarism = () => {
                                     type="radio"
                                     id="a1Check"
                                     name="checkType"
-                                    value="A1 Check - ₹ 30/ document"
-                                    checked={formData.checkType === "A1 Check - ₹ 30/ document"}
+                                    value="AI Check - ₹ 30/ document"
+                                    checked={formData.checkType === "AI Check - ₹ 30/ document"}
                                     onChange={handleRadioChange}
                                     className="text-blue-500 focus:ring-blue-500"
                                 />
                                 <label htmlFor="a1Check" className="ml-2 text-white">
-                                    A1 Check - ₹ 30/ document
+                                    AI Check - ₹ 30/ document
                                 </label>
                             </div>
                             <div className="flex items-center">
@@ -188,28 +192,34 @@ const Plagiarism = () => {
                                     type="radio"
                                     id="a1PlusCheck"
                                     name="checkType"
-                                    value="A1+ Check - ₹ 30/ document"
-                                    checked={formData.checkType === "A1+ Check - ₹ 30/ document"}
+                                    value="AI+ Check - ₹ 30/ document"
+                                    checked={formData.checkType === "AI+ Check - ₹ 30/ document"}
                                     onChange={handleRadioChange}
                                     className="text-blue-500 focus:ring-blue-500"
                                 />
                                 <label htmlFor="a1PlusCheck" className="ml-2 text-white">
-                                    A1+ Check - ₹ 30/ document
+                                    AI+ Check - ₹ 40/ document
                                 </label>
                             </div>
                         </div>
                         {errors.checkType && <p className="text-red-500 text-sm mt-1">{errors.checkType}</p>}
                     </div>
 
-                    {/* Submit Button */}
                     <div className="text-center">
                         <button
                             type="submit"
-                            className="w-full border-white border hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
+                            className="border-white border text-center hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center"
+                            disabled={loading}
+                            style={{ width: '100%', height: '44px' }}
                         >
-                            Submit
+                            {loading ? (
+                                <AiOutlineLoading3Quarters className="animate-spin text-center text-white" size={20} />
+                            ) : (
+                                'Submit'
+                            )}
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>

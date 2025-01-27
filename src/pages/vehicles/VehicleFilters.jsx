@@ -33,7 +33,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {/* Type Filter */}
         <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Type</label>
@@ -77,27 +77,28 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
             min="0"
             max="100000"
             step="100"
-            value={filters.priceRange[0]}  // Use the first value of priceRange
-            onChange={handleRangeChange}  // handle range change for the first value
+            value={filters.priceRange[0]}
+            onChange={handleRangeChange}
             className="w-full h-2 bg-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
           />
         </div>
 
         {/* Location Filter */}
-        {/* <div className="space-y-2">
+        {/* Location Filter (Updated) */}
+        <div className="space-y-2">
           <label className="text-sm font-semibold text-gray-700">Location</label>
           <select
             name="location"
             value={filters.location || ""}
             onChange={(e) => handleFilterChange("location", e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
             <option value="">All Locations</option>
             {filterOptions.locations.map((location, index) => (
               <option key={index} value={location}>{location}</option>
             ))}
           </select>
-        </div> */}
+        </div>
       </div>
     </div>
   );

@@ -9,6 +9,9 @@ const ResearchAssistance = () => {
         email: "",
         phone: "",
         message: "",
+        researchArea: "", // Research area selection
+        deliveryOption: "", // Delivery option selection
+        paymentOption: "", // Payment option selection
     });
 
     const [errors, setErrors] = useState({});
@@ -22,6 +25,9 @@ const ResearchAssistance = () => {
         else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email format.";
         if (!formData.phone) newErrors.phone = "Phone number is required.";
         if (!formData.message) newErrors.message = "Message is required.";
+        if (!formData.researchArea) newErrors.researchArea = "Please select an area of research.";
+        if (!formData.deliveryOption) newErrors.deliveryOption = "Please select a delivery option.";
+        if (!formData.paymentOption) newErrors.paymentOption = "Please select a payment option."; // Validation for payment option
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -52,7 +58,7 @@ const ResearchAssistance = () => {
             const response = await UserResearchService(formData);
             toast.success("Your request has been submitted successfully!");
             console.log(response);
-            navigate("/thank-you"); // Navigate to a thank-you page
+            navigate("/thank-you");
         } catch (error) {
             toast.error("Failed to submit the form. Please try again.");
             console.error(error);
@@ -66,6 +72,7 @@ const ResearchAssistance = () => {
             <div className="max-w-3xl w-full p-2 sm:p-10 rounded-lg shadow-lg">
                 <h2 className="text-3xl font-bold mb-6 text-center">Research Assistance Form</h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
+
                     {/* Name */}
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -78,8 +85,7 @@ const ResearchAssistance = () => {
                             placeholder="Enter your name"
                             value={formData.name}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.name ? "focus:ring-red-500" : "focus:ring-blue-500"
-                                }`}
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.name ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
                         />
                         {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                     </div>
@@ -96,8 +102,7 @@ const ResearchAssistance = () => {
                             placeholder="Enter your email"
                             value={formData.email}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.email ? "focus:ring-red-500" : "focus:ring-blue-500"
-                                }`}
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.email ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
                         />
                         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                     </div>
@@ -114,8 +119,7 @@ const ResearchAssistance = () => {
                             placeholder="Enter your phone number"
                             value={formData.phone}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? "focus:ring-red-500" : "focus:ring-blue-500"
-                                }`}
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
                         />
                         {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                     </div>
@@ -132,12 +136,80 @@ const ResearchAssistance = () => {
                             placeholder="Write your message"
                             value={formData.message}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.message ? "focus:ring-red-500" : "focus:ring-blue-500"
-                                }`}
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.message ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
                         ></textarea>
                         {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                     </div>
 
+                    <div className="flex justify-between gap-8">
+                        {/* Area of Research (Radio Buttons) */}
+                        <div>
+                            <label className="block text-sm font-medium mb-2">Area of Research</label>
+                            <div className="space-y-2">
+                                {["Research", "Review", "Presentation Speech", "Critical Analysis", "Case Commentary", "IRAC Analysis", "Book / Movie Review"].map((area, index) => (
+                                    <div key={index} className="flex items-center">
+                                        <input
+                                            type="radio"
+                                            id={`researchArea${index}`}
+                                            name="researchArea"
+                                            value={area}
+                                            checked={formData.researchArea === area}
+                                            onChange={handleChange}
+                                            className="text-blue-500 focus:ring-blue-500"
+                                        />
+                                        <label htmlFor={`researchArea${index}`} className="ml-2 text-white">{area}</label>
+                                    </div>
+                                ))}
+                            </div>
+                            {errors.researchArea && <p className="text-red-500 text-sm mt-1">{errors.researchArea}</p>}
+                        </div>
+
+                        <div className="flex flex-col gap-12">
+                            {/* Delivery Options (Radio Buttons) */}
+                            <div>
+                                <label className="block text-sm font-medium mb-2">Delivery Options</label>
+                                <div className="space-y-2">
+                                    {["Standard Delivery within 72 Hours", "Express Delivery within 12 Hours"].map((delivery, index) => (
+                                        <div key={index} className="flex items-center">
+                                            <input
+                                                type="radio"
+                                                id={`deliveryOption${index}`}
+                                                name="deliveryOption"
+                                                value={delivery}
+                                                checked={formData.deliveryOption === delivery}
+                                                onChange={handleChange}
+                                                className="text-blue-500 focus:ring-blue-500"
+                                            />
+                                            <label htmlFor={`deliveryOption${index}`} className="ml-2 text-white">{delivery}</label>
+                                        </div>
+                                    ))}
+                                </div>
+                                {errors.deliveryOption && <p className="text-red-500 text-sm mt-1">{errors.deliveryOption}</p>}
+                            </div>
+
+                            {/* Payment Options */}
+                            <div className="">
+                                <label className="block text-sm font-medium mb-2">Payment Option</label>
+                                <div className="space-y-2">
+                                    {["Standard (399/1000 words)", "Premium (599/1000 words)"].map((payment, index) => (
+                                        <div key={index} className="flex items-center">
+                                            <input
+                                                type="radio"
+                                                id={`paymentOption${index}`}
+                                                name="paymentOption"
+                                                value={payment}
+                                                checked={formData.paymentOption === payment}
+                                                onChange={handleChange}
+                                                className="text-blue-500 focus:ring-blue-500"
+                                            />
+                                            <label htmlFor={`paymentOption${index}`} className="ml-2 text-white">{payment}</label>
+                                        </div>
+                                    ))}
+                                </div>
+                                {errors.paymentOption && <p className="text-red-500 text-sm mt-1">{errors.paymentOption}</p>}
+                            </div>
+                        </div>
+                    </div>
                     {/* Submit Button */}
                     <div className="text-center">
                         <button

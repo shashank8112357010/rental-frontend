@@ -25,6 +25,7 @@ const VehiclesPage = () => {
   const fetchVehicleData = async () => {
     await GetVehicleService()
       .then((res) => {
+        console.log(res)
         const modified = res.data.map((vehicle) => ({
           id: vehicle._id,
           type: vehicle.type,

@@ -7,6 +7,7 @@ const Plagiarism = () => {
         phone: '',
         message: '',
         file: null,
+        checkType: '', // To store selected check type
     });
 
     const [errors, setErrors] = useState({});
@@ -19,6 +20,13 @@ const Plagiarism = () => {
         });
     };
 
+    const handleRadioChange = (e) => {
+        setFormData({
+            ...formData,
+            checkType: e.target.value, // Set the selected check type
+        });
+    };
+
     const validateForm = () => {
         const newErrors = {
             name: formData.name.trim() ? null : 'Name is required.',
@@ -26,6 +34,7 @@ const Plagiarism = () => {
             phone: /^\d{10}$/.test(formData.phone) ? null : 'Valid 10-digit phone number is required.',
             message: formData.message.trim() ? null : 'Message is required.',
             file: formData.file ? null : 'File upload is required.',
+            checkType: formData.checkType ? null : 'Please select a check type.', // Validation for check type
         };
 
         const filteredErrors = Object.fromEntries(
@@ -35,7 +44,6 @@ const Plagiarism = () => {
         setErrors(filteredErrors);
         return Object.keys(filteredErrors).length === 0;
     };
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -49,13 +57,14 @@ const Plagiarism = () => {
                 phone: '',
                 message: '',
                 file: null,
+                checkType: '',
             });
             setErrors({});
         }
     };
 
     return (
-        <div className="min-h-screen  mt-24 md:mt-0 text-white flex items-center justify-center px-4 sm:px-2 py-12">
+        <div className="min-h-screen mt-24 md:mt-0 text-white flex items-center justify-center px-4 sm:px-2 py-12">
             <div className="max-w-4xl w-full p-2 sm:p-10 rounded-lg shadow-lg">
                 <h2 className="text-3xl font-bold mb-6 text-center">Plagiarism Check Form</h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
@@ -71,8 +80,7 @@ const Plagiarism = () => {
                             placeholder="Enter your name"
                             value={formData.name}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                                }`}
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
                         />
                         {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                     </div>
@@ -89,8 +97,7 @@ const Plagiarism = () => {
                             placeholder="Enter your email"
                             value={formData.email}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                                }`}
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
                         />
                         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                     </div>
@@ -107,8 +114,7 @@ const Plagiarism = () => {
                             placeholder="Enter your phone number"
                             value={formData.phone}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                                }`}
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
                         />
                         {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                     </div>
@@ -125,8 +131,7 @@ const Plagiarism = () => {
                             placeholder="Write your message"
                             value={formData.message}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                                }`}
+                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
                         ></textarea>
                         {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                     </div>
@@ -141,10 +146,59 @@ const Plagiarism = () => {
                             id="file"
                             name="file"
                             onChange={handleChange}
-                            className={`w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border-blue-500 file:text-black hover:file:border-blue-600 ${errors.file ? 'focus:ring-red-500' : ''
-                                }`}
+                            className={`w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border-blue-500 file:text-black hover:file:border-blue-600 ${errors.file ? 'focus:ring-red-500' : ''}`}
                         />
                         {errors.file && <p className="text-red-500 text-sm mt-1">{errors.file}</p>}
+                    </div>
+
+                    {/* Check Type (Radio Buttons) */}
+                    <div>
+                        <label className="block text-sm font-medium mb-2">Select Check Type</label>
+                        <div className="space-y-2">
+                            <div className="flex items-center">
+                                <input
+                                    type="radio"
+                                    id="plagiarismCheck"
+                                    name="checkType"
+                                    value="Plagiarism Check - ₹ 30/ document"
+                                    checked={formData.checkType === "Plagiarism Check - ₹ 30/ document"}
+                                    onChange={handleRadioChange}
+                                    className="text-blue-500 focus:ring-blue-500"
+                                />
+                                <label htmlFor="plagiarismCheck" className="ml-2 text-white">
+                                    Plagiarism Check - ₹ 30/ document
+                                </label>
+                            </div>
+                            <div className="flex items-center">
+                                <input
+                                    type="radio"
+                                    id="a1Check"
+                                    name="checkType"
+                                    value="A1 Check - ₹ 30/ document"
+                                    checked={formData.checkType === "A1 Check - ₹ 30/ document"}
+                                    onChange={handleRadioChange}
+                                    className="text-blue-500 focus:ring-blue-500"
+                                />
+                                <label htmlFor="a1Check" className="ml-2 text-white">
+                                    A1 Check - ₹ 30/ document
+                                </label>
+                            </div>
+                            <div className="flex items-center">
+                                <input
+                                    type="radio"
+                                    id="a1PlusCheck"
+                                    name="checkType"
+                                    value="A1+ Check - ₹ 30/ document"
+                                    checked={formData.checkType === "A1+ Check - ₹ 30/ document"}
+                                    onChange={handleRadioChange}
+                                    className="text-blue-500 focus:ring-blue-500"
+                                />
+                                <label htmlFor="a1PlusCheck" className="ml-2 text-white">
+                                    A1+ Check - ₹ 30/ document
+                                </label>
+                            </div>
+                        </div>
+                        {errors.checkType && <p className="text-red-500 text-sm mt-1">{errors.checkType}</p>}
                     </div>
 
                     {/* Submit Button */}

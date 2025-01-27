@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserResearchService } from "../../services/api.service";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const ResearchAssistance = () => {
     const [formData, setFormData] = useState({
@@ -80,14 +81,14 @@ const ResearchAssistance = () => {
     };
 
     return (
-        <div className="min-h-screen mt-24 md:mt-0 bg-black text-white flex items-center justify-center px-4 py-12">
+        <div className="min-h-screen mt-24 md:mt-0 bg-black text-white flex items-center justify-center px-2 py-12 sm:py-8 md:py-12 lg:py-16">
             <div className="max-w-3xl w-full p-2 sm:p-10 rounded-lg shadow-lg">
-                <h2 className="text-3xl font-bold mb-6 text-center">Research Assistance</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Research Assistance</h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
 
                     {/* Name */}
                     <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-2">
+                        <label htmlFor="name" className="block text-sm sm:text-base font-medium mb-2">
                             Name
                         </label>
                         <input
@@ -104,7 +105,7 @@ const ResearchAssistance = () => {
 
                     {/* Email */}
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-2">
+                        <label htmlFor="email" className="block text-sm sm:text-base font-medium mb-2">
                             Email
                         </label>
                         <input
@@ -121,14 +122,14 @@ const ResearchAssistance = () => {
 
                     {/* Phone */}
                     <div>
-                        <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                        <label htmlFor="phone" className="block text-sm sm:text-base font-medium mb-2">
                             Phone ( WhatsApp Number )
                         </label>
                         <input
                             type="tel"
                             id="phone"
                             name="phone"
-                            placeholder="Enter your whatapp number"
+                            placeholder="Enter your WhatsApp number"
                             value={formData.phone}
                             onChange={handleChange}
                             className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
@@ -138,7 +139,7 @@ const ResearchAssistance = () => {
 
                     {/* Message */}
                     <div>
-                        <label htmlFor="message" className="block text-sm font-medium mb-2">
+                        <label htmlFor="message" className="block text-sm sm:text-base font-medium mb-2">
                             Message
                         </label>
                         <textarea
@@ -155,7 +156,7 @@ const ResearchAssistance = () => {
 
                     {/* Word Count */}
                     <div>
-                        <label htmlFor="wordCount" className="block text-sm font-medium mb-2">
+                        <label htmlFor="wordCount" className="block text-sm sm:text-base font-medium mb-2">
                             Word Count
                         </label>
                         <input
@@ -170,11 +171,10 @@ const ResearchAssistance = () => {
                         {errors.wordCount && <p className="text-red-500 text-sm mt-1">{errors.wordCount}</p>}
                     </div>
 
-
-                    <div className="flex justify-between gap-8">
+                    <div className="flex flex-wrap justify-between gap-8">
                         {/* Area of Research (Radio Buttons) */}
-                        <div>
-                            <label className="block text-sm font-medium mb-2">Area of Research</label>
+                        <div className=" ">
+                            <label className="block text-sm sm:text-base font-medium mb-2">Area of Research</label>
                             <div className="space-y-2">
                                 {["Research Paper", "Literature Review", "Presentation Speech", "Critical Analysis", "Case Commentary", "IRAC Analysis", "Book / Movie Review"].map((area, index) => (
                                     <div key={index} className="flex items-center">
@@ -194,10 +194,10 @@ const ResearchAssistance = () => {
                             {errors.researchArea && <p className="text-red-500 text-sm mt-1">{errors.researchArea}</p>}
                         </div>
 
-                        <div className="flex flex-col gap-12">
-                            {/* Delivery Options (Radio Buttons) */}
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Delivery Options</label>
+                        <div>
+                            {/* Delivery Options */}
+                            <div className="">
+                                <label className="block text-sm sm:text-base font-medium mb-2">Delivery Options</label>
                                 <div className="space-y-2">
                                     {["Standard Delivery within 72 Hours", "Express Delivery within 12 Hours"].map((delivery, index) => (
                                         <div key={index} className="flex items-center">
@@ -217,8 +217,8 @@ const ResearchAssistance = () => {
                                 {errors.deliveryOption && <p className="text-red-500 text-sm mt-1">{errors.deliveryOption}</p>}
                             </div>
                             {/* Payment Options */}
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Payment Option</label>
+                            <div className="w-full mt-8">
+                                <label className="block text-sm sm:text-base font-medium mb-2">Payment Option</label>
                                 <div className="space-y-2">
                                     {[
                                         { label: "Standard", rate: 399 },
@@ -246,17 +246,17 @@ const ResearchAssistance = () => {
                                 </div>
                                 {errors.paymentOption && <p className="text-red-500 text-sm mt-1">{errors.paymentOption}</p>}
                             </div>
-
                         </div>
                     </div>
+
+
 
                     {/* Submit Button */}
                     <div className="text-center pt-8">
                         <button
                             type="submit"
-                            className=" border-white border hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
+                            className="border-white border hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full "
                             disabled={loading}
-                            style={{ width: '100%', height: '44px' }}
                         >
                             {loading ? (
                                 <AiOutlineLoading3Quarters className="animate-spin text-center text-white" size={20} />

@@ -47,6 +47,20 @@ export const GetUserBookingService = (data) => {
 export const UserRequirementService = (data) => {
   return clientAxios.post('/requirement', data)
 }
+
 export const UserResearchService = (data) => {
-  return clientAxios.post('/form', data)
+  return clientAxios.post('/academic-research', data)
 }
+
+export const UserPlagiarismService = (data) => {
+  return clientAxios.post('/plagiarism-test', data)
+}
+export const UserAllEbookService = (data) => {
+  return clientAxios.get('/ebook/subject', data)
+}
+
+export const UserAllEbookByIdService = (SubjectId) => {
+  return clientAxios.get(`/ebook/modules/${SubjectId}`)
+}
+
+

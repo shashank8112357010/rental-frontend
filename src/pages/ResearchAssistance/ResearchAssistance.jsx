@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { UserResearchService } from "../../services/api.service";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { UserResearchService } from "../../services/api.service";
 
 const ResearchAssistance = () => {
     const [formData, setFormData] = useState({
@@ -16,7 +16,6 @@ const ResearchAssistance = () => {
         wordCount: "",
     });
 
-    const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -34,28 +33,53 @@ const ResearchAssistance = () => {
     };
 
     const validateForm = () => {
-        const newErrors = {};
-        if (!formData.name) newErrors.name = "Name is required.";
-        if (!formData.email) newErrors.email = "Email is required.";
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email format.";
-        if (!formData.phone) newErrors.phone = "Phone number is required.";
-        if (!formData.message) newErrors.message = "Message is required.";
-        if (!formData.researchArea) newErrors.researchArea = "Please select an area of research.";
-        if (!formData.deliveryOption) newErrors.deliveryOption = "Please select a delivery option.";
-        if (!formData.paymentOption) newErrors.paymentOption = "Please select a payment option.";
-        if (!formData.wordCount || isNaN(formData.wordCount)) newErrors.wordCount = "Please enter a valid word count.";
+        let isValid = true;
 
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        if (!formData.name) {
+            toast.error("Name is required.");
+            isValid = false;
+        }
+        if (!formData.email) {
+            toast.error("Email is required.");
+            isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            toast.error("Invalid email format.");
+            isValid = false;
+        }
+        if (!formData.phone) {
+            toast.error("Phone number is required.");
+            isValid = false;
+        }
+        if (!formData.message) {
+            toast.error("Message is required.");
+            isValid = false;
+        }
+        if (!formData.researchArea) {
+            toast.error("Please select an area of research.");
+            isValid = false;
+        }
+        if (!formData.deliveryOption) {
+            toast.error("Please select a delivery option.");
+            isValid = false;
+        }
+        if (!formData.paymentOption) {
+            toast.error("Please select a payment option.");
+            isValid = false;
+        }
+        if (!formData.wordCount || isNaN(formData.wordCount)) {
+            toast.error("Please enter a valid word count.");
+            isValid = false;
+        }
+
+        return isValid;
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => {
-            const updatedFormData = { ...prev, [name]: value };
-            return updatedFormData;
-        });
-        setErrors((prev) => ({ ...prev, [name]: "" }));
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
     const handleSubmit = async (e) => {
@@ -67,14 +91,26 @@ const ResearchAssistance = () => {
             return;
         }
 
+        const payload = {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message,
+            wordCount: formData.wordCount,
+            researchType: formData.researchArea,
+            deliveryOption: formData.deliveryOption,
+            paymentOption: formData.paymentOption.split(' ')[0],
+            amount: parseFloat(getCalculatedPriceForOption(formData.wordCount, formData.paymentOption === "Standard" ? 399 : 599)),
+        };
+
         try {
-            const response = await UserResearchService(formData);
-            toast.success("Your request has been submitted successfully!");
-            console.log(response);
-            navigate("/thank-you");
+            const response = await UserResearchService(payload);
+            const SuccessMessage = response.data?.message;
+            toast.success(SuccessMessage);
+            navigate('/')
         } catch (error) {
-            toast.error("Failed to submit the form. Please try again.");
-            console.error(error);
+            const errorMessage = error?.response?.data?.message || "Something went wrong!";
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -98,9 +134,8 @@ const ResearchAssistance = () => {
                             placeholder="Enter your name"
                             value={formData.name}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.name ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
+                            className="w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                     </div>
 
                     {/* Email */}
@@ -115,9 +150,8 @@ const ResearchAssistance = () => {
                             placeholder="Enter your email"
                             value={formData.email}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.email ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
+                            className="w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                     </div>
 
                     {/* Phone */}
@@ -132,9 +166,8 @@ const ResearchAssistance = () => {
                             placeholder="Enter your WhatsApp number"
                             value={formData.phone}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
+                            className="w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                        {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                     </div>
 
                     {/* Message */}
@@ -149,9 +182,8 @@ const ResearchAssistance = () => {
                             placeholder="Write your message"
                             value={formData.message}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.message ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
+                            className="w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         ></textarea>
-                        {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                     </div>
 
                     {/* Word Count */}
@@ -166,14 +198,13 @@ const ResearchAssistance = () => {
                             placeholder="Enter the number of words"
                             value={formData.wordCount}
                             onChange={handleChange}
-                            className={`w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.wordCount ? "focus:ring-red-500" : "focus:ring-blue-500"}`}
+                            className="w-full bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                        {errors.wordCount && <p className="text-red-500 text-sm mt-1">{errors.wordCount}</p>}
                     </div>
 
                     <div className="flex flex-wrap justify-between gap-8">
                         {/* Area of Research (Radio Buttons) */}
-                        <div className=" ">
+                        <div className="">
                             <label className="block text-sm sm:text-base font-medium mb-2">Area of Research</label>
                             <div className="space-y-2">
                                 {["Research Paper", "Literature Review", "Presentation Speech", "Critical Analysis", "Case Commentary", "IRAC Analysis", "Book / Movie Review"].map((area, index) => (
@@ -191,7 +222,6 @@ const ResearchAssistance = () => {
                                     </div>
                                 ))}
                             </div>
-                            {errors.researchArea && <p className="text-red-500 text-sm mt-1">{errors.researchArea}</p>}
                         </div>
 
                         <div>
@@ -214,7 +244,6 @@ const ResearchAssistance = () => {
                                         </div>
                                     ))}
                                 </div>
-                                {errors.deliveryOption && <p className="text-red-500 text-sm mt-1">{errors.deliveryOption}</p>}
                             </div>
                             {/* Payment Options */}
                             <div className="w-full mt-8">
@@ -244,24 +273,21 @@ const ResearchAssistance = () => {
                                         );
                                     })}
                                 </div>
-                                {errors.paymentOption && <p className="text-red-500 text-sm mt-1">{errors.paymentOption}</p>}
                             </div>
                         </div>
                     </div>
-
-
 
                     {/* Submit Button */}
                     <div className="text-center pt-8">
                         <button
                             type="submit"
-                            className="border-white border hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full "
+                            className="border-white border hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full"
                             disabled={loading}
                         >
                             {loading ? (
                                 <AiOutlineLoading3Quarters className="animate-spin text-center text-white" size={20} />
                             ) : (
-                                'Submit'
+                                "Submit"
                             )}
                         </button>
                     </div>

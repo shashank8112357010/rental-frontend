@@ -4,11 +4,16 @@ import { toast } from "react-toastify";
 import { getToken } from "../../helper/tokenHelper";
 import Login from "../../components/auth/Login";
 import Register from "../../components/auth/Register";
+import { UserAllEbookByIdService } from "../../services/api.service";
 
 const ModuleDetail = () => {
-    const { subjectName, id } = useParams();
+    const { moduleId } = useParams();
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
+    const [moduleDetails, setModuleDetails] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
 
     // Handle "Read More" click
     const handleReadMoreClick = useCallback(() => {
@@ -33,10 +38,29 @@ const ModuleDetail = () => {
     }, [isAuthModalOpen]);
 
 
+    // Fetch module details using API service
+    useEffect(() => {
+        if (moduleId) {
+            UserAllEbookByIdService(moduleId)
+                .then((response) => {
+                    console.log(response)
+                    // setModuleDetails(response.data); 
+                    // setIsLoading(false); 
+                })
+                .catch((error) => {
+                    console.error("Error fetching module details:", error);
+                    setError("Failed to load module details");
+                    // setIsLoading(false);
+                });
+        }
+    }, [moduleId]);
+
+
+
     return (
         <div className="bg-black mt-44 md:mt-0 p-2 pb-8 md:p-8">
             <h1 className="text-3xl font-bold text-white mb-8 text-center">
-                {subjectName} - Module {id}
+                Module {moduleId}
             </h1>
 
             <div className="pt-10">

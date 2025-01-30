@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserAllEbookService } from "../../services/api.service";
 
 const Notes = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const subjects = ["Math", "Science", "History", "English", "Physics", "Chemistry"];
+    const [subjects, setSubjects] = useState([]);
     const navigate = useNavigate();
 
-    const handleSubjectClick = (subject) => {
-        navigate(`/subjects/${subject}`);
+    // Handle the subject click event and navigate with the _id
+    const handleSubjectClick = (_id) => {
+        navigate(`/subjects/${_id}`);
     };
 
     useEffect(() => {
-        // Simulate data loading
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-        return () => clearTimeout(timer);
+        UserAllEbookService()
+            .then((response) => {
+                console.log(response);
+                const fetchedSubjects = response.data;
+                setSubjects(fetchedSubjects);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching subjects:", error);
+                setIsLoading(false);
+            });
     }, []);
 
     return (
@@ -28,24 +36,22 @@ const Notes = () => {
                             key={index}
                             className="relative border rounded-2xl overflow-hidden shadow-md animate-pulse bg-gray-700"
                         >
-                            {/* Skeleton Image */}
                             <div className="w-full h-24 bg-gray-600"></div>
-                            {/* Skeleton Text */}
                             <div className="p-4">
                                 <div className="h-6 bg-gray-500 rounded w-3/4"></div>
                             </div>
                         </div>
                     ))
-                    : subjects.map((subject, index) => (
+                    : subjects.map((subject) => (
                         <div
-                            key={index}
-                            onClick={() => handleSubjectClick(subject)}
+                            key={subject._id}
+                            onClick={() => handleSubjectClick(subject._id)}
                             className="relative bg-gradient-to-br from-gray-800 to-gray-600 text-white p-6 rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer"
                             style={{
                                 boxShadow: "0 8px 30px rgba(0, 0, 0, 0.5)",
                             }}
                         >
-                            <h2 className="text-xl font-semibold text-center">{subject}</h2>
+                            <h2 className="text-xl font-semibold text-center">{subject.name}</h2> {/* Display the subject name */}
                         </div>
                     ))}
             </div>

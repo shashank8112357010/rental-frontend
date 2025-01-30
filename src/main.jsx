@@ -60,8 +60,9 @@ const router = createBrowserRouter(
         <Route path="/research" element={<ResearchAssistance />} />
         {/* notes */}
         <Route path="/notes" element={<Notes />} />
-        <Route path="/subjects/:subjectName" element={<Subjects />} />
-        <Route path="/modules/:subjectName/:id" element={<ModuleDetail />} />
+        <Route path="/subjects/:subjectId" element={<Subjects />} />
+        {/* <Route path="/modules/:subjectName/:id" element={<ModuleDetail />} /> */}
+        <Route path="/modules/:moduleId" element={<ModuleDetail />} />
         {/* internship */}
         <Route path="/internship" element={<Internship />} />
       </Route>

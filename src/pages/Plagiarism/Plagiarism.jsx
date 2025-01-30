@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { toast } from 'react-toastify';
+import { UserPlagiarismService } from '../../services/api.service';
 
 const Plagiarism = () => {
     const [formData, setFormData] = useState({
@@ -8,11 +10,9 @@ const Plagiarism = () => {
         phone: '',
         message: '',
         file: null,
-        checkType: '', // To store selected check type
+        checkType: '',
     });
     const [loading, setLoading] = useState(false);
-
-    const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -25,50 +25,88 @@ const Plagiarism = () => {
     const handleRadioChange = (e) => {
         setFormData({
             ...formData,
-            checkType: e.target.value, // Set the selected check type
+            checkType: e.target.value,
         });
     };
 
     const validateForm = () => {
-        const newErrors = {
-            name: formData.name.trim() ? null : 'Name is required.',
-            email: /\S+@\S+\.\S+/.test(formData.email) ? null : 'Valid email is required.',
-            phone: /^\d{10}$/.test(formData.phone) ? null : 'Valid 10-digit phone number is required.',
-            message: formData.message.trim() ? null : 'Message is required.',
-            file: formData.file ? null : 'File upload is required.',
-            checkType: formData.checkType ? null : 'Please select a check type.', // Validation for check type
-        };
+        let isValid = true;
 
-        const filteredErrors = Object.fromEntries(
-            Object.entries(newErrors).filter(([_, value]) => value !== null)
-        );
+        if (!formData.name.trim()) {
+            toast.error("Name is required.");
+            isValid = false;
+        }
+        if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            toast.error("Valid email is required.");
+            isValid = false;
+        }
+        if (!/^\d{10}$/.test(formData.phone)) {
+            toast.error("Valid 10-digit phone number is required.");
+            isValid = false;
+        }
+        if (!formData.message.trim()) {
+            toast.error("Message is required.");
+            isValid = false;
+        }
+        if (!formData.file) {
+            toast.error("File upload is required.");
+            isValid = false;
+        }
+        if (!formData.checkType) {
+            toast.error("Please select a check type.");
+            isValid = false;
+        }
 
-        setErrors(filteredErrors);
-        return Object.keys(filteredErrors).length === 0;
+        return isValid;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        if (validateForm()) {
-            console.log('Form Data:', formData);
-            alert('Form submitted successfully!');
-            setFormData({
-                name: '',
-                email: '',
-                phone: '',
-                message: '',
-                file: null,
-                checkType: '',
-            });
-            setErrors({});
+        console.log(formData)
+        if (!validateForm()) {
+            setLoading(false);
+            return;
         }
-        setLoading(false);
+
+        // const payloadData = {
+        //     name: formData.name,
+        //     email: formData.email,
+        //     phone: formData.phone,
+        //     message: formData.message,
+        //     file: formData.file,
+        //     checkType: formData.checkType
+        // };
+
+        const formDataObj = new FormData();
+        formDataObj.append('name', formData.name);
+        formDataObj.append('email', formData.email);
+        formDataObj.append('phone', formData.phone);
+        formDataObj.append('message', formData.message);
+        formDataObj.append('checkType', formData.checkType);
+        if (formData.file) {
+            console.log("File to be uploaded:", formData.file);
+            formDataObj.append('file', formData.file);
+        }
+        for (let pair of formDataObj.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+        try {
+            const response = await UserPlagiarismService(formDataObj);
+            console.log(response)
+            // const SuccessMessage = response.data?.message;
+            // toast.success(SuccessMessage);
+        } catch (error) {
+            const errorMessage = error?.response?.data?.message || "Something went wrong!";
+            toast.error(errorMessage);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="min-h-screen mt-24 md:mt-0 text-white flex items-center justify-center px-2 py-12 sm:px-6 lg:px-8">
-            <div className="max-w-4xl w-full  p-2 sm:p-8 lg:p-12 rounded-lg shadow-lg">
+            <div className="max-w-4xl w-full p-2 sm:p-8 lg:p-12 rounded-lg shadow-lg">
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8">Plagiarism Check</h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* Name */}
@@ -83,10 +121,8 @@ const Plagiarism = () => {
                             placeholder="Enter your name"
                             value={formData.name}
                             onChange={handleChange}
-                            className={`w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                                }`}
+                            className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                     </div>
 
                     {/* Email */}
@@ -101,10 +137,8 @@ const Plagiarism = () => {
                             placeholder="Enter your email"
                             value={formData.email}
                             onChange={handleChange}
-                            className={`w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                                }`}
+                            className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                     </div>
 
                     {/* Phone */}
@@ -119,10 +153,8 @@ const Plagiarism = () => {
                             placeholder="Enter your WhatsApp number"
                             value={formData.phone}
                             onChange={handleChange}
-                            className={`w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.phone ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                                }`}
+                            className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                        {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                     </div>
 
                     {/* Message */}
@@ -137,10 +169,8 @@ const Plagiarism = () => {
                             placeholder="Write your message"
                             value={formData.message}
                             onChange={handleChange}
-                            className={`w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-500' : 'focus:ring-blue-500'
-                                }`}
+                            className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         ></textarea>
-                        {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                     </div>
 
                     {/* File Upload */}
@@ -153,10 +183,8 @@ const Plagiarism = () => {
                             id="file"
                             name="file"
                             onChange={handleChange}
-                            className={`w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border-blue-500 file:text-black hover:file:border-blue-600 ${errors.file ? 'focus:ring-red-500' : ''
-                                }`}
+                            className="w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border-blue-500 file:text-black hover:file:border-blue-600"
                         />
-                        {errors.file && <p className="text-red-500 text-sm mt-1">{errors.file}</p>}
                     </div>
 
                     {/* Check Type */}
@@ -164,17 +192,17 @@ const Plagiarism = () => {
                         <label className="block text-sm sm:text-base lg:text-lg font-medium mb-4">Select Check Type</label>
                         <div className="space-y-4">
                             {[
-                                { id: 'plagiarismCheck', label: 'Plagiarism Check - ₹ 30/document' },
-                                { id: 'a1Check', label: 'AI Check - ₹ 30/document' },
-                                { id: 'a1PlusCheck', label: 'AI+ Check - ₹ 40/document' },
-                            ].map(({ id, label }) => (
+                                { id: 'plagiarismCheck', label: 'Plagiarism Check - ₹ 30/document', value: 'Plagiarism Check' },
+                                { id: 'a1Check', label: 'AI Check - ₹ 30/document', value: 'AI CHeck' },
+                                { id: 'a1PlusCheck', label: 'AI+ Check - ₹ 40/document', value: 'AI+Check' },
+                            ].map(({ id, label, value }) => (
                                 <div className="flex items-center" key={id}>
                                     <input
                                         type="radio"
                                         id={id}
                                         name="checkType"
-                                        value={label}
-                                        checked={formData.checkType === label}
+                                        value={value}
+                                        checked={formData.checkType === value}
                                         onChange={handleRadioChange}
                                         className="text-blue-500 focus:ring-blue-500"
                                     />
@@ -184,7 +212,6 @@ const Plagiarism = () => {
                                 </div>
                             ))}
                         </div>
-                        {errors.checkType && <p className="text-red-500 text-sm mt-1">{errors.checkType}</p>}
                     </div>
 
                     {/* Submit Button */}

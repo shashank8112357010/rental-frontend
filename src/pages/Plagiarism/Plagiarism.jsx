@@ -16,11 +16,23 @@ const Plagiarism = () => {
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
-        setFormData({
-            ...formData,
+        setFormData((prevFormData) => ({
+            ...prevFormData,
             [name]: files ? files[0] : value,
-        });
+        }));
     };
+
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                file: selectedFile,
+            }));
+        }
+    };
+
+
 
     const handleRadioChange = (e) => {
         setFormData({
@@ -49,7 +61,7 @@ const Plagiarism = () => {
             isValid = false;
         }
         if (!formData.file) {
-            toast.error("File upload is required.");
+            toast.error("Please upload a valid PDF or Word document.");
             isValid = false;
         }
         if (!formData.checkType) {
@@ -63,41 +75,37 @@ const Plagiarism = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        console.log(formData)
+
         if (!validateForm()) {
             setLoading(false);
             return;
         }
-
-        // const payloadData = {
-        //     name: formData.name,
-        //     email: formData.email,
-        //     phone: formData.phone,
-        //     message: formData.message,
-        //     file: formData.file,
-        //     checkType: formData.checkType
-        // };
 
         const formDataObj = new FormData();
         formDataObj.append('name', formData.name);
         formDataObj.append('email', formData.email);
         formDataObj.append('phone', formData.phone);
         formDataObj.append('message', formData.message);
-        formDataObj.append('checkType', formData.checkType);
-        if (formData.file) {
-            console.log("File to be uploaded:", formData.file);
-            formDataObj.append('file', formData.file);
-        }
-        for (let pair of formDataObj.entries()) {
-            console.log(pair[0] + ': ' + pair[1]);
-        }
+        // formDataObj.append('checkType', formData.checkType);
+        formDataObj.append('checkType', formData.checkType.trim());
+        formDataObj.append('file', formData.file);
+
+        // console.log("FormData before sending:");
+        // for (let pair of formDataObj.entries()) {
+        //     console.log(pair[0], pair[1]);
+        // }
+
         try {
+
+            console.log("FormData before sending:");
+            for (let pair of formDataObj.entries()) {
+                console.log(pair[0], pair[1]);
+            }
             const response = await UserPlagiarismService(formDataObj);
-            console.log(response)
-            // const SuccessMessage = response.data?.message;
-            // toast.success(SuccessMessage);
+            console.log("API Response:", response);
+            toast.success(response.message || "Plagiarism Test submitted successfully!");
         } catch (error) {
-            const errorMessage = error?.response?.data?.message || "Something went wrong!";
+            const errorMessage = error?.response?.data?.error || "Something went wrong!";
             toast.error(errorMessage);
         } finally {
             setLoading(false);
@@ -182,9 +190,11 @@ const Plagiarism = () => {
                             type="file"
                             id="file"
                             name="file"
-                            onChange={handleChange}
+                            accept=".pdf,.doc,.docx" // Only allow PDFs and Word docs
+                            onChange={handleFileChange}
                             className="w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border-blue-500 file:text-black hover:file:border-blue-600"
                         />
+
                     </div>
 
                     {/* Check Type */}

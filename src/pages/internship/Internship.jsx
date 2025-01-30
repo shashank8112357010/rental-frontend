@@ -1,38 +1,27 @@
 import { XIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { UserIntershipService } from "../../services/api.service";
 
 const Internship = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [selectedInternship, setSelectedInternship] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [internships, setInternships] = useState([]);
 
-    const internships = [
-        {
-            title: "Software Development Internship",
-            deadline: "March 15, 2025",
-            years: "2025-2026",
-            applyLink: "https://example.com/apply-software-dev",
-            applicationProcess: "dev@example.com",
-            description: "A great opportunity to work with software development technologies like React, Node.js, etc."
-        },
-        {
-            title: "Data Science Internship",
-            deadline: "April 10, 2025",
-            years: "2025-2027",
-            applyLink: "https://example.com/apply-data-science",
-            applicationProcess: "data@example.com",
-            description: "Involve in data analytics, machine learning, and artificial intelligence projects."
-        },
-        {
-            title: "UI/UX Design Internship",
-            deadline: "May 1, 2025",
-            years: "2025-2026",
-            applyLink: "https://example.com/apply-ui-ux",
-            applicationProcess: "design@example.com",
-            description: "Work on designing intuitive user interfaces and enhancing user experiences."
-        },
-    ];
+    useEffect(() => {
+        UserIntershipService()
+            .then((response) => {
+                console.log(response);
+                const fetchedInternships = response.data;
+                setInternships(fetchedInternships);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching Internship:", error);
+                setIsLoading(false);
+            });
+    }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -40,7 +29,6 @@ const Internship = () => {
         }, 2000);
         return () => clearTimeout(timer);
     }, []);
-
 
     useEffect(() => {
         if (isModalOpen) {
@@ -81,13 +69,13 @@ const Internship = () => {
                             <div>
                                 <h2 className="text-xl font-semibold mb-4">{internship.title}</h2>
                                 <p className="text-gray-400 mb-4">
-                                    <span className="font-medium text-white">Eligibility:</span> {internship.years}
+                                    <span className="font-medium text-white">Eligibility:</span> {internship.eligibility}
                                 </p>
                                 <p className="text-gray-400 mb-4">
-                                    <span className="font-medium text-white">Application Process:</span> {internship.applicationProcess}
+                                    <span className="font-medium text-white">Application Process:</span> {internship.process}
                                 </p>
                                 <p className="text-gray-400 mb-2">
-                                    <span className="font-medium text-white">Deadline:</span> {internship.deadline}
+                                    <span className="font-medium text-white">Deadline:</span> {new Date(internship.deadline).toLocaleDateString()}
                                 </p>
                             </div>
                             <button
@@ -100,10 +88,9 @@ const Internship = () => {
                     ))}
             </div>
 
-
             {isModalOpen && selectedInternship && (
-                <div className="fixed inset-0 flex justify-center  items-center bg-black/50 z-50">
-                    <div className="bg-gray-800 text-white p-8 rounded-xl w-[90%] md:w-[700px] lg:w-[800px] overflow-y-auto  max-h-[67vh] mt-40 md:mt-0 relative">
+                <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
+                    <div className="bg-gray-800 text-white p-8 rounded-xl w-[90%] md:w-[700px] lg:w-[800px] overflow-y-auto max-h-[67vh] mt-40 md:mt-0 relative">
 
                         {/* Close Button with Icon */}
                         <button
@@ -113,29 +100,18 @@ const Internship = () => {
                             <XIcon className="h-6 w-6" />
                         </button>
                         <div className="mb-6">
-                            <h2 className="md:text-3xl text-[18px]  font-bold mb-4">Explore Internship Opportunities</h2>
-                            <button>
-
-                            </button>
-
+                            <h2 className="md:text-3xl text-[18px] font-bold mb-4">Explore Internship Opportunities</h2>
                             <p className="text-gray-400">{selectedInternship.description}</p>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero expedita esse doloremque maxime minus beatae voluptas eligendi id officiis architecto amet eius excepturi soluta nemo omnis est reiciendis facere facilis autem dignissimos iure, non reprehenderit nam. Tenetur obcaecati, iste aspernatur dolor facilis dignissimos</p>
                         </div>
                         <div className="flex justify-center gap-8">
                             <Link
-                                to={selectedInternship.applyLink}
+                                to={selectedInternship.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="mt-4 w-48 border-2 text-center border-white px-4 py-2 text-white md:text-sm text-[12px] font-sm md:font-semibold rounded-lg shadow-md hover:border-white focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
                             >
                                 Apply Now
                             </Link>
-                            {/* <button
-                                onClick={closeModal}
-                                className="mt-4 w-48 border-2 border-white px-4 py-2 text-white md:text-sm text-[12px] font-sm md:font-semibold rounded-lg shadow-md text-center hover:border-white focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
-                            >
-                                Close
-                            </button> */}
                         </div>
                     </div>
                 </div>

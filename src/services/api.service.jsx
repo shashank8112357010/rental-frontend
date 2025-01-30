@@ -63,4 +63,6 @@ export const UserAllEbookByIdService = (SubjectId) => {
   return clientAxios.get(`/ebook/modules/${SubjectId}`)
 }
 
-
+export const UserIntershipService = (data) => {
+  return clientAxios.get('/internship/active', data)
+}

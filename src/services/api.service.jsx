@@ -53,7 +53,11 @@ export const UserResearchService = (data) => {
 }
 
 export const UserPlagiarismService = (data) => {
-  return clientAxios.post('/plagiarism-test', data)
+  return clientAxios.post('/plagiarism-test', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data' // This is optional as Axios will set it automatically
+    }
+  })
 }
 export const UserAllEbookService = (data) => {
   return clientAxios.get('/ebook/subject', data)

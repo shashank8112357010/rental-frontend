@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import { UserPlagiarismService } from '../../services/api.service';
+import {useNavigate} from "react-router-dom"
 
 const Plagiarism = () => {
     const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const Plagiarism = () => {
         checkType: '',
     });
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -80,7 +82,6 @@ const Plagiarism = () => {
             setLoading(false);
             return;
         }
-
         const formDataObj = new FormData();
         formDataObj.append('name', formData.name);
         formDataObj.append('email', formData.email);
@@ -90,19 +91,13 @@ const Plagiarism = () => {
         formDataObj.append('checkType', formData.checkType.trim());
         formDataObj.append('file', formData.file);
 
-        // console.log("FormData before sending:");
-        // for (let pair of formDataObj.entries()) {
-        //     console.log(pair[0], pair[1]);
-        // }
 
         try {
 
-            console.log("FormData before sending:");
-            for (let pair of formDataObj.entries()) {
-                console.log(pair[0], pair[1]);
-            }
+          
             const response = await UserPlagiarismService(formDataObj);
             console.log("API Response:", response);
+            navigate('/')
             toast.success(response.message || "Plagiarism Test submitted successfully!");
         } catch (error) {
             const errorMessage = error?.response?.data?.error || "Something went wrong!";
@@ -203,7 +198,7 @@ const Plagiarism = () => {
                         <div className="space-y-4">
                             {[
                                 { id: 'plagiarismCheck', label: 'Plagiarism Check - ₹ 30/document', value: 'Plagiarism Check' },
-                                { id: 'a1Check', label: 'AI Check - ₹ 30/document', value: 'AI CHeck' },
+                                { id: 'a1Check', label: 'AI Check - ₹ 30/document', value: 'AI Check' },
                                 { id: 'a1PlusCheck', label: 'AI+ Check - ₹ 40/document', value: 'AI+Check' },
                             ].map(({ id, label, value }) => (
                                 <div className="flex items-center" key={id}>

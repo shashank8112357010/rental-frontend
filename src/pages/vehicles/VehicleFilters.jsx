@@ -22,9 +22,9 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg mb-8 max-w-screen-xl mx-auto">
+    <div className="bg-black p-4 rounded-lg border-2 border-white  shadow-lg mb-8 max-w-screen-xl mx-auto">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">Filter Vehicles</h2>
+        <h2 className="text-lg font-semibold text-white">Filter Vehicles</h2>
         <button
           onClick={handleClearFilters}
           className="text-sm bg-gray-100 border border-gray-300 text-black px-3 py-1 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-black"
@@ -36,7 +36,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {/* Type Filter */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Type</label>
+          <label className="text-sm font-semibold text-white">Type</label>
           <select
             name="type"
             value={filters.type || ""}
@@ -52,7 +52,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
 
         {/* Sort Order Dropdown */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Sort By</label>
+          <label className="text-sm font-semibold text-white">Sort By</label>
           <select
             value={filters.sortOrder || ""}
             onChange={(e) => handleFilterChange("sortOrder", e.target.value)}
@@ -66,8 +66,8 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
 
         {/* Price Range Slider */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Price Range</label>
-          <div className="flex justify-between items-center text-sm font-medium text-gray-600">
+          <label className="text-sm font-semibold text-white">Price Range</label>
+          <div className="flex justify-between items-center text-sm font-medium text-white">
             <span>₹{filters.priceRange ? filters.priceRange[0] : 0}</span>
             <span>₹100000</span>
           </div>
@@ -86,7 +86,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
         {/* Location Filter */}
         {/* Location Filter (Updated) */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Location</label>
+          <label className="text-sm font-semibold text-white">Location</label>
           <select
             name="location"
             value={filters.location || ""}

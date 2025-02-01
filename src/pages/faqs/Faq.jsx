@@ -41,7 +41,7 @@ export default function Faq() {
                 {faqs.map((faq, index) => (
                     <div key={index} className="mb-4">
                         <button
-                            className="flex justify-between items-center w-full p-4 text-left text-lg font-semibold text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="flex justify-between bg-black p-4 rounded-lg border-2 border-white  items-center w-full  text-left text-lg font-semibold text-white focus:outline-none focus:ring-2 focus:ring-black"
                             onClick={() => toggleAnswer(index)}
                         >
                             {faq.question}
@@ -57,7 +57,7 @@ export default function Faq() {
                                     transition={{ duration: 0.3 }}
                                     className="overflow-hidden"
                                 >
-                                    <p className="p-4 mt-4 text-gray-600 bg-gray-50 rounded-lg">{faq.answer}</p>
+                                    <p className="p-4 mt-4 text-white bg-black border-2 border-white rounded-lg">{faq.answer}</p>
                                 </motion.div>
                             )}
                         </AnimatePresence>

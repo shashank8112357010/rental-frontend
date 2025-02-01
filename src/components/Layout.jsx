@@ -3,7 +3,8 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Home, Building2, Bike, UserCircle, Menu, X } from "lucide-react";
 import Footer from "./Footer";
 import Dialog from "@mui/material/Dialog";
-import logoImg from '../assets/logo.png'
+import logoImg from '../assets/newLogo.png'
+// import logoImg from '../assets/logo.png'
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import { FiLogOut } from "react-icons/fi";
@@ -100,7 +101,7 @@ const Layout = () => {
           <div className="flex justify-between h-16 items-center">
             <div className="flex gap-12">
               {/* Logo */}
-              <div className="flex items-center">
+              <div className="flex items-center py-1">
                 <Link
                   to="/"
                   onClick={() => handleNavClick("/")}

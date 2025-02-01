@@ -58,12 +58,12 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
 
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+    <div className="bg-black p-4 rounded-lg border-2 border-white  shadow-md mb-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">Filter Properties</h2>
+        <h2 className="text-lg font-semibold text-white">Filter Properties</h2>
         <button
           onClick={onClearFilters}
-          className="text-xs text-black bg-gray-100 border border-gray-300 px-2 py-1 rounded hover:bg-gray-200"
+          className="text-xs text-black bg-white border border-gray-300 px-2 py-1 rounded hover:bg-gray-100"
         >
           Clear All
         </button>
@@ -72,7 +72,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {/* Property Type Filter */}
         <div>
-          <label className="text-xs font-medium text-gray-600">Property Type</label>
+          <label className="text-xs font-medium text-white">Property Type</label>
           <select
             value={filters.type || ''}
             onChange={(e) => handleFilterChange('type', e.target.value)}
@@ -87,7 +87,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
         {/* PG Category Filter */}
         {filters.type === 'PG' && (
           <div>
-            <label className="text-xs font-medium text-gray-600">PG Category</label>
+            <label className="text-xs font-medium text-white">PG Category</label>
             <select
               value={filters.pgCategory || ''}
               onChange={(e) => handleFilterChange('pgCategory', e.target.value)}
@@ -103,7 +103,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
         {/* Occupancy Filter for PG Category */}
         {filters.type === 'PG' && filters.pgCategory && (
           <div>
-            <label className="text-xs font-medium text-gray-600">Occupancy</label>
+            <label className="text-xs font-medium text-white">Occupancy</label>
             <select
               value={filters.occupancy || ''}
               onChange={(e) => handleFilterChange('occupancy', e.target.value)}
@@ -122,7 +122,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
         {/* Flat Type Filter */}
         {filters.type === 'FLAT' && (
           <div>
-            <label className="text-xs font-medium text-gray-600">Flat Type</label>
+            <label className="text-xs font-medium text-white">Flat Type</label>
             <select
               value={filters.flatType || ''}
               onChange={(e) => handleFilterChange('flatType', e.target.value)}
@@ -139,7 +139,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
         {/* Furnish Type Filter */}
         {filters.type === 'FLAT' && (
           <div>
-            <label className="text-xs font-medium text-gray-600">Furnish Type</label>
+            <label className="text-xs font-medium text-white">Furnish Type</label>
             <select
               value={filters.furnishType || ''}
               onChange={(e) => handleFilterChange('furnishType', e.target.value)}
@@ -156,7 +156,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
         )}
         {/* Sort Order Filter */}
         <div>
-          <label className="text-xs font-medium text-gray-600">Sort By</label>
+          <label className="text-xs font-medium text-white">Sort By</label>
           <select
             value={filters.sortOrder || ""}
             onChange={(e) => handleFilterChange('sortOrder', e.target.value)}
@@ -170,8 +170,8 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
 
         {/* Price Range */}
         <div>
-          <label className="text-xs font-medium text-gray-600">Price Range (₹)</label>
-          <div className="mt-1 flex items-center justify-between text-sm text-gray-500">
+          <label className="text-xs font-medium text-white">Price Range (₹)</label>
+          <div className="mt-1 flex items-center justify-between text-sm text-white">
             <span>₹{filters.priceRange[0]}</span>
             <span>₹{filters.priceRange[1]}</span>
           </div>
@@ -188,7 +188,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
 
         {/* Location Filter */}
         <div>
-          <label className="text-xs font-medium text-gray-600">Location</label>
+          <label className="text-xs font-medium text-white">Location</label>
           <select
             value={filters.location || ""}
             onChange={(e) => handleFilterChange('location', e.target.value)}

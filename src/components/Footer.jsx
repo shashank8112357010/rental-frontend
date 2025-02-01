@@ -11,7 +11,8 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import footerlogo from "../assets/logo.png"
+// import footerlogo from "../assets/logo.png"
+import footerlogo from "../assets/newLogo.png"
 
 export default function Footer() {
   return (

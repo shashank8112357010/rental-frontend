@@ -34,38 +34,48 @@ export default function Footer() {
               <h1 className="text-xl font-bold mb-4">Information</h1>
               <ul className="flex flex-col gap-3">
                 <li className="text-gray-400">
-                  <Link to="/" className="hover:text-indigo-600 transition duration-200">
+                  <Link to="/" className="image transition duration-200">
                     Home
                   </Link>
                 </li>
                 <li className="text-gray-400">
-                  <Link to="/about" className="hover:text-indigo-600 transition duration-200">
+                  <Link to="/about" className="image transition duration-200">
                     About Us
                   </Link>
                 </li>
                 <li className="text-gray-400">
-                  <Link to="/contact" className="hover:text-indigo-600 transition duration-200">
+                  <Link to="/contact" className="image transition duration-200">
                     Contact Us
                   </Link>
                 </li>
                 <li className="text-gray-400">
-                  <Link to="/services" className="hover:text-indigo-600 transition duration-200">
+                  <Link to="/services" className="image transition duration-200">
                     Services
                   </Link>
                 </li>
                 <li className="text-gray-400">
-                  <Link to="/blogs" className="hover:text-indigo-600 transition duration-200">
+                  <Link to="/blogs" className="image transition duration-200">
                     Blogs
                   </Link>
                 </li>
                 <li className="text-gray-400">
-                  <Link to="/term_conditions" className="hover:text-indigo-600 transition duration-200">
+                  <Link to="/terms&conditions" className="image transition duration-200">
                     Terms and Conditions
                   </Link>
                 </li>
                 <li className="text-gray-400">
-                  <Link to="/privacy_policy" className="hover:text-indigo-600 transition duration-200">
+                  <Link to="/privacy-policy" className="image transition duration-200">
                     Privacy Policy
+                  </Link>
+                </li>
+                <li className="text-gray-400">
+                  <Link to="/refund&concellations" className="image transition duration-200">
+                    Refund & Concellations
+                  </Link>
+                </li>
+                <li className="text-gray-400">
+                  <Link to="/shipping-policy" className="image transition duration-200">
+                    Shipping Policy
                   </Link>
                 </li>
               </ul>
@@ -76,17 +86,17 @@ export default function Footer() {
               <h1 className="text-xl font-bold mb-4">Connect with us</h1>
               <div className="flex gap-4 mb-4">
                 <Link target="_blank" to="https://www.facebook.com/share/1BahfgLwjz/?mibextid=wwXIfr">
-                  <FaFacebook className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
+                  <FaFacebook className="text-2xl text-gray-400 image transition duration-200" />
                 </Link>
                 <Link target="_blank" to="https://www.instagram.com/gradcommune?igsh=dTZndHBzYmE2ZGh1&utm_source=qr">
-                  <FaInstagram className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
+                  <FaInstagram className="text-2xl text-gray-400 image transition duration-200" />
                 </Link>
 
 
-                {/* <FaWhatsapp className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" /> */}
+                {/* <FaWhatsapp className="text-2xl text-gray-400 image transition duration-200" /> */}
 
-                <FaLinkedin className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
-                <FaTwitter className="text-2xl text-gray-400 hover:text-indigo-600 transition duration-200" />
+                <FaLinkedin className="text-2xl text-gray-400  transition duration-200" />
+                <FaTwitter className="text-2xl text-gray-400  transition duration-200" />
               </div>
 
               <div className="flex items-center gap-3 text-gray-400">
@@ -95,7 +105,7 @@ export default function Footer() {
                   to="https://www.google.com/maps/place/801-Lotus,+Park+Springs,+Porwal+Road,+Dhanori,+Pune,+411047"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-indigo-500 transition duration-200"
+                  className="transition duration-200"
                 >
                   801-Lotus, Park Springs, Porwal road, Dhanori, Pune, 411047
                 </Link>
@@ -105,7 +115,7 @@ export default function Footer() {
                 <FaMobileAlt className="text-xl" />
                 <Link
                   to="tel:+917387358831"
-                  className="hover:text-indigo-600 transition duration-200"
+                  className=" transition duration-200"
                 >
                   +91 7387358831
                 </Link>
@@ -114,7 +124,7 @@ export default function Footer() {
                 <FaEnvelope className="text-xl" />
                 <Link
                   to="mailto:info@example.com"
-                  className="hover:text-indigo-600 transition duration-200"
+                  className=" transition duration-200"
                 >
                   info@example.com
                 </Link>
@@ -129,7 +139,7 @@ export default function Footer() {
         <Link
           to="https://techxpert.in"
           target="_blank"
-          className="text-blue-500 hover:text-indigo-600 transition duration-200"
+          className="text-blue-500 image transition duration-200"
         >
           TechXpert.in
         </Link>

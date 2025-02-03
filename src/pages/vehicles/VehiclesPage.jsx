@@ -93,7 +93,7 @@ const VehiclesPage = () => {
   };
 
   return (
-    <div className=" mt-44 md:mt-0">
+    <div className="pt-52 md:pt-16">
       <header className="mb-8">
         <motion.h1
           className="text-2xl md:text-3xl font-bold text-white mb-2"
@@ -113,18 +113,19 @@ const VehiclesPage = () => {
         </motion.p>
       </header>
 
-      <motion.div
+      <VehicleFilters
+        filters={filters}
+        onFilterChange={handleFilterChange}
+        filterOptions={filterOptions}
+      />
+      {/* <motion.div
         className="mb-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        <VehicleFilters
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          filterOptions={filterOptions}
-        />
-      </motion.div>
+
+      </motion.div> */}
 
       {isLoading ? (
         <motion.div

@@ -22,12 +22,12 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
   };
 
   return (
-    <div className="bg-black p-4 rounded-lg border-2 border-white  shadow-lg mb-8 max-w-screen-xl mx-auto">
+    <div className="bg-black p-4 rounded-lg border-2 border-white  shadow-md mb-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold text-white">Filter Vehicles</h2>
         <button
           onClick={handleClearFilters}
-          className="text-sm bg-gray-100 border border-gray-300 text-black px-3 py-1 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-black"
+          className="text-xs text-white  border-2 border-gray-300 px-2 py-1 rounded "
         >
           Clear All
         </button>
@@ -41,11 +41,11 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
             name="type"
             value={filters.type || ""}
             onChange={(e) => handleFilterChange("type", e.target.value)}
-            className="w-full p-3 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
           >
-            <option value="">All Types</option>
+            <option className='text-gray-900 bg-transparent p-2 ' value="">All Types</option>
             {filterOptions.types.map((type, index) => (
-              <option key={index} value={type}>{type}</option>
+              <option className='text-gray-900 bg-transparent p-2 ' key={index} value={type}>{type}</option>
             ))}
           </select>
         </div>
@@ -56,16 +56,16 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
           <select
             value={filters.sortOrder || ""}
             onChange={(e) => handleFilterChange("sortOrder", e.target.value)}
-            className="w-full p-3 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
           >
-            <option value="">Select</option>
-            <option value="lowToHigh">Low to High</option>
-            <option value="highToLow">High to Low</option>
+            <option className='text-gray-900 bg-transparent p-2 ' value="">Select</option>
+            <option className='text-gray-900 bg-transparent p-2 ' value="lowToHigh">Low to High</option>
+            <option className='text-gray-900 bg-transparent p-2 ' value="highToLow">High to Low</option>
           </select>
         </div>
 
         {/* Price Range Slider */}
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <label className="text-sm font-semibold text-white">Price Range</label>
           <div className="flex justify-between items-center text-sm font-medium text-white">
             <span>₹{filters.priceRange ? filters.priceRange[0] : 0}</span>
@@ -81,7 +81,7 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
             onChange={handleRangeChange}
             className="w-full h-2 bg-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
           />
-        </div>
+        </div> */}
 
         {/* Location Filter */}
         {/* Location Filter (Updated) */}
@@ -91,11 +91,11 @@ const VehicleFilters = ({ filters, onFilterChange, filterOptions }) => {
             name="location"
             value={filters.location || ""}
             onChange={(e) => handleFilterChange("location", e.target.value)}
-            className="w-full p-3 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
           >
-            <option value="">All Locations</option>
+            <option className='text-gray-900 bg-transparent p-2 ' value="">All Locations</option>
             {filterOptions.locations.map((location, index) => (
-              <option key={index} value={location}>{location}</option>
+              <option className='text-gray-900 bg-transparent p-2 ' key={index} value={location}>{location}</option>
             ))}
           </select>
         </div>

@@ -63,7 +63,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
         <h2 className="text-lg font-semibold text-white">Filter Properties</h2>
         <button
           onClick={onClearFilters}
-          className="text-xs text-black bg-white border border-gray-300 px-2 py-1 rounded hover:bg-gray-100"
+          className="text-xs text-white  border-2 border-gray-300 px-2 py-1 rounded "
         >
           Clear All
         </button>
@@ -76,11 +76,11 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
           <select
             value={filters.type || ''}
             onChange={(e) => handleFilterChange('type', e.target.value)}
-            className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
           >
-            <option value="">All Types</option>
+            <option className="text-gray-900 bg-transparent p-2 " value="">All Types</option>
             {propertyType.map((type, index) => (
-              <option key={index} value={type}>{type}</option>
+              <option className="text-gray-900 p-2" key={index} value={type}>{type}</option>
             ))}
           </select>
         </div>
@@ -91,11 +91,11 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             <select
               value={filters.pgCategory || ''}
               onChange={(e) => handleFilterChange('pgCategory', e.target.value)}
-              className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
             >
-              <option value="">All Categories</option>
-              <option value="GIRLS">Girls</option>
-              <option value="BOYS">Boys</option>
+              <option className="text-gray-900 p-2" value="">All Categories</option>
+              <option className="text-gray-900 p-2" value="GIRLS">Girls</option>
+              <option className="text-gray-900 p-2" value="BOYS">Boys</option>
             </select>
           </div>
         )}
@@ -107,11 +107,11 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             <select
               value={filters.occupancy || ''}
               onChange={(e) => handleFilterChange('occupancy', e.target.value)}
-              className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
             >
               <option value="">Select Occupancy</option>
               {occupancyOptions.map((occupancy) => (
-                <option key={occupancy.value} value={occupancy.value}>
+                <option className="text-gray-900 p-2" key={occupancy.value} value={occupancy.value}>
                   {occupancy.label}
                 </option>
               ))}
@@ -126,12 +126,12 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             <select
               value={filters.flatType || ''}
               onChange={(e) => handleFilterChange('flatType', e.target.value)}
-              className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
             >
-              <option value="">All Types</option>
-              <option value="1BHK">1 BHK</option>
-              <option value="2BHK">2 BHK</option>
-              <option value="3BHK">3 BHK</option>
+              <option className="text-gray-900 p-2" value="">All Types</option>
+              <option className="text-gray-900 p-2" value="1BHK">1 BHK</option>
+              <option className="text-gray-900 p-2" value="2BHK">2 BHK</option>
+              <option className="text-gray-900 p-2" value="3BHK">3 BHK</option>
             </select>
           </div>
         )}
@@ -143,11 +143,11 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             <select
               value={filters.furnishType || ''}
               onChange={(e) => handleFilterChange('furnishType', e.target.value)}
-              className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
             >
               <option value="">All Furnish Types</option>
               {furnishOptions.data.map((furnishType, index) => (
-                <option key={index} value={furnishType.replace('-', '').toLowerCase()}>
+                <option key={index} value={furnishType.replace('-', '').toLowerCase()} className="text-gray-900 p-2">
                   {furnishType}
                 </option>
               ))}
@@ -160,16 +160,16 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
           <select
             value={filters.sortOrder || ""}
             onChange={(e) => handleFilterChange('sortOrder', e.target.value)}
-            className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
           >
-            <option value="">Select</option>
-            <option value="lowToHigh">Price: Low to High</option>
-            <option value="highToLow">Price: High to Low</option>
+            <option className="text-gray-900 p-2" value="">Select</option>
+            <option className="text-gray-900 p-2" value="lowToHigh">Price: Low to High</option>
+            <option className="text-gray-900 p-2" value="highToLow">Price: High to Low</option>
           </select>
         </div>
 
         {/* Price Range */}
-        <div>
+        {/* <div>
           <label className="text-xs font-medium text-white">Price Range (₹)</label>
           <div className="mt-1 flex items-center justify-between text-sm text-white">
             <span>₹{filters.priceRange[0]}</span>
@@ -184,7 +184,7 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
             onChange={(e) => handleFilterChange('priceRange', [parseInt(e.target.value), filters.priceRange[1]])}
             className="w-full"
           />
-        </div>
+        </div> */}
 
         {/* Location Filter */}
         <div>
@@ -192,11 +192,17 @@ const PropertyFilters = ({ propertyType, location, filters, onFilterChange, onCl
           <select
             value={filters.location || ""}
             onChange={(e) => handleFilterChange('location', e.target.value)}
-            className="w-full p-3 border border-gray-300 text-black rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full p-3 border border-gray-300 bg-transparent text-white rounded-lg shadow-sm "
           >
             <option value="">All Locations</option>
             {location.map((loc, index) => (
-              <option key={index} value={loc}>{loc}</option>
+              <option
+                key={index}
+                value={loc}
+                className="text-gray-900 p-2"
+              >
+                {loc}
+              </option>
             ))}
           </select>
         </div>

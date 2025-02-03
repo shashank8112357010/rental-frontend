@@ -33,6 +33,8 @@ import Notes from './pages/notes/Notes.jsx'
 import Subjects from './pages/notes/Subjects.jsx'
 import ModuleDetail from './pages/notes/ModuleDetail.jsx'
 import Internship from './pages/internship/Internship.jsx'
+import Refund from './pages/Refund.jsx'
+import ShippingPolicy from './pages/ShippingPolicy.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,8 +48,8 @@ const router = createBrowserRouter(
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/academic" element={<Academic />} />
         <Route path="/about" element={<About />} />
-        <Route path="/privacy_policy" element={<PrivacyPolicy />} />
-        <Route path="/term_conditions" element={<TermsConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms&conditions" element={<TermsConditions />} />
         <Route path="/services" element={<TopServices />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blog/blogsDetails1" element={<BlogsPage1 />} />
@@ -65,6 +67,8 @@ const router = createBrowserRouter(
         <Route path="/modules/:moduleId" element={<ModuleDetail />} />
         {/* internship */}
         <Route path="/internship" element={<Internship />} />
+        <Route path="/refund&concellations" element={<Refund />} />
+        <Route path="/shipping-policy" element={<ShippingPolicy />} />
       </Route>
     </>
   )

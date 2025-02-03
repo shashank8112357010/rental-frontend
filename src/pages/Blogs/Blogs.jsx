@@ -39,17 +39,17 @@ const Blogs = () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {blogData.map((blog) => (
-                    <div key={blog.id} className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105">
+                    <div key={blog.id} className="border-2 rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105">
                         <img
                             src={blog.image}
                             alt={blog.title}
                             className="w-full h-48 md:h-56 object-cover"
                         />
                         <div className="p-6">
-                            <h2 className="text-lg md:text-xl font-semibold text-gray-800 line-clamp-2">{blog.title}</h2>
-                            <p className="text-gray-600 text-sm md:text-base mt-2 line-clamp-3">{blog.description}</p>
+                            <h2 className="text-lg md:text-xl font-semibold text-gray-100 line-clamp-2">{blog.title}</h2>
+                            <p className="text-gray-100 text-sm md:text-base mt-2 line-clamp-3">{blog.description}</p>
                             <Link to={blog.link}>
-                                <button className="mt-4 bg-black text-white px-4 py-2 text-sm md:text-base rounded-md  transition duration-300">
+                                <button className="mt-4 border text-white px-4 py-2 text-sm md:text-base rounded-md  transition duration-300">
                                     Read more
                                 </button>
                             </Link>

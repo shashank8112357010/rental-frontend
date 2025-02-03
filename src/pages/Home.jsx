@@ -12,70 +12,20 @@ import { FaGraduationCap } from 'react-icons/fa';
 import { LuBookOpenCheck } from 'react-icons/lu';
 
 const Home = () => {
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-  // const steps = [
-  //   {
-  //     category: 'Property',
-  //     steps: [
-  //       'Search for properties that suit your needs.',
-  //       'View detailed property descriptions and amenities.',
-  //       'Contact the owner or agent to schedule a visit.',
-  //       'Visit the property and review the location.',
-  //       'Confirm the booking and finalize the details.',
-  //     ],
-  //   },
-  //   {
-  //     category: 'Vehicle',
-  //     steps: [
-  //       'Browse through available vehicles.',
-  //       'Check vehicle details and pricing.',
-  //       'Select your preferred vehicle.',
-  //       'Schedule a test ride or delivery.',
-  //       'Confirm your booking and enjoy the ride.',
-  //     ],
-  //   },
-  //   {
-  //     category: 'Academic',
-  //     steps: [
-  //       'Explore available academic courses.',
-  //       'Read course descriptions and reviews.',
-  //       'Choose a course that fits your goals.',
-  //       'Register and complete the payment process.',
-  //       'Start learning and achieve your goals.',
-  //     ],
-  //   },
-  // ];
 
   return (
     <>
-      <motion.div
-        className="space-y-8 px-4 md:mt-8 md:px-8 lg:px-16 mt-44"
-        initial="hidden"
-        animate="visible"
-        transition={{ staggerChildren: 0.2 }}
-      >
-        <motion.header
-          className="text-center"
-          variants={fadeInUp}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Find Your Perfect Space or Ride
-          </h1>
-          <p className="text-md sm:text-xl text-white max-w-2xl mx-auto">
-            Browse through our selection of quality accommodations and vehicles for rent
-          </p>
-        </motion.header>
+      <div className='space-y-8 px-4 md:mt-8 md:px-8 lg:px-16 mt-44'>
 
-        <motion.div
+        <h1 className="text-2xl sm:text-4xl text-center lg:text-5xl font-bold text-white mb-4">
+          Discover Your Ideal Stay, Ride, or Study Support
+        </h1>
+        <p className="text-md sm:text-xl text-white max-w-2xl mx-auto">
+          Explore our range of quality accommodations, reliable vehicles, and expert academic assistance to suit your needs.
+        </p>
+
+        <div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 md:p-0 pb-8 mt-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ staggerChildren: 0.2 }}
         >
           <CategoryCard
             title="Properties"
@@ -121,25 +71,16 @@ const Home = () => {
             link="/internship"
             image={internshipImg}
           />
-        </motion.div>
+        </div>
 
-      </motion.div >
+      </div >
     </>
   );
 };
 
 const CategoryCard = ({ title, description, icon, link, image }) => {
   return (
-    <motion.div
-      className="group relative overflow-hidden rounded-xl  shadow-lg hover:shadow-xl transition-shadow"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="group relative overflow-hidden rounded-xl  shadow-lg hover:shadow-xl transition-shadow" >
       <Link to={link}>
         <div className="absolute inset-0">
           <img
@@ -157,7 +98,7 @@ const CategoryCard = ({ title, description, icon, link, image }) => {
           <p className="text-white/90">{description}</p>
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 };
 

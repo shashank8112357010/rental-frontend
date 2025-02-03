@@ -128,7 +128,7 @@ const PropertiesPage = () => {
   };
 
   return (
-    <div className="mt-44 md:mt-0">
+    <div className="pt-52 md:pt-16">
       <header className="mb-6">
         <h1 className="text-xl md:text-2xl font-bold text-white">Available Properties</h1>
         <p className="text-sm text-white">Find your perfect accommodation</p>

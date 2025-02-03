@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -34,7 +34,10 @@ const ResearchAssistance = () => {
         if (wordCount <= 1000) {
             totalPrice = baseRate;
         } else {
-            totalPrice = baseRate + ((wordCount - 1000) / 1000) * baseRate;
+            const additionalWords = wordCount - 1000;
+            const additionalPrice = (additionalWords / 1000) * baseRate;
+
+            totalPrice = baseRate + additionalPrice;
         }
 
         return totalPrice.toFixed(2);
@@ -86,9 +89,25 @@ const ResearchAssistance = () => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: value.trim(),
         }));
     };
+
+    useEffect(() => {
+        if (formData.deliveryOption === "Express Delivery") {
+            setFormData((prev) => ({
+                ...prev,
+                paymentOption: "Premium (599/1000 words) within 12 Hours",
+            }));
+        } else if (formData.deliveryOption === "Standard Delivery") {
+            setFormData((prev) => ({
+                ...prev,
+                paymentOption: "Standard (399/1000 words) within 72 Hours",
+            }));
+        }
+    }, [formData.deliveryOption]);
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -99,6 +118,8 @@ const ResearchAssistance = () => {
             return;
         }
 
+        const baseRate = formData.paymentOption.includes("Premium") ? 599 : 399;
+
         const payload = {
             name: formData.name,
             email: formData.email,
@@ -107,15 +128,15 @@ const ResearchAssistance = () => {
             wordCount: formData.wordCount,
             researchType: formData.researchArea,
             deliveryOption: formData.deliveryOption,
-            paymentOption: formData.paymentOption.split(' ')[0],
-            amount: parseFloat(getCalculatedPriceForOption(formData.wordCount, formData.paymentOption === "Standard" ? 399 : 599)),
+            paymentOption: formData.paymentOption.split(' ')[0], // Only send "Standard" or "Premium"
+            amount: parseFloat(getCalculatedPriceForOption(formData.wordCount, baseRate)),
         };
 
         try {
             const response = await UserResearchService(payload);
             const SuccessMessage = response.data?.message;
             toast.success(SuccessMessage);
-            navigate('/')
+            navigate('/');
         } catch (error) {
             const errorMessage = error?.response?.data?.message || "Something went wrong!";
             toast.error(errorMessage);
@@ -128,7 +149,7 @@ const ResearchAssistance = () => {
         {
             title: "Fill Out the Form",
             description: "First-time users need to provide their details in a simple form.",
-            image: FillOuttheFormImg,  // Replace with actual image path
+            image: FillOuttheFormImg,
         },
         {
             title: "Select the Type of Work",
@@ -156,7 +177,6 @@ const ResearchAssistance = () => {
             image: TypeofWorkImg,
         }
     ];
-
 
     return (
         <>
@@ -274,7 +294,7 @@ const ResearchAssistance = () => {
                                     <div className="">
                                         <label className="block text-sm sm:text-base font-medium mb-2">Delivery Options</label>
                                         <div className="space-y-2">
-                                            {["Standard Delivery within 72 Hours", "Express Delivery within 12 Hours"].map((delivery, index) => (
+                                            {["Standard Delivery", "Express Delivery"].map((delivery, index) => (
                                                 <div key={index} className="flex items-center">
                                                     <input
                                                         type="radio"
@@ -288,45 +308,34 @@ const ResearchAssistance = () => {
                                                     <label htmlFor={`deliveryOption${index}`} className="ml-2 text-white">{delivery}</label>
                                                 </div>
                                             ))}
+
                                         </div>
                                     </div>
-                                    {/* Payment Options */}
-                                    <div className="w-full mt-8">
-                                        <label className="block text-sm sm:text-base font-medium mb-2">Payment Option</label>
-                                        <div className="space-y-2">
-                                            {[
-                                                { label: "Standard", rate: 399 },
-                                                { label: "Premium", rate: 599 },
-                                            ].map((option, index) => {
-                                                const calculatedPrice = getCalculatedPriceForOption(formData.wordCount, option.rate);
+                                </div>
 
-                                                return (
-                                                    <div key={index} className="flex items-center">
-                                                        <input
-                                                            type="radio"
-                                                            id={`paymentOption${index}`}
-                                                            name="paymentOption"
-                                                            value={`${option.label} (${option.rate}/1000 words)`}
-                                                            checked={formData.paymentOption === `${option.label} (${option.rate}/1000 words)`}
-                                                            onChange={handleChange}
-                                                            className="text-blue-500 focus:ring-blue-500"
-                                                        />
-                                                        <label htmlFor={`paymentOption${index}`} className="ml-2 text-white">
-                                                            {option.label} ({option.rate}/1000 words) - ₹{calculatedPrice}
-                                                        </label>
-                                                    </div>
-                                                );
-                                            })}
+                                <div>
+
+                                    <div className="">
+
+                                        <div className="space-y-2">
+                                            <div className="flex items-center">
+                                                <span className="ml-2 text-white">{formData.paymentOption}</span>
+                                                <span className="ml-2 text-white font-bold">
+                                                    {formData.wordCount && !isNaN(formData.wordCount) && formData.wordCount > 1000
+                                                        ? ` - ₹${getCalculatedPriceForOption(formData.wordCount, formData.paymentOption.includes('Premium') ? 599 : 399)}`
+                                                        : ''}
+                                                </span>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Submit Button */}
                             <div className="text-center pt-8">
                                 <button
                                     type="submit"
-                                    className="border-white border hover:border-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full"
+                                    className="border-white border  text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full"
                                     disabled={loading}
                                 >
                                     {loading ? (
@@ -339,28 +348,20 @@ const ResearchAssistance = () => {
                         </form>
                     </div>
 
-                    <div className=" p-6 ">
-                        <h3 className="text-2xl sm:text-3xl lg:text-3xl font-bold text-center leading-6  mb-8">How It Works For Research Assistance</h3>
-                        {/* Right Side - 3D Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {cardData.map((card, index) => (
-                                <div key={index} className="relative bg-gray-800 text-white p-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center text-center">
-                                    <img src={card.image} alt={card.title} className="w-20 h-20 mb-4 object-contain" />
-                                    <h3 className="text-xl font-bold">{card.title}</h3>
-                                    <p className="mt-2 text-gray-400">{card.description}</p>
-                                </div>
-                            ))}
-
-                        </div>
+                    {/* Right Side - Card Display */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {cardData.map((card, index) => (
+                            <div key={index} className="relative bg-gray-800 text-white p-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center text-center">
+                                <img src={card.image} alt={card.title} className="w-20 h-20 mb-4 object-contain" />
+                                <h3 className="text-xl font-bold">{card.title}</h3>
+                                <p className="mt-2 text-gray-400">{card.description}</p>
+                            </div>
+                        ))}
 
                     </div>
                 </div>
             </div>
-            <div className="max-w-6xl w-full">
-                <Faq category="Research Assistance" />
-            </div>
         </>
-
     );
 };
 

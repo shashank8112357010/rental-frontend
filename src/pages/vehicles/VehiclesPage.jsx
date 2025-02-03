@@ -163,9 +163,8 @@ const VehiclesPage = () => {
           )}
         </motion.div>
       )}
-
-      <div>
-        <Faq />
+      <div className="max-w-6xl w-full">
+        <Faq category="Scooty/ Bike Rental" />
       </div>
     </div>
   );

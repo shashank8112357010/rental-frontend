@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserAllEbookService } from "../../services/api.service";
+import Faq from "../faqs/Faq";
 
 const Notes = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -54,6 +55,10 @@ const Notes = () => {
                             <h2 className="text-xl font-semibold text-center">{subject.name}</h2> {/* Display the subject name */}
                         </div>
                     ))}
+            </div>
+
+            <div className="max-w-6xl w-full">
+                <Faq category="Notes Selling" />
             </div>
         </div>
     );

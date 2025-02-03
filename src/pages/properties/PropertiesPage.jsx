@@ -169,7 +169,9 @@ const PropertiesPage = () => {
         </div>
       )}
 
-      <Faq />
+      <div className="max-w-6xl w-full">
+        <Faq category="Flat/PG Rental" />
+      </div>
     </div>
   );
 };

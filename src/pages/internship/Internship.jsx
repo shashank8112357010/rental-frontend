@@ -2,6 +2,7 @@ import { XIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserIntershipService } from "../../services/api.service";
+import Faq from "../faqs/Faq";
 
 const Internship = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -116,6 +117,11 @@ const Internship = () => {
                     </div>
                 </div>
             )}
+
+
+            <div className="max-w-6xl w-full">
+                <Faq category="Internships" />
+            </div>
         </div>
     );
 };

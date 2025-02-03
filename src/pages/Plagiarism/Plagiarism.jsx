@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import { UserPlagiarismService } from '../../services/api.service';
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { FaFileAlt, FaShieldAlt, FaCheckCircle, FaRobot } from 'react-icons/fa';
+import Faq from '../faqs/Faq';
 
 const Plagiarism = () => {
     const [formData, setFormData] = useState({
@@ -94,7 +96,7 @@ const Plagiarism = () => {
 
         try {
 
-          
+
             const response = await UserPlagiarismService(formDataObj);
             console.log("API Response:", response);
             navigate('/')
@@ -107,135 +109,172 @@ const Plagiarism = () => {
         }
     };
 
+
+    const cardData = [
+        { icon: <FaFileAlt size={40} />, title: "Fill Out the Form ", description: "First-time users need to provide their details in a simple form." },
+        { icon: <FaShieldAlt size={40} />, title: "Upload Your Document ", description: "Submit the file for plagiarism analysis in .doc/.pdf form." },
+        { icon: <FaCheckCircle size={40} />, title: "Make Payment", description: "Make a quick payment according to the plan you purchase" },
+        { icon: <FaRobot size={40} />, title: "Receive Your Report ", description: "Your detailed plagiarism report will be sent directly to your Gmail/ Whatsapp." }
+    ];
+
     return (
-        <div className="min-h-screen mt-24 md:mt-0 text-white flex items-center justify-center px-2 py-12 sm:px-6 lg:px-8">
-            <div className="max-w-4xl w-full p-2 sm:p-8 lg:p-12 rounded-lg shadow-lg">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8">Plagiarism Check</h2>
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                    {/* Name */}
-                    <div>
-                        <label htmlFor="name" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="Enter your name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    {/* Email */}
-                    <div>
-                        <label htmlFor="email" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    {/* Phone */}
-                    <div>
-                        <label htmlFor="phone" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
-                            Phone (WhatsApp Number)
-                        </label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            placeholder="Enter your WhatsApp number"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    {/* Message */}
-                    <div>
-                        <label htmlFor="message" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
-                            Message
-                        </label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="4"
-                            placeholder="Write your message"
-                            value={formData.message}
-                            onChange={handleChange}
-                            className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        ></textarea>
-                    </div>
-
-                    {/* File Upload */}
-                    <div>
-                        <label htmlFor="file" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
-                            Upload File
-                        </label>
-                        <input
-                            type="file"
-                            id="file"
-                            name="file"
-                            accept=".pdf,.doc,.docx" // Only allow PDFs and Word docs
-                            onChange={handleFileChange}
-                            className="w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border-blue-500 file:text-black hover:file:border-blue-600"
-                        />
-
-                    </div>
-
-                    {/* Check Type */}
-                    <div>
-                        <label className="block text-sm sm:text-base lg:text-lg font-medium mb-4">Select Check Type</label>
-                        <div className="space-y-4">
-                            {[
-                                { id: 'plagiarismCheck', label: 'Plagiarism Check - ₹ 30/document', value: 'Plagiarism Check' },
-                                { id: 'a1Check', label: 'AI Check - ₹ 30/document', value: 'AI Check' },
-                                { id: 'a1PlusCheck', label: 'AI+ Check - ₹ 40/document', value: 'AI+Check' },
-                            ].map(({ id, label, value }) => (
-                                <div className="flex items-center" key={id}>
-                                    <input
-                                        type="radio"
-                                        id={id}
-                                        name="checkType"
-                                        value={value}
-                                        checked={formData.checkType === value}
-                                        onChange={handleRadioChange}
-                                        className="text-blue-500 focus:ring-blue-500"
-                                    />
-                                    <label htmlFor={id} className="ml-2 text-sm sm:text-base lg:text-lg text-white">
-                                        {label}
+        <>
+            <div className="min-h-screen mt-24 md:mt-0 text-white flex items-center justify-center px-2 py-12 sm:px-6 lg:px-8">
+                <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Left Side - Form */}
+                    <div className=" p-6 ">
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8">Plagiarism Check</h2>
+                        <form className="space-y-6" onSubmit={handleSubmit}>
+                            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                {/* Name */}
+                                <div>
+                                    <label htmlFor="name" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                        Name
                                     </label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Enter your name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    />
+                                </div>
+
+                                {/* Email */}
+                                <div>
+                                    <label htmlFor="email" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                        Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Enter your email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    />
+                                </div>
+                            </div>
+                            {/* Phone */}
+                            <div>
+                                <label htmlFor="phone" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                    Phone (WhatsApp Number)
+                                </label>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Enter your WhatsApp number"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+
+                            {/* Message */}
+                            <div>
+                                <label htmlFor="message" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                    Message
+                                </label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    rows="4"
+                                    placeholder="Write your message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    className="w-full bg-gray-700 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                ></textarea>
+                            </div>
+
+                            {/* File Upload */}
+                            <div>
+                                <label htmlFor="file" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                    Upload File
+                                </label>
+                                <input
+                                    type="file"
+                                    id="file"
+                                    name="file"
+                                    accept=".pdf,.doc,.docx" // Only allow PDFs and Word docs
+                                    onChange={handleFileChange}
+                                    className="w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border-blue-500 file:text-black hover:file:border-blue-600"
+                                />
+
+                            </div>
+
+                            {/* Check Type */}
+                            <div>
+                                <label className="block text-sm sm:text-base lg:text-lg font-medium mb-4">Select Check Type</label>
+                                <div className="space-y-4">
+                                    {[
+                                        { id: 'plagiarismCheck', label: 'Plagiarism Check - ₹ 30/document', value: 'Plagiarism Check' },
+                                        { id: 'a1Check', label: 'AI Check - ₹ 30/document', value: 'AI Check' },
+                                        { id: 'a1PlusCheck', label: 'AI+ Check - ₹ 40/document', value: 'AI+Check' },
+                                    ].map(({ id, label, value }) => (
+                                        <div className="flex items-center" key={id}>
+                                            <input
+                                                type="radio"
+                                                id={id}
+                                                name="checkType"
+                                                value={value}
+                                                checked={formData.checkType === value}
+                                                onChange={handleRadioChange}
+                                                className="text-blue-500 focus:ring-blue-500"
+                                            />
+                                            <label htmlFor={id} className="ml-2 text-sm sm:text-base lg:text-lg text-white">
+                                                {label}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Submit Button */}
+                            <div className="text-center">
+                                <button
+                                    type="submit"
+                                    className="w-full h-12 flex items-center justify-center border border-white hover:border-blue-600 text-white font-bold rounded-lg transition-all duration-300"
+                                    disabled={loading}
+                                >
+                                    {loading ? (
+                                        <AiOutlineLoading3Quarters className="animate-spin" size={20} />
+                                    ) : (
+                                        'Submit'
+                                    )}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div className=" p-6 ">
+                        <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold text-center leading-6  mb-8">How It Works For Plagiarism Checking</h2>
+                        {/* Right Side - 3D Cards */}
+                        <div className="grid grid-cols-2 gap-6">
+
+
+
+                            {cardData.map((card, index) => (
+                                <div key={index} className="relative bg-gray-800 text-white p-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center text-center">
+                                    <div className="mb-4 text-blue-400">{card.icon}</div>
+                                    <h3 className="text-xl font-bold">{card.title}</h3>
+                                    <p className="mt-2 text-gray-400">{card.description}</p>
                                 </div>
                             ))}
                         </div>
-                    </div>
 
-                    {/* Submit Button */}
-                    <div className="text-center">
-                        <button
-                            type="submit"
-                            className="w-full h-12 flex items-center justify-center border border-white hover:border-blue-600 text-white font-bold rounded-lg transition-all duration-300"
-                            disabled={loading}
-                        >
-                            {loading ? (
-                                <AiOutlineLoading3Quarters className="animate-spin" size={20} />
-                            ) : (
-                                'Submit'
-                            )}
-                        </button>
                     </div>
-                </form>
+                </div>
+
             </div>
-        </div>
+
+            <div className="max-w-6xl w-full">
+                <Faq category="Plagiarism and AI Check" />
+            </div>
+        </>
+
     );
 };
 

@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { toast } from 'react-toastify';
-import { UserPlagiarismService } from '../../services/api.service';
-import { useNavigate } from "react-router-dom"
-import { FaFileAlt, FaShieldAlt, FaCheckCircle, FaRobot } from 'react-icons/fa';
-import Faq from '../faqs/Faq';
+import React, { useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { UserPlagiarismService } from "../../services/api.service";
+import { useNavigate } from "react-router-dom";
+import { FaFileAlt, FaShieldAlt, FaCheckCircle, FaRobot } from "react-icons/fa";
+import Faq from "../faqs/Faq";
+import MakepaymentImg from "../../assets/Plagiarism/Makepayment.png";
+import FillOuttheFormImg from "../../assets/Plagiarism/FillOuttheForm.png";
+import ReceiveYourReportImg from "../../assets/Plagiarism/ReceiveYourReport.png";
+import UploadDocumentImg from "../../assets/Plagiarism/UploadDocument.png";
 
 const Plagiarism = () => {
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
         file: null,
-        checkType: '',
+        checkType: "",
     });
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -35,8 +39,6 @@ const Plagiarism = () => {
             }));
         }
     };
-
-
 
     const handleRadioChange = (e) => {
         setFormData({
@@ -85,36 +87,53 @@ const Plagiarism = () => {
             return;
         }
         const formDataObj = new FormData();
-        formDataObj.append('name', formData.name);
-        formDataObj.append('email', formData.email);
-        formDataObj.append('phone', formData.phone);
-        formDataObj.append('message', formData.message);
+        formDataObj.append("name", formData.name);
+        formDataObj.append("email", formData.email);
+        formDataObj.append("phone", formData.phone);
+        formDataObj.append("message", formData.message);
         // formDataObj.append('checkType', formData.checkType);
-        formDataObj.append('checkType', formData.checkType.trim());
-        formDataObj.append('file', formData.file);
-
+        formDataObj.append("checkType", formData.checkType.trim());
+        formDataObj.append("file", formData.file);
 
         try {
-
-
             const response = await UserPlagiarismService(formDataObj);
             console.log("API Response:", response);
-            navigate('/')
-            toast.success(response.message || "Plagiarism Test submitted successfully!");
+            navigate("/");
+            toast.success(
+                response.message || "Plagiarism Test submitted successfully!"
+            );
         } catch (error) {
-            const errorMessage = error?.response?.data?.error || "Something went wrong!";
+            const errorMessage =
+                error?.response?.data?.error || "Something went wrong!";
             toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
     };
 
-
     const cardData = [
-        { icon: <FaFileAlt size={40} />, title: "Fill Out the Form ", description: "First-time users need to provide their details in a simple form." },
-        { icon: <FaShieldAlt size={40} />, title: "Upload Your Document ", description: "Submit the file for plagiarism analysis in .doc/.pdf form." },
-        { icon: <FaCheckCircle size={40} />, title: "Make Payment", description: "Make a quick payment according to the plan you purchase" },
-        { icon: <FaRobot size={40} />, title: "Receive Your Report ", description: "Your detailed plagiarism report will be sent directly to your Gmail/ Whatsapp." }
+        {
+            image: FillOuttheFormImg,
+            title: "Fill Out the Form ",
+            description:
+                "First-time users need to provide their details in a simple form.",
+        },
+        {
+            image: UploadDocumentImg,
+            title: "Upload Your Document ",
+            description: "Submit the file for plagiarism analysis in .doc/.pdf form.",
+        },
+        {
+            image: MakepaymentImg,
+            title: "Make Payment",
+            description: "Make a quick payment according to the plan you purchase",
+        },
+        {
+            image: ReceiveYourReportImg,
+            title: "Receive Your Report ",
+            description:
+                "Your detailed plagiarism report will be sent directly to your Gmail/ Whatsapp.",
+        },
     ];
 
     return (
@@ -123,12 +142,17 @@ const Plagiarism = () => {
                 <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Left Side - Form */}
                     <div className=" p-6 ">
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8">Plagiarism Check</h2>
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8">
+                            Plagiarism Check
+                        </h2>
                         <form className="space-y-6" onSubmit={handleSubmit}>
-                            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Name */}
                                 <div>
-                                    <label htmlFor="name" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                    <label
+                                        htmlFor="name"
+                                        className="block text-sm sm:text-base lg:text-lg font-medium mb-2"
+                                    >
                                         Name
                                     </label>
                                     <input
@@ -144,7 +168,10 @@ const Plagiarism = () => {
 
                                 {/* Email */}
                                 <div>
-                                    <label htmlFor="email" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                    <label
+                                        htmlFor="email"
+                                        className="block text-sm sm:text-base lg:text-lg font-medium mb-2"
+                                    >
                                         Email
                                     </label>
                                     <input
@@ -160,7 +187,10 @@ const Plagiarism = () => {
                             </div>
                             {/* Phone */}
                             <div>
-                                <label htmlFor="phone" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                <label
+                                    htmlFor="phone"
+                                    className="block text-sm sm:text-base lg:text-lg font-medium mb-2"
+                                >
                                     Phone (WhatsApp Number)
                                 </label>
                                 <input
@@ -176,7 +206,10 @@ const Plagiarism = () => {
 
                             {/* Message */}
                             <div>
-                                <label htmlFor="message" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                <label
+                                    htmlFor="message"
+                                    className="block text-sm sm:text-base lg:text-lg font-medium mb-2"
+                                >
                                     Message
                                 </label>
                                 <textarea
@@ -192,7 +225,10 @@ const Plagiarism = () => {
 
                             {/* File Upload */}
                             <div>
-                                <label htmlFor="file" className="block text-sm sm:text-base lg:text-lg font-medium mb-2">
+                                <label
+                                    htmlFor="file"
+                                    className="block text-sm sm:text-base lg:text-lg font-medium mb-2"
+                                >
                                     Upload File
                                 </label>
                                 <input
@@ -203,17 +239,30 @@ const Plagiarism = () => {
                                     onChange={handleFileChange}
                                     className="w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border-blue-500 file:text-black hover:file:border-blue-600"
                                 />
-
                             </div>
 
                             {/* Check Type */}
                             <div>
-                                <label className="block text-sm sm:text-base lg:text-lg font-medium mb-4">Select Check Type</label>
+                                <label className="block text-sm sm:text-base lg:text-lg font-medium mb-4">
+                                    Select Check Type
+                                </label>
                                 <div className="space-y-4">
                                     {[
-                                        { id: 'plagiarismCheck', label: 'Plagiarism Check - ₹ 30/document', value: 'Plagiarism Check' },
-                                        { id: 'a1Check', label: 'AI Check - ₹ 30/document', value: 'AI Check' },
-                                        { id: 'a1PlusCheck', label: 'AI+ Check - ₹ 40/document', value: 'AI+Check' },
+                                        {
+                                            id: "plagiarismCheck",
+                                            label: "Plagiarism Check - ₹ 30/document",
+                                            value: "Plagiarism Check",
+                                        },
+                                        {
+                                            id: "a1Check",
+                                            label: "AI Check - ₹ 30/document",
+                                            value: "AI Check",
+                                        },
+                                        {
+                                            id: "a1PlusCheck",
+                                            label: "AI+ Check - ₹ 40/document",
+                                            value: "AI+Check",
+                                        },
                                     ].map(({ id, label, value }) => (
                                         <div className="flex items-center" key={id}>
                                             <input
@@ -225,7 +274,10 @@ const Plagiarism = () => {
                                                 onChange={handleRadioChange}
                                                 className="text-blue-500 focus:ring-blue-500"
                                             />
-                                            <label htmlFor={id} className="ml-2 text-sm sm:text-base lg:text-lg text-white">
+                                            <label
+                                                htmlFor={id}
+                                                className="ml-2 text-sm sm:text-base lg:text-lg text-white"
+                                            >
                                                 {label}
                                             </label>
                                         </div>
@@ -241,40 +293,52 @@ const Plagiarism = () => {
                                     disabled={loading}
                                 >
                                     {loading ? (
-                                        <AiOutlineLoading3Quarters className="animate-spin" size={20} />
+                                        <AiOutlineLoading3Quarters
+                                            className="animate-spin"
+                                            size={20}
+                                        />
                                     ) : (
-                                        'Submit'
+                                        "Submit"
                                     )}
                                 </button>
                             </div>
                         </form>
                     </div>
-                    <div className=" p-6 ">
-                        <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold text-center leading-6  mb-8">How It Works For Plagiarism Checking</h2>
-                        {/* Right Side - 3D Cards */}
+                    <div className="p-6">
+                        <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold text-center leading-6 mb-8">
+                            How It Works For Plagiarism Checking
+                        </h2>
+
+                        {/* Grid Layout for Cards */}
                         <div className="grid grid-cols-2 gap-6">
-
-
-
                             {cardData.map((card, index) => (
-                                <div key={index} className="relative bg-gray-800 text-white p-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center text-center">
-                                    <div className="mb-4 text-blue-400">{card.icon}</div>
+                                <div
+                                    key={index}
+                                    className="relative bg-gray-800 text-white p-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center text-center"
+                                >
+                                    {/* Card Image */}
+                                    <img
+                                        src={card.image}
+                                        alt={card.title}
+                                        className="w-28 h-28 object-contain mb-4 text-white"
+                                    />
+
+                                    {/* Card Title */}
                                     <h3 className="text-xl font-bold">{card.title}</h3>
+
+                                    {/* Card Description */}
                                     <p className="mt-2 text-gray-400">{card.description}</p>
                                 </div>
                             ))}
                         </div>
-
                     </div>
                 </div>
-
             </div>
 
             <div className="max-w-6xl w-full">
                 <Faq category="Plagiarism and AI Check" />
             </div>
         </>
-
     );
 };
 

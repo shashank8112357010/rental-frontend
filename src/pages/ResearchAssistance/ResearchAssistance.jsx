@@ -5,7 +5,12 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { UserResearchService } from "../../services/api.service";
 import { FaFileAlt, FaShieldAlt, FaCheckCircle, FaRobot } from 'react-icons/fa';
 import Faq from "../faqs/Faq";
-
+import FillOuttheFormImg from "../../assets/research/FillOutForm.png";
+import MakepaymentImg from "../../assets/research/Makepayment.png";
+import ProvideTopicImg from "../../assets/research/ProvideTopic.png";
+import ReceiveYourFileImg from "../../assets/research/ReceiveYourFile.png";
+import SelectPlanImg from "../../assets/research/SelectPlan.png";
+import TypeofWorkImg from "../../assets/research/TypeofWork.png";
 
 const ResearchAssistance = () => {
     const [formData, setFormData] = useState({
@@ -119,15 +124,39 @@ const ResearchAssistance = () => {
         }
     };
 
-
     const cardData = [
-        { icon: <FaFileAlt size={40} />, title: "Fill Out the Form ", description: "First-time users need to provide their details in a simple form." },
-        { icon: <FaShieldAlt size={40} />, title: "Select the Type of Work ", description: "Choose the kind of assistance you need: Blog, Case Brief, Research Paper, etc." },
-        { icon: <FaCheckCircle size={40} />, title: "Provide the Topic Name ", description: "Share the topic or area of focus for your research." },
-        { icon: <FaRobot size={40} />, title: "Select Your Plan ", description: "Choose between Standard or Premium based on your needs." },
-        { icon: <FaCheckCircle size={40} />, title: "Make Payment", description: "Complete the payment securely through our portal." },
-        { icon: <FaRobot size={40} />, title: "Receive Your File  ", description: "Your professionally prepared file will be delivered directly to your Gmail/ Whatsapp" }
+        {
+            title: "Fill Out the Form",
+            description: "First-time users need to provide their details in a simple form.",
+            image: FillOuttheFormImg,  // Replace with actual image path
+        },
+        {
+            title: "Select the Type of Work",
+            description: "Choose the kind of assistance you need: Blog, Case Brief, Research Paper, etc.",
+            image: MakepaymentImg,
+        },
+        {
+            title: "Provide the Topic Name",
+            description: "Share the topic or area of focus for your research.",
+            image: ProvideTopicImg,
+        },
+        {
+            title: "Select Your Plan",
+            description: "Choose between Standard or Premium based on your needs.",
+            image: ReceiveYourFileImg,
+        },
+        {
+            title: "Make Payment",
+            description: "Complete the payment securely through our portal.",
+            image: SelectPlanImg,
+        },
+        {
+            title: "Receive Your File",
+            description: "Your professionally prepared file will be delivered directly to your Gmail/WhatsApp",
+            image: TypeofWorkImg,
+        }
     ];
+
 
     return (
         <>
@@ -313,17 +342,15 @@ const ResearchAssistance = () => {
                     <div className=" p-6 ">
                         <h3 className="text-2xl sm:text-3xl lg:text-3xl font-bold text-center leading-6  mb-8">How It Works For Research Assistance</h3>
                         {/* Right Side - 3D Cards */}
-                        <div className="grid grid-cols-2 gap-6">
-
-
-
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {cardData.map((card, index) => (
                                 <div key={index} className="relative bg-gray-800 text-white p-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center text-center">
-                                    <div className="mb-4 text-blue-400">{card.icon}</div>
+                                    <img src={card.image} alt={card.title} className="w-20 h-20 mb-4 object-contain" />
                                     <h3 className="text-xl font-bold">{card.title}</h3>
                                     <p className="mt-2 text-gray-400">{card.description}</p>
                                 </div>
                             ))}
+
                         </div>
 
                     </div>

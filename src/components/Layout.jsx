@@ -319,11 +319,11 @@ const Layout = () => {
             </div>
           )}
         </div>
-        <div className="md:hidden fixed top-15 z-50 border-t-2 left-0 right-0 bg-white shadow-lg sm:hidden">
+        <div className="md:hidden fixed top-15 z-50 border-t-2 border-b-2 left-0 right-0 bg-black shadow-lg sm:hidden">
           <div className="flex justify-center items-center p-4">
             <button
               onClick={openPostRequirementModal}
-              className="border-2 border-black text-sm px-6 py-2 text-black font-semibold rounded-lg shadow-md hover:border-white focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
+              className="border-2 border-white bg text-sm px-6 py-2 text-white font-semibold rounded-lg shadow-md hover:border-white focus:outline-none active:scale-95 transition-all duration-300 ease-in-out"
             >
               Post Requirement
             </button>

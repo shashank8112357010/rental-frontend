@@ -335,20 +335,27 @@ const ResearchAssistance = () => {
                             )} */}
                             {formData.deliveryOption && (
                                 <div className="space-y-2">
-                                    <div className="flex items-center">
-                                        <span className="ml-2 text-white">{formData.paymentOption}</span>
+                                    <div className="flex flex-col md:flex-row md:items-center items-start">
+                                        <span className="ml-1 md:ml-2 text-white text-sm md:text-[16px]">
+                                            {formData.paymentOption}
+                                        </span>
+
                                         {formData.wordCount && !isNaN(formData.wordCount) && formData.wordCount > 1000 && (
-                                            <>
-                                                <span className="ml-2 text-white font-bold">
-                                                    - ₹{getCalculatedPriceForOption(formData.wordCount, formData.paymentOption.includes('Premium') ? 599 : 399)}
+                                            <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
+                                                <span className="ml-1 md:ml-2 text-white text-[14px] md:text-[16px] font-bold">
+                                                    - ₹{getCalculatedPriceForOption(
+                                                        formData.wordCount,
+                                                        formData.paymentOption.includes('Premium') ? 599 : 399
+                                                    )}
                                                 </span>
-                                                <span className="ml-2 text-green-400 font-semibold">
+                                                <span className="ml-1 md:ml-2 text-green-400 text-[12px] md:text-[14px] font-semibold">
                                                     ({((formData.wordCount - 1000) / 1000 * 100).toFixed(2)}% extra)
                                                 </span>
-                                            </>
+                                            </div>
                                         )}
                                     </div>
                                 </div>
+
                             )}
                             <div className="text-center pt-8">
                                 <button
@@ -369,7 +376,7 @@ const ResearchAssistance = () => {
                     {/* Right Side - Card Display */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {cardData.map((card, index) => (
-                            <div key={index} className="relative bg-gray-800 text-white p-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center text-center">
+                            <div key={index} className=" h-72 bg-gray-800 text-white p-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center text-center">
                                 <img src={card.image} alt={card.title} className="w-20 h-20 mb-4 object-contain" />
                                 <h3 className="text-xl font-bold">{card.title}</h3>
                                 <p className="mt-2 text-gray-400">{card.description}</p>

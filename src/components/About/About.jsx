@@ -7,7 +7,7 @@ export default function About() {
     <div className="h-fit pb-16 md:mt-8 mt-44">
       {/* Header Section */}
       <div className="flex items-center justify-center">
-        <h1 className="text-2xl md:text-3xl font-serif font-bold text-white">
+        <h1 className="text-2xl md:text-3xl text-center font-serif font-bold text-white">
           Welcome to GradCommune,
         </h1>
       </div>

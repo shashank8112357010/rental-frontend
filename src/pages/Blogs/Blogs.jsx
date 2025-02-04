@@ -30,7 +30,8 @@ const Blogs = () => {
     ];
 
     return (
-        <section className="w-full px-4 md:px-8 lg:px-16 py-12 ">
+        // <div className="h-fit pb-16 md:mt-8 mt-44">
+        <section className="w-full px-4 md:px-8 lg:px-16 py-12  md:mt-8 mt-44">
             <div className="text-center mb-12">
                 <h1 className="text-2xl md:text-4xl font-bold text-gray-100">Our Blogs</h1>
                 <p className="text-gray-100 mt-2 text-sm md:text-base">

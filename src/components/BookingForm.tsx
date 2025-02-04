@@ -82,7 +82,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
     <>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-100 mb-1">
             Preferred Date
           </label>
           <input
@@ -90,20 +90,20 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
             value={date}
             onChange={(e) => setDate(e.target.value)}
             min={new Date().toISOString().split("T")[0]}
-            className="w-full rounded-md border-gray-300 text-black shadow-sm focus:border-black focus:ring-black"
+            className="w-full rounded-md border-gray-100 border bg-transparent text-white shadow-sm focus:border-white focus:ring-white"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-100 mb-1">
             Preferred Time
           </label>
           <input
             type="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            className="w-full rounded-md border-gray-300 text-black shadow-sm focus:border-black focus:ring-black"
+            className="w-full rounded-md border border-gray-100 bg-transparent text-white shadow-sm focus:border-white focus:ring-white"
             required
           />
         </div>
@@ -111,7 +111,7 @@ const BookingForm = ({ itemId, itemType, disabled }) => {
         <button
           type="submit"
           disabled={disabled || isLoading}
-          className={`w-full bg-black text-white px-4 py-2 rounded-md hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center ${
+          className={`w-full border-2 text-white px-4 py-2 rounded-md hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center ${
             isLoading ? "opacity-70" : ""
           }`}
         >

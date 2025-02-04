@@ -48,30 +48,30 @@ const Login = ({ switchToRegister, switchToForgetPassword, closeDialog }) => {
     return (
         <>
             <div className=' container flex justify-center items-center'>
-                <div className="flex  flex-col bg-white p-8 w-96">
-                    <h2 className="text-2xl font-bold mb-6 text-center text-black">Sign In</h2>
+                <div className="flex  flex-col bg-black border-2 p-8 w-96">
+                    <h2 className="text-2xl font-bold mb-6 text-center text-white">Sign In</h2>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="block text-black font-medium">Email</label>
+                            <label className="block text-white font-medium">Email</label>
                             <input
                                 type="email"
                                 name="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                                className="w-full px-4 py-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                 placeholder="Enter your email"
                             />
                         </div>
                         <div>
-                            <label className="block text-black font-medium">Password</label>
+                            <label className="block text-white font-medium">Password</label>
                             <div className="relative">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                                    className="w-full px-4 py-2 border border-gray-300 bg-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                     placeholder="Enter your password"
                                 />
                                 <button
@@ -86,7 +86,7 @@ const Login = ({ switchToRegister, switchToForgetPassword, closeDialog }) => {
                                 <button
                                     type="button"
                                     onClick={switchToForgetPassword}
-                                    className="text-blue-500 text-sm hover:underline"
+                                    className="text-white text-sm hover:underline"
                                 >
                                     Forgot Password?
                                 </button>
@@ -96,7 +96,7 @@ const Login = ({ switchToRegister, switchToForgetPassword, closeDialog }) => {
 
                         <button
                             type="submit"
-                            className={`w-full bg-black text-white py-3 rounded-md hover:bg-black transition duration-200 flex justify-center items-center`}
+                            className={`w-full border-2 border-black bg-transparent text-black py-3 rounded-md transition duration-200 flex justify-center items-center`}
                             disabled={loading}
                             style={{ width: '100%', height: '44px' }}
                         >
@@ -108,11 +108,11 @@ const Login = ({ switchToRegister, switchToForgetPassword, closeDialog }) => {
                     </form>
 
                     <div className="text-center mt-6">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-100">
                             Don’t have an account?{" "}
                             <button
                                 onClick={switchToRegister}
-                                className="text-blue-500 hover:underline"
+                                className="text-white hover:underline"
                             >
                                 Register
                             </button>

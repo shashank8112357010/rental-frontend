@@ -120,6 +120,8 @@ const ResearchAssistance = () => {
 
         const baseRate = formData.paymentOption.includes("Premium") ? 599 : 399;
 
+        // const deliveryOptionValue = formData.deliveryOption.includes("Standard") ? "Standard Delivery" : "Express Delivery";
+
         const payload = {
             name: formData.name,
             email: formData.email,
@@ -128,7 +130,7 @@ const ResearchAssistance = () => {
             wordCount: formData.wordCount,
             researchType: formData.researchArea,
             deliveryOption: formData.deliveryOption,
-            paymentOption: formData.paymentOption.split(' ')[0], // Only send "Standard" or "Premium"
+            paymentOption: formData.paymentOption.split(' ')[0],
             amount: parseFloat(getCalculatedPriceForOption(formData.wordCount, baseRate)),
         };
 
@@ -313,25 +315,41 @@ const ResearchAssistance = () => {
                                     </div>
                                 </div>
 
-                                <div>
-
-                                    <div className="">
-
-                                        <div className="space-y-2">
-                                            <div className="flex items-center">
-                                                <span className="ml-2 text-white">{formData.paymentOption}</span>
+                            </div>
+                            {/* {formData.deliveryOption && (
+                                <div className="space-y-2">
+                                    <div className="flex items-center">
+                                        <span className="ml-2 text-white">{formData.paymentOption}</span>
+                                        {formData.wordCount && !isNaN(formData.wordCount) && formData.wordCount > 1000 && (
+                                            <>
                                                 <span className="ml-2 text-white font-bold">
-                                                    {formData.wordCount && !isNaN(formData.wordCount) && formData.wordCount > 1000
-                                                        ? ` - ₹${getCalculatedPriceForOption(formData.wordCount, formData.paymentOption.includes('Premium') ? 599 : 399)}`
-                                                        : ''}
+                                                    - ₹{getCalculatedPriceForOption(formData.wordCount, formData.paymentOption.includes('Premium') ? 599 : 399)}
                                                 </span>
-                                            </div>
-                                        </div>
-
+                                                <span className="ml-2 text-green-400 font-semibold">
+                                                    ({((formData.wordCount - 1000) / 1000 * 100).toFixed(2)}% extra)
+                                                </span>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
-                            </div>
-
+                            )} */}
+                            {formData.deliveryOption && (
+                                <div className="space-y-2">
+                                    <div className="flex items-center">
+                                        <span className="ml-2 text-white">{formData.paymentOption}</span>
+                                        {formData.wordCount && !isNaN(formData.wordCount) && formData.wordCount > 1000 && (
+                                            <>
+                                                <span className="ml-2 text-white font-bold">
+                                                    - ₹{getCalculatedPriceForOption(formData.wordCount, formData.paymentOption.includes('Premium') ? 599 : 399)}
+                                                </span>
+                                                <span className="ml-2 text-green-400 font-semibold">
+                                                    ({((formData.wordCount - 1000) / 1000 * 100).toFixed(2)}% extra)
+                                                </span>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
                             <div className="text-center pt-8">
                                 <button
                                     type="submit"

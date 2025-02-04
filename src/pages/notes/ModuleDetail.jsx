@@ -60,7 +60,8 @@ const ModuleDetail = () => {
     return (
         <div className="bg-black mt-44 md:mt-0 p-2 pb-8 md:p-8">
             <h1 className="text-3xl font-bold text-white mb-8 text-center">
-                Module {moduleId}
+                Module  Content
+                {/* {moduleId} */}
             </h1>
 
             <div className="pt-10">

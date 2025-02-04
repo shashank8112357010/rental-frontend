@@ -48,55 +48,55 @@ const Register = ({ switchToLogin }) => {
 
     return (
         <div className='container flex justify-center items-center'>
-            <div className="flex flex-col bg-white p-8 w-96">
-                <h2 className="text-2xl font-bold mb-6 text-center text-black">Sign Up</h2>
+            <div className="flex flex-col bg-black border-2 text-white p-8 w-96">
+                <h2 className="text-2xl font-bold mb-6 text-center text-white">Sign Up</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-black font-medium">Name</label>
+                        <label className="block text-white font-medium">Name</label>
                         <input
                             type="text"
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                            className="w-full px-4 py-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                             placeholder="Name"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-black font-medium">Email</label>
+                        <label className="block text-white font-medium">Email</label>
                         <input
                             type="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                            className="w-full px-4 py-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                             placeholder=" your Email"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-black font-medium">Phone</label>
+                        <label className="block text-white font-medium">Phone</label>
                         <input
                             type="text"
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                            className="w-full px-4 py-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                             placeholder="Your phone number"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-black font-medium">Password</label>
+                        <label className="block text-white font-medium">Password</label>
                         <div className="relative">
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                                className="w-full px-4 py-2 border bg-transparent border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                                 placeholder="Your password"
                             />
                             <button
@@ -123,11 +123,11 @@ const Register = ({ switchToLogin }) => {
                 </form>
 
                 <div className="text-center mt-6">
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-100">
                         Already have an account?{' '}
                         <button
                             onClick={switchToLogin}
-                            className="text-blue-500 hover:underline"
+                            className="text-white hover:underline"
                         >
                             Login
                         </button>
